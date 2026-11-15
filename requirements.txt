@@ -1,0 +1,2 @@
+# All core functionality and tests use the Python standard library.
+# Python >=3.10; no third-party packages required.
