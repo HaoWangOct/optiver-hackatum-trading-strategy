@@ -1,0 +1,32 @@
+{
+  "verified": false,
+  "etfs": ["SEMIS_ETF_US", "REPLACE_SECOND_ETF"],
+  "weights": {"REPLACE_STOCK_1": 0.5, "REPLACE_STOCK_2": 0.3, "REPLACE_STOCK_3": 0.2},
+  "cash_component": 0.0,
+  "instruments": {
+    "SEMIS_ETF_US": {"tick_size": 0.1, "position_limit": 100, "sessions_utc": []},
+    "REPLACE_SECOND_ETF": {"tick_size": 0.1, "position_limit": 100, "sessions_utc": []},
+    "REPLACE_STOCK_1": {"tick_size": 0.1, "position_limit": 100, "sessions_utc": []},
+    "REPLACE_STOCK_2": {"tick_size": 0.1, "position_limit": 100, "sessions_utc": []},
+    "REPLACE_STOCK_3": {"tick_size": 0.1, "position_limit": 100, "sessions_utc": []}
+  },
+  "max_order_volume": 10,
+  "quote_volume": 3,
+  "requests_per_second": 10,
+  "cycle_seconds": 0.2,
+  "quote_refresh_seconds": 2.0,
+  "settlement_seconds": 0.2,
+  "ioc_reservation_seconds": 2.0,
+  "min_edge": 0.15,
+  "fee_per_lot": 0.0,
+  "quote_half_spread": 0.2,
+  "inventory_skew": 0.01,
+  "forecast_weight": 0.2,
+  "forecast_max_error": 0.15,
+  "forecast_max_shift": 0.2,
+  "max_book_age_seconds": 3.0,
+  "closed_nav_max_age_seconds": 60.0,
+  "closed_nav_penalty": 0.5,
+  "allow_closed_quoting": false,
+  "max_loss": 100.0
+}

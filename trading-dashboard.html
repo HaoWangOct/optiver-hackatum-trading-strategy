@@ -1,0 +1,2795 @@
+<!doctype html>
+<html lang="en" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/charts/; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Trading Results</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+
+</head>
+<body>
+<iframe id="codex-visualization" sandbox="allow-scripts" referrerpolicy="no-referrer" title="Trading Results" data-srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/charts/; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Trading Results&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 16px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans:
+    -apple-system-body, ui-sans-serif, -apple-system, system-ui, &quot;Segoe UI&quot;,
+    Helvetica, &quot;Apple Color Emoji&quot;, Arial, sans-serif, &quot;Segoe UI Emoji&quot;,
+    &quot;Segoe UI Symbol&quot;;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 8px);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--font-size-base);
+  line-height: calc(var(--font-size-base) * 1.625);
+  font-weight: var(--font-weight-normal);
+}
+
+.cursor-interaction {
+  cursor: var(--cursor-interaction, pointer);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+  text-underline-offset: 2px;
+  font-weight: inherit;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+.table {
+  font-family: var(--font-sans);
+}
+
+h1 {
+  font-size: calc(var(--font-size-base) * 1.5);
+  line-height: 1.3333333333;
+}
+
+h2 {
+  font-size: calc(var(--font-size-base) * 1.25);
+  line-height: 1.4;
+}
+h3 {
+  font-size: calc(var(--font-size-base) * 1.125);
+  line-height: 1.5555555556;
+}
+h4 {
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+h5,
+h6 {
+  font-size: var(--font-size-base);
+  line-height: calc(var(--font-size-base) * 1.625);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong,
+th {
+  font-weight: 600;
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+pre,
+pre code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: calc(var(--font-size-base) * 0.875);
+  line-height: calc(var(--font-size-base) * 1.625);
+  font-family: var(--font-sans);
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 5%, transparent);
+}
+.table :is(th, td):not(:last-child) {
+  padding-inline-end: calc(var(--font-size-base) * 1.5);
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead :is(th, td) {
+  border-bottom-color: var(--border-strong, var(--input));
+  padding-block: calc(var(--font-size-base) / 2);
+  line-height: var(--font-size-base);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+.table tbody :is(th, td) {
+  padding-block: calc(var(--font-size-base) * 0.625);
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 8px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+.widget {
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  box-shadow: 0 0 0 0.5px var(--border-strong, var(--border));
+  color: var(--foreground);
+  background: var(--background);
+}
+
+#widget &gt; :not(.card, .widget, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  border: 1px solid var(--border);
+  corner-shape: var(--corner-shape);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--font-sans);
+  padding: 5px 12px;
+  border-color: color-mix(
+    in oklab,
+    light-dark(var(--primary-foreground), var(--foreground)) 5%,
+    transparent
+  );
+  border-radius: var(--radius-2xl);
+  color: light-dark(var(--primary-foreground), var(--foreground));
+  background: light-dark(var(--foreground), var(--popover));
+  box-shadow: 0 8px 18px rgb(15 23 42 / 20%);
+  letter-spacing: -0.15px;
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  color: color-mix(in srgb, var(--foreground) 40%, var(--muted-foreground));
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+  font-family: var(--font-sans);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 1;
+}
+
+small,
+.text-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+/* Match inline alignment without overriding a containing flex or grid layout. */
+.btn,
+.nav-link,
+.form-control,
+.form-select,
+.form-range,
+.form-check {
+  vertical-align: middle;
+}
+
+.btn,
+.nav-link {
+  --btn-size: calc(12px + 2 * var(--control-spacing, 12px));
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  corner-shape: var(--corner-shape);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: inherit;
+  font-family: var(--font-sans);
+  height: fit-content;
+  min-height: var(--btn-size);
+  padding-inline: var(--control-spacing, 12px);
+  border-color: transparent;
+  border-radius: var(--radius-full);
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+}
+
+.btn {
+  border-color: var(--border);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+}
+
+/* Codex Button size=&quot;compact&quot;; appearance stays with the button variant. */
+.btn-sm {
+  --btn-size: 24px;
+  padding-inline: 8px;
+  font-size: calc(var(--font-size-base) * 12 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 12 / 16), 1px);
+  line-height: 16px;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: light-dark(
+    color-mix(in srgb, var(--foreground) 5.5%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+}
+
+.nav-link:not(:disabled):not([aria-disabled=&quot;true&quot;]):hover {
+  background: color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+.btn-primary {
+  border-color: var(--border);
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: border-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: border-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--muted-foreground);
+  background: light-dark(
+    color-mix(in srgb, var(--foreground) 5.5%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+/* Shared preview chrome; product styles stay inside each variant. */
+.viz-dotted-background {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--foreground) 14%, transparent) 0.8px,
+    transparent 0.8px
+  );
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.viz-carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.viz-carousel:has(&gt; .viz-carousel-controls) {
+  min-height: calc(60px + var(--viz-carousel-picker-height, 0px));
+  padding-bottom: 60px;
+}
+
+.viz-carousel &gt; [data-variant][hidden] {
+  display: none !important;
+}
+
+.viz-carousel &gt; [data-variant] {
+  isolation: isolate;
+}
+
+.viz-carousel-controls {
+  --viz-carousel-hover: light-dark(
+    color-mix(in srgb, var(--foreground) 5.4%, transparent),
+    color-mix(in srgb, var(--foreground) 7.8%, transparent)
+  );
+  position: absolute;
+  z-index: 2;
+  bottom: 8px;
+  left: 50%;
+  display: flex;
+  width: max-content;
+  /* Leave room for the host&#x27;s design-controls launcher at the trailing edge. */
+  max-width: calc(100% - 96px);
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  /* Match the settings dropdown chrome independently of the content font size. */
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+/* Keep authored mockup button styles out of the shared carousel chrome. */
+.viz-carousel-controls button,
+.viz-carousel-picker &gt; summary {
+  display: flex !important;
+  height: auto !important;
+  min-height: 30px;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px;
+  padding: 0 6px !important;
+  -webkit-app-region: no-drag;
+  border: 0 !important;
+  border-radius: 14px !important;
+  color: inherit !important;
+  background: transparent !important;
+  font: inherit !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.viz-carousel-controls &gt; button,
+.viz-carousel-picker &gt; summary {
+  position: relative;
+  isolation: isolate;
+}
+
+.viz-carousel-controls &gt; button {
+  --icon-size: 16px;
+  width: 30px !important;
+  padding: 0 !important;
+}
+
+.viz-carousel-picker &gt; summary {
+  padding-inline: 12px !important;
+}
+
+.viz-carousel-controls .viz-carousel-caret {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  margin: 0;
+  color: inherit;
+  transform: rotate(180deg);
+}
+
+.viz-carousel-controls &gt; button &gt; svg,
+.viz-carousel-controls .viz-carousel-caret,
+.viz-carousel-count {
+  opacity: 0.5;
+}
+
+.viz-carousel-controls &gt; button::before,
+.viz-carousel-picker &gt; summary::before {
+  position: absolute;
+  z-index: -1;
+  inset: 3px;
+  border-radius: 12px;
+  content: &quot;&quot;;
+  pointer-events: none;
+}
+
+.viz-carousel-controls &gt; button:hover::before,
+.viz-carousel-picker &gt; summary:hover::before {
+  background: var(--viz-carousel-hover);
+}
+
+.viz-carousel-controls &gt; button,
+.viz-carousel-controls [data-lucide],
+.viz-carousel-controls .lucide {
+  flex-shrink: 0;
+}
+
+.viz-carousel-picker {
+  min-width: 0;
+}
+
+.viz-carousel-picker &gt; summary {
+  min-width: 0;
+  list-style: none;
+}
+
+.viz-carousel-picker &gt; summary::-webkit-details-marker {
+  display: none;
+}
+
+.viz-carousel-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.viz-carousel-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viz-carousel-options {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  left: 0;
+  display: flex;
+  max-height: 240px;
+  flex-direction: column;
+  gap: 2px;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--background);
+  box-shadow: 0 4px 12px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 25%));
+}
+
+.viz-carousel-options &gt; button {
+  border-radius: max(0px, calc(var(--radius-lg) - 5px)) !important;
+  width: 100% !important;
+  min-height: 28px;
+  justify-content: flex-start !important;
+  padding: 4px 8px !important;
+  font-size: var(--font-size-small) !important;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.viz-carousel-options &gt; [aria-current=&quot;true&quot;],
+.viz-carousel-options &gt; button:hover {
+  background: var(--viz-carousel-hover) !important;
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled=&quot;true&quot;] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  padding-inline: calc(4px + var(--control-spacing, 12px) / 2);
+  border-color: var(--input);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--popover) 96%, transparent);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4285714286;
+}
+.form-control:is(
+  [type=&quot;file&quot;],
+  [type=&quot;date&quot;],
+  [type=&quot;datetime-local&quot;],
+  [type=&quot;month&quot;],
+  [type=&quot;week&quot;],
+  [type=&quot;color&quot;]
+) {
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  line-height: 18px;
+}
+.form-control:is(
+  [type=&quot;date&quot;],
+  [type=&quot;datetime-local&quot;],
+  [type=&quot;month&quot;],
+  [type=&quot;week&quot;]
+) {
+  padding-inline: var(--control-spacing, 12px);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+  padding: 0;
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+  min-height: calc(10px + 2 * var(--control-spacing, 12px));
+  padding-inline: var(--control-spacing, 12px);
+  margin-inline-end: var(--control-spacing, 12px);
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  resize: vertical;
+  min-height: 96px;
+  padding: 8px 10px;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: none;
+}
+.form-control:disabled {
+  color: var(--muted-foreground);
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+  opacity: 1;
+}
+.form-control[aria-invalid=&quot;true&quot;] {
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--red) 20%, transparent);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: fit-content;
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  margin: 0;
+  /* The secondary icon role is 14px at compact density and 16px at web density. */
+  --icon-size: calc(10px + var(--control-spacing, 12px) / 2);
+  /* Settings dropdowns retain a 12px inset and a 4px text-to-chevron gap. */
+  padding: 0 calc(16px + var(--icon-size)) 0 12px;
+  outline: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent calc(50% - 0.6px),
+      var(--muted-foreground) calc(50% - 0.6px) calc(50% + 0.6px),
+      transparent calc(50% + 0.6px)
+    ),
+    linear-gradient(
+      135deg,
+      transparent calc(50% - 0.6px),
+      var(--muted-foreground) calc(50% - 0.6px) calc(50% + 0.6px),
+      transparent calc(50% + 0.6px)
+    );
+  background-position:
+    calc(100% - 12px - var(--icon-size) / 2) 50%,
+    calc(100% - 12px - var(--icon-size) * 0.18) 50%;
+  background-repeat: no-repeat;
+  background-size: calc(var(--icon-size) * 0.32) calc(var(--icon-size) * 0.32);
+  cursor: var(--cursor-interaction, default);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+}
+
+.form-select :is(option, optgroup) {
+  color: var(--popover-foreground);
+  background-color: var(--popover);
+}
+
+.form-select :is(option, optgroup):disabled {
+  color: var(--muted-foreground);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: light-dark(
+    color-mix(in srgb, var(--foreground) 5.5%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+}
+
+.form-select:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+.form-select:disabled {
+  opacity: 0.4;
+}
+
+.form-check {
+  display: flex;
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  corner-shape: round;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  width: calc(10px + var(--control-spacing, 12px) / 2);
+  height: calc(10px + var(--control-spacing, 12px) / 2);
+  border-color: var(--border-strong, var(--input));
+  border-radius: calc(var(--radius-sm) / 2);
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:is(:checked, :indeterminate) {
+  border-color: var(--border-strong, var(--input));
+  background-color: color-mix(in srgb, var(--popover) 96%, transparent);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+  background-color: var(--foreground);
+}
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:indeterminate::before {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 65%;
+  height: 6.65%;
+  margin: auto;
+  border-radius: var(--radius-full);
+  background: var(--foreground);
+  mask: none;
+  content: &quot;&quot;;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  border-radius: var(--radius-full);
+  width: 16px;
+  height: 16px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px var(--input);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 0;
+  background: radial-gradient(
+    circle,
+    var(--primary-foreground) 0 3px,
+    var(--foreground) 3px
+  );
+  box-shadow: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:focus-visible {
+  border-color: var(--ring);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+.form-check:not(.form-switch) .form-check-input[type=&quot;radio&quot;]:disabled,
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;radio&quot;]:disabled
+  + .form-check-label {
+  opacity: 0.5;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  border-color: #fff;
+  background: #fff;
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--blue);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+  outline: none;
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  accent-color: var(--primary);
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  outline: none;
+  border-radius: var(--radius-full);
+  color: var(--foreground);
+  background: transparent;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  background: var(--form-range-track, var(--border));
+  height: 2px;
+  border-radius: var(--radius-full);
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  margin-top: -9px;
+  border-color: transparent;
+  background: currentColor;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Outline the native track and thumb, preserving the larger input hit area. */
+.form-range:focus-visible::-webkit-slider-runnable-track {
+  outline: 2px auto Highlight;
+  outline-color: -webkit-focus-ring-color;
+}
+
+.form-range::-moz-range-track {
+  background: var(--form-range-track, var(--border));
+  height: 2px;
+  border-radius: var(--radius-full);
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  border-color: transparent;
+  background: currentColor;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
+
+.form-range:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--blue);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.viz-carousel-controls :is(button, summary):focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
+
+/* Web recipes are the default, including on renderers without inline style queries. */
+@supports (border-radius: if(style(--corner-shape: round): 1px; else: 2px)) {
+  /* Match the host&#x27;s proportional text-sm scale at every text preference. */
+  .tooltip,
+  .viz-badge,
+  .btn,
+  .nav-link,
+  .form-control,
+  .form-select {
+    font-size: if(
+      style(--corner-shape: round): round(
+          nearest,
+          calc(var(--font-size-base) * 14 / 16),
+          1px
+        );
+        else: round(nearest, calc(var(--font-size-base) * 13 / 14), 1px)
+    );
+  }
+
+  .btn-sm {
+    font-size: if(
+      style(--corner-shape: round): round(
+          nearest,
+          calc(var(--font-size-base) * 12 / 16),
+          1px
+        );
+        else: round(nearest, calc(var(--font-size-base) * 12 / 14), 1px)
+    );
+  }
+
+  .btn,
+  .nav-link,
+  .form-select {
+    border-radius: if(
+      style(--corner-shape: round): var(--radius-full); else: var(--radius-lg)
+    );
+  }
+
+  .form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+    border-radius: if(
+      style(--corner-shape: round): calc(var(--radius-sm) / 2);
+        else: calc(var(--radius-lg) * 0.4)
+    );
+  }
+
+  .tooltip {
+    font-weight: if(
+      style(--corner-shape: round): 600; else: var(--font-weight-normal)
+    );
+  }
+}
+
+@media (pointer: coarse) {
+  .viz-carousel:has(&gt; .viz-carousel-controls) {
+    min-height: calc(76px + var(--viz-carousel-picker-height, 0px));
+    padding-bottom: 76px;
+  }
+
+  .btn,
+  .nav-link,
+  .viz-carousel-controls button,
+  .viz-carousel-picker &gt; summary,
+  .form-control,
+  .form-select {
+    --btn-size: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, calc(var(--font-size-base) * 14 / 16));
+    font-size: max(
+      16px,
+      round(nearest, calc(var(--font-size-base) * 14 / 16), 1px)
+    );
+  }
+  .form-control:is(
+    [type=&quot;file&quot;],
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;week&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;color&quot;]
+  ) {
+    height: 44px;
+    min-height: 44px;
+    font-size: max(16px, calc(var(--font-size-base) * 14 / 16));
+    font-size: max(
+      16px,
+      round(nearest, calc(var(--font-size-base) * 14 / 16), 1px)
+    );
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type=&quot;application/json&quot; id=&quot;codex-visualization-widget-state&quot;&gt;__CODEX_VISUALIZATION_WIDGET_STATE__&lt;/script&gt;
+&lt;script&gt;(() =&gt; {
+  const root = document.documentElement;
+  const mediaQuery = globalThis.matchMedia(&quot;(prefers-color-scheme: dark)&quot;);
+  const apply = Reflect.apply;
+  const isArray = Array.isArray;
+  const hasOwn = Object.hasOwn;
+  const parentWindow = globalThis.parent;
+  const stringify = JSON.stringify;
+  const parse = JSON.parse;
+  const encode = TextEncoder.prototype.encode.bind(new TextEncoder());
+  const initialStateElement = document.getElementById(
+    &quot;codex-visualization-widget-state&quot;,
+  );
+  const initialGlobals = parse(initialStateElement?.textContent ?? &quot;{}&quot;);
+  initialStateElement?.remove();
+  /** @type {Record&lt;string, unknown&gt; | null} */
+  let state = initialGlobals.widgetState ?? null;
+  const statePersistence = initialGlobals.statePersistence ?? &quot;none&quot;;
+  let nextStateRequestId = 0;
+  /** @type {Map&lt;number, { resolve: () =&gt; void; reject: (error: Error) =&gt; void; timeout: ReturnType&lt;typeof globalThis.setTimeout&gt;; serializedState: string }&gt;} */
+  const pendingStateWrites = new Map();
+  const persistenceError = () =&gt;
+    Object.assign(
+      new Error(&quot;The host could not persist the widget state update&quot;),
+      {
+        code: -32000,
+        data: { code: &quot;widget_state_persistence_failed&quot;, retryable: false },
+      },
+    );
+  /**
+   * @param {object} prototype
+   * @param {string} property
+   */
+  const getPrototypeGetter = (prototype, property) =&gt; {
+    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
+    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
+    if (getter == null) {
+      throw new Error(`Missing ${property} getter`);
+    }
+    return getter;
+  };
+  const getMessageData = getPrototypeGetter(MessageEvent.prototype, &quot;data&quot;);
+  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, &quot;ports&quot;);
+  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, &quot;source&quot;);
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const addHostMessageListener = MessagePort.prototype.addEventListener;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const postHostMessage = MessagePort.prototype.postMessage;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const startHostPort = MessagePort.prototype.start;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
+  /** @type {MessagePort | null} */
+  let hostPort = null;
+  const postToHost = (type, payload) =&gt; {
+    if (hostPort != null) {
+      apply(postHostMessage, hostPort, [{ type, ...payload }]);
+    }
+  };
+  const openExternal = ({ href }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;open-external&quot;, { href });
+    }
+  };
+  const sendFollowUpMessage = ({ context, prompt, title }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;follow-up&quot;, { context, prompt, title });
+    }
+    return Promise.resolve();
+  };
+  /**
+   * @param {Record&lt;string, unknown&gt; | ((previous: Record&lt;string, unknown&gt; | null) =&gt; Record&lt;string, unknown&gt;)} next
+   * @returns {Promise&lt;void&gt;}
+   */
+  const setWidgetState = async (next) =&gt; {
+    const nextState = typeof next === &quot;function&quot; ? next(state) : next;
+    if (
+      nextState == null ||
+      typeof nextState !== &quot;object&quot; ||
+      isArray(nextState)
+    ) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const inputState = stringify(
+      nextState,
+      (_key, /** @type {unknown} */ value) =&gt; {
+        if (
+          typeof value === &quot;undefined&quot; ||
+          typeof value === &quot;function&quot; ||
+          typeof value === &quot;symbol&quot; ||
+          (typeof value === &quot;number&quot; &amp;&amp; !Number.isFinite(value))
+        ) {
+          throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+        }
+        return value;
+      },
+    );
+    const parsedState = parse(inputState);
+    if (
+      parsedState == null ||
+      typeof parsedState !== &quot;object&quot; ||
+      isArray(parsedState)
+    ) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const storedState = {
+      modelContent: null,
+      privateContent: null,
+      ...parsedState,
+    };
+    const serializedState = stringify(storedState);
+    if (encode(serializedState).length &gt; 16 * 1024) {
+      throw new TypeError(
+        &quot;Widget state must be a JSON object of at most 16 KiB&quot;,
+      );
+    }
+    if (
+      hasOwn(storedState, &quot;imageIds&quot;) &amp;&amp;
+      (!isArray(storedState.imageIds) ||
+        storedState.imageIds.some(
+          (/** @type {unknown} */ id) =&gt; typeof id !== &quot;string&quot;,
+        ))
+    ) {
+      throw new TypeError(&quot;Widget state imageIds must be an array of strings&quot;);
+    }
+    if (storedState.imageIds?.length &gt; 0) {
+      throw Object.assign(
+        new TypeError(&quot;Visualization state does not support image attachments&quot;),
+        { code: -32602, data: { code: &quot;images_unsupported&quot; } },
+      );
+    }
+    state = storedState;
+    globalThis.openai.widgetState = state;
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;openai:set_globals&quot;, {
+        detail: { globals: { widgetState: state } },
+      }),
+    );
+    if (statePersistence === &quot;none&quot;) {
+      throw persistenceError();
+    }
+    const id = ++nextStateRequestId;
+    return new Promise((resolve, reject) =&gt; {
+      const timeout = globalThis.setTimeout(() =&gt; {
+        pendingStateWrites.delete(id);
+        reject(persistenceError());
+      }, 30_000);
+      pendingStateWrites.set(id, { resolve, reject, timeout, serializedState });
+      postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+    });
+  };
+  const mockElement = document.getElementById(&quot;codex-connector-mocks&quot;);
+  const connectorGlobals = {};
+  if (mockElement != null) {
+    const values = new Map(Object.entries(parse(mockElement.textContent)));
+    mockElement.remove();
+    connectorGlobals.visualizationData = {
+      updates: Array.from(values, ([name, value]) =&gt; ({
+        name,
+        revision: 1,
+        state: &quot;ready&quot;,
+        value: { type: &quot;json&quot;, value },
+      })),
+    };
+    connectorGlobals.visualization = {
+      /** @param {string} name @param {(value: unknown) =&gt; void} callback */
+      onData(name, callback) {
+        if (typeof callback !== &quot;function&quot;) {
+          throw new TypeError(&quot;onData requires a callback&quot;);
+        }
+        try {
+          callback(values.get(name));
+        } catch (error) {
+          // oxlint-disable-next-line no-console -- Keep authored callback failures local.
+          console.error(&quot;Live visualization data callback failed&quot;, error);
+        }
+        // A static preview delivers the current fixture once per subscription.
+        return () =&gt; {};
+      },
+    };
+  }
+  const syncTheme = () =&gt; {
+    const theme = mediaQuery.matches ? &quot;dark&quot; : &quot;light&quot;;
+    root.dataset.theme = theme;
+    globalThis.openai = {
+      ...globalThis.openai,
+      ...connectorGlobals,
+      openExternal,
+      sendFollowUpMessage,
+      setWidgetState,
+      theme,
+      visualizationStyleVariables: {},
+      visualizationTheme: theme,
+      widgetState: state,
+      statePersistence,
+      stateModelContext: &quot;none&quot;,
+    };
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;openai:set_globals&quot;, {
+        detail: { globals: globalThis.openai },
+      }),
+    );
+  };
+  const sendHeight = () =&gt; {
+    postToHost(&quot;height&quot;, {
+      height: Math.ceil(
+        Math.max(
+          document.body.scrollHeight,
+          document.body.getBoundingClientRect().height,
+        ),
+      ),
+    });
+  };
+
+  globalThis.addEventListener(
+    &quot;message&quot;,
+    (event) =&gt; {
+      const data = apply(getMessageData, event, []);
+      const ports = apply(getMessagePorts, event, []);
+      const source = apply(getMessageSource, event, []);
+      if (
+        hostPort != null ||
+        source !== parentWindow ||
+        typeof data !== &quot;object&quot; ||
+        data?.type !== &quot;codex-visualization-initialize&quot; ||
+        !isArray(ports) ||
+        ports.length !== 1
+      ) {
+        return;
+      }
+      apply(stopMessagePropagation, event, []);
+      const nextHostPort = ports[0];
+      try {
+        apply(addHostMessageListener, nextHostPort, [
+          &quot;message&quot;,
+          (event) =&gt; {
+            const data = apply(getMessageData, event, []);
+            if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
+              sendHeight();
+            } else if (
+              typeof data === &quot;object&quot; &amp;&amp;
+              data?.type === &quot;widget-state-result&quot;
+            ) {
+              /** @type {unknown} */
+              const id = data.id;
+              if (typeof id !== &quot;number&quot;) {
+                return;
+              }
+              const pending = pendingStateWrites.get(id);
+              if (pending != null) {
+                pendingStateWrites.delete(id);
+                globalThis.clearTimeout(pending.timeout);
+                if (data.ok === true) {
+                  pending.resolve();
+                } else {
+                  pending.reject(persistenceError());
+                }
+              }
+            }
+          },
+        ]);
+        apply(startHostPort, nextHostPort, []);
+      } catch {
+        return;
+      }
+      hostPort = nextHostPort;
+      for (const [id, { serializedState }] of pendingStateWrites) {
+        postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+      }
+      sendHeight();
+    },
+    { capture: true },
+  );
+  document.currentScript?.remove();
+  mediaQuery.addEventListener(&quot;change&quot;, syncTheme);
+  globalThis.addEventListener(&quot;click&quot;, (event) =&gt; {
+    if (event.defaultPrevented) {
+      return;
+    }
+    let element = null;
+    if (event.target instanceof globalThis.Element) {
+      element = event.target;
+    } else if (event.target instanceof globalThis.Node) {
+      element = event.target.parentElement;
+    }
+    const link = element?.closest(&quot;a[href]&quot;);
+    const href = link?.getAttribute(&quot;href&quot;);
+    if (href == null) {
+      return;
+    }
+    if (href.startsWith(&quot;#&quot;)) {
+      let id;
+      try {
+        id = decodeURIComponent(href.slice(1));
+      } catch {
+        return;
+      }
+      const target = id.length === 0 ? root : document.getElementById(id);
+      if (
+        target == null ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      event.preventDefault();
+      postToHost(&quot;scroll-to&quot;, {
+        top: target.getBoundingClientRect().top + globalThis.scrollY,
+      });
+      return;
+    }
+    event.preventDefault();
+    openExternal({ href });
+  });
+  new ResizeObserver(sendHeight).observe(document.body);
+  syncTheme();
+})();
+&lt;/script&gt;
+&lt;div id=&quot;quant-results&quot;&gt;
+  &lt;style&gt;
+    #quant-results { display: grid; gap: calc(var(--font-size-base) * 1.25); color: var(--foreground); }
+    #quant-results .heading { display: flex; align-items: baseline; gap: calc(var(--font-size-base) * .75); flex-wrap: wrap; padding-right: 90px; }
+    #quant-results .stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: calc(var(--font-size-base) * 1); }
+    #quant-results .stat { display: grid; gap: calc(var(--font-size-base) * .4); }
+    #quant-results .hero { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap: calc(var(--font-size-base) * 1.25); }
+    #quant-results .lower { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: calc(var(--font-size-base) * 1.25); }
+    #quant-results section { min-width: 0; display: grid; align-content: start; gap: calc(var(--font-size-base) * .5); }
+    #quant-results .treemap { position: relative; height: 280px; }
+    #quant-results .tile { position: absolute; background: color-mix(in srgb,var(--viz-series-1) 22%,var(--background)); overflow: hidden; }
+    #quant-results .tile span { display: block; padding: calc(var(--font-size-base) * .5); }
+    #quant-results .volume-list { display: flex; flex-wrap: wrap; gap: calc(var(--font-size-base) * .6); }
+    #quant-results .stat strong { font-weight: 500; }
+    #quant-results .subtitle { margin-top: calc(var(--font-size-base) * .25); }
+    #quant-results .table { width: 100%; }
+    #quant-results details &gt; section { margin-top: calc(var(--font-size-base) * .75); }
+    @media(max-width:700px) { #quant-results .hero,#quant-results .lower { grid-template-columns: 1fr; } #quant-results .stats { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+  &lt;/style&gt;
+  &lt;div&gt;
+    &lt;div class=&quot;heading&quot;&gt;&lt;h2&gt;Transistor Trading · 运行结果&lt;/h2&gt;&lt;span class=&quot;viz-badge&quot;&gt;合成行情模拟&lt;/span&gt;&lt;/div&gt;
+    &lt;p class=&quot;text-small text-muted subtitle&quot;&gt;1,000 轮 · 1,001 个逐轮采样点 · 323 笔实际模拟成交 · 与原运行独立重跑&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stats tabular-nums&quot;&gt;&lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;累计 PNL&lt;/span&gt;&lt;strong&gt;+59.80&lt;/strong&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;模拟价格单位&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;最大回撤&lt;/span&gt;&lt;strong&gt;-100.50&lt;/strong&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;相对此前 PNL 峰值&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;累计成交量&lt;/span&gt;&lt;strong&gt;499&lt;/strong&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;手 · 双边均计入&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;累计成交名义额&lt;/span&gt;&lt;strong&gt;53,396.10&lt;/strong&gt;&lt;span class=&quot;text-small text-muted&quot;&gt;价格 × 成交量&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;hr&gt;
+  &lt;div class=&quot;hero&quot;&gt;
+    &lt;section id=&quot;quant-pnl&quot; data-viz-composition&gt;
+      &lt;h3&gt;策略累计 PNL&lt;/h3&gt;
+      &lt;div data-viz-container&gt;&lt;/div&gt;
+      &lt;script type=&quot;application/json&quot; data-viz-chart&gt;{&quot;id&quot;: &quot;pnl&quot;, &quot;title&quot;: &quot;策略累计 PNL&quot;, &quot;showHeader&quot;: false, &quot;height&quot;: 280, &quot;columns&quot;: [&quot;轮次&quot;, &quot;值&quot;], &quot;rows&quot;: [[0, 0.0], [1, -1.9999999999999432], [2, -1.9999999999999432], [3, -2.0], [4, 8.0], [5, 8.0], [6, 8.0], [7, 8.0], [8, 8.0], [9, 8.599999999999994], [10, -3.3999999999998636], [11, -3.3999999999998636], [12, -3.3999999999998636], [13, -3.3999999999998636], [14, 16.600000000000136], [15, 16.600000000000136], [16, 16.600000000000136], [17, 16.600000000000136], [18, 17.20000000000013], [19, 17.20000000000013], [20, -4.7999999999999545], [21, -4.7999999999999545], [22, -4.7999999999999545], [23, -4.7999999999999545], [24, 25.200000000000045], [25, 25.200000000000045], [26, 25.200000000000045], [27, 25.200000000000045], [28, 25.200000000000045], [29, 25.200000000000045], [30, -6.2000000000000455], [31, -6.2000000000000455], [32, -6.199999999999591], [33, -6.199999999999591], [34, 33.80000000000041], [35, 33.80000000000041], [36, 33.80000000000041], [37, 33.80000000000041], [38, 33.80000000000041], [39, 34.400000000000404], [40, -7.600000000001046], [41, -7.600000000001046], [42, -7.600000000001046], [43, -7.600000000001046], [44, 42.399999999999864], [45, 42.399999999999864], [46, 42.399999999999864], [47, 42.399999999999864], [48, 42.99999999999987], [49, 42.99999999999987], [50, -9.00000000000017], [51, -9.00000000000017], [52, -9.00000000000017], [53, -9.00000000000017], [54, 50.99999999999983], [55, 50.99999999999983], [56, 50.99999999999983], [57, 50.99999999999983], [58, 51.00000000000074], [59, 51.00000000000074], [60, -10.300000000000182], [61, -10.300000000000182], [62, -10.300000000000182], [63, -10.300000000000182], [64, 59.69999999999982], [65, 59.69999999999982], [66, 59.69999999999982], [67, 59.69999999999982], [68, 59.69999999999982], [69, 60.39999999999981], [70, -11.600000000000136], [71, -11.600000000000136], [72, -11.600000000000136], [73, -11.600000000000136], [74, 68.39999999999986], [75, 68.39999999999986], [76, 68.39999999999986], [77, 68.39999999999986], [78, 69.09999999999987], [79, 69.09999999999987], [80, -12.900000000000091], [81, -12.900000000000091], [82, -12.900000000000091], [83, -12.900000000001], [84, 77.099999999999], [85, 77.099999999999], [86, 77.099999999999], [87, 77.099999999999], [88, 77.099999999999], [89, 77.099999999999], [90, -14.200000000001864], [91, -14.200000000001864], [92, -14.200000000001864], [93, -14.200000000001864], [94, 85.79999999999995], [95, 85.79999999999995], [96, 85.79999999999995], [97, 85.79999999999995], [98, 85.79999999999995], [99, 86.49999999999996], [100, -13.500000000000043], [101, -13.500000000000043], [102, -13.200000000000045], [103, -13.099999999999682], [104, 86.90000000000032], [105, 87.60000000000032], [106, 87.60000000000032], [107, 87.60000000000032], [108, 88.40000000000069], [109, 88.40000000000069], [110, -11.599999999999312], [111, -11.599999999999312], [112, -11.599999999999312], [113, -11.599999999999312], [114, 88.40000000000069], [115, 88.40000000000069], [116, 88.40000000000069], [117, 89.10000000000068], [118, 89.10000000000068], [119, 89.00000000000031], [120, -10.299999999999699], [121, -10.299999999999699], [122, -10.299999999999699], [123, -10.299999999999699], [124, 89.59999999999994], [125, 89.59999999999994], [126, 89.69999999999995], [127, 89.69999999999995], [128, 89.6000000000014], [129, 89.6000000000014], [130, -10.399999999998599], [131, -10.399999999998599], [132, -10.399999999998599], [133, -10.500000000000782], [134, 89.49999999999922], [135, 89.8000000000003], [136, 89.8000000000003], [137, 89.8000000000003], [138, 90.50000000000028], [139, 90.50000000000028], [140, -9.499999999999716], [141, -9.499999999999716], [142, -9.499999999999716], [143, -9.499999999999716], [144, 90.50000000000028], [145, 90.70000000000101], [146, 90.70000000000101], [147, 91.400000000001], [148, 91.400000000001], [149, 91.59999999999991], [150, -7.700000000000074], [151, -7.700000000000074], [152, -7.700000000000074], [153, -7.500000000001165], [154, 92.49999999999883], [155, 92.49999999999883], [156, 92.59999999999849], [157, 92.59999999999849], [158, 92.70000000000067], [159, 92.70000000000067], [160, -7.299999999999329], [161, -7.299999999999329], [162, -7.299999999999329], [163, -7.299999999999329], [164, 92.70000000000067], [165, 92.90000000000066], [166, 92.90000000000066], [167, 92.90000000000066], [168, 92.90000000000066], [169, 92.90000000000066], [170, -7.200000000001523], [171, -7.200000000001523], [172, -7.200000000001523], [173, -7.200000000001523], [174, 92.69999999999993], [175, 92.69999999999993], [176, 92.69999999999993], [177, 93.39999999999993], [178, 93.30000000000139], [179, 93.30000000000139], [180, -5.999999999998607], [181, -5.999999999998607], [182, -5.999999999998607], [183, -6.10000000000079], [184, 93.89999999999921], [185, 93.89999999999921], [186, 94.09999999999921], [187, 94.09999999999921], [188, 94.09999999999921], [189, 94.09999999999921], [190, -5.900000000000787], [191, -5.900000000000787], [192, -5.900000000000787], [193, -5.900000000000787], [194, 94.09999999999921], [195, 94.50000000000139], [196, 94.50000000000139], [197, 94.50000000000139], [198, 94.50000000000139], [199, 94.50000000000139], [200, -5.4000000000000625], [201, -5.4000000000000625], [202, -5.4000000000000625], [203, -5.4000000000000625], [204, 94.69999999999848], [205, 94.69999999999848], [206, 94.69999999999848], [207, 95.39999999999849], [208, 95.50000000000067], [209, 95.50000000000067], [210, -3.7999999999993292], [211, -3.7999999999993292], [212, -3.7999999999993292], [213, -3.7999999999993292], [214, 96.20000000000067], [215, 96.20000000000067], [216, 96.40000000000066], [217, 96.40000000000066], [218, 96.40000000000066], [219, 96.40000000000066], [220, -3.7000000000015234], [221, -3.7000000000015234], [222, -3.7000000000015234], [223, -3.7000000000015234], [224, 96.29999999999848], [225, 96.19999999999993], [226, 96.19999999999993], [227, 96.19999999999993], [228, 96.89999999999993], [229, 96.80000000000139], [230, -3.19999999999861], [231, -2.8999999999989683], [232, -2.8999999999989683], [233, -3.100000000001515], [234, 96.89999999999849], [235, 96.89999999999849], [236, 96.89999999999849], [237, 97.5999999999985], [238, 97.5999999999985], [239, 97.5999999999985], [240, -1.7000000000015092], [241, -1.7000000000015092], [242, -1.7000000000015092], [243, -1.7000000000015092], [244, 98.29999999999849], [245, 98.50000000000104], [246, 99.20000000000103], [247, 99.20000000000103], [248, 99.20000000000103], [249, 99.90000000000104], [250, 0.09999999999995168], [251, 0.09999999999995168], [252, 0.09999999999995168], [253, 0.09999999999995168], [254, 100.29999999999886], [255, 100.29999999999886], [256, 100.29999999999886], [257, 100.29999999999886], [258, 100.99999999999886], [259, 101.20000000000141], [260, 1.2000000000014097], [261, 1.1999999999999318], [262, 1.1999999999999318], [263, 1.1999999999999318], [264, 101.19999999999993], [265, 101.19999999999993], [266, 101.19999999999993], [267, 101.79999999999993], [268, 101.79999999999993], [269, 101.79999999999993], [270, 2.3999999999999204], [271, 2.3999999999999204], [272, 2.3999999999999204], [273, 2.3999999999999204], [274, 102.39999999999992], [275, 102.39999999999992], [276, 102.99999999999993], [277, 102.99999999999993], [278, 102.99999999999993], [279, 103.59999999999992], [280, 3.5999999999999233], [281, 3.5999999999999233], [282, 3.5999999999999233], [283, 3.5999999999999233], [284, 103.59999999999992], [285, 103.59999999999992], [286, 103.59999999999992], [287, 103.59999999999992], [288, 104.19999999999992], [289, 104.19999999999992], [290, 4.199999999999918], [291, 4.49999999999919], [292, 4.49999999999919], [293, 4.49999999999919], [294, 104.49999999999919], [295, 104.59999999999955], [296, 104.59999999999955], [297, 105.19999999999955], [298, 105.19999999999955], [299, 105.19999999999955], [300, 5.89999999999992], [301, 5.89999999999992], [302, 5.89999999999992], [303, 6.099999999999923], [304, 106.19999999999847], [305, 106.19999999999847], [306, 106.19999999999847], [307, 106.19999999999847], [308, 106.19999999999847], [309, 106.30000000000065], [310, 6.300000000000651], [311, 6.300000000000651], [312, 6.300000000000651], [313, 6.300000000000651], [314, 106.30000000000065], [315, 106.90000000000065], [316, 106.90000000000065], [317, 106.90000000000065], [318, 107.50000000000064], [319, 107.50000000000064], [320, 7.399999999998457], [321, 7.399999999998457], [322, 7.399999999998457], [323, 7.399999999998457], [324, 107.39999999999846], [325, 107.29999999999991], [326, 107.29999999999991], [327, 107.8999999999999], [328, 107.8999999999999], [329, 107.80000000000136], [330, 8.400000000001356], [331, 8.400000000001356], [332, 8.400000000001356], [333, 8.400000000001356], [334, 108.29999999999917], [335, 108.29999999999917], [336, 108.50000000000027], [337, 108.50000000000027], [338, 108.50000000000027], [339, 109.10000000000028], [340, 9.100000000000279], [341, 9.100000000000279], [342, 9.100000000000279], [343, 9.100000000000279], [344, 109.10000000000028], [345, 109.19999999999919], [346, 109.29999999999956], [347, 109.29999999999956], [348, 109.29999999999956], [349, 109.29999999999956], [350, 9.39999999999992], [351, 9.39999999999992], [352, 9.39999999999992], [353, 9.39999999999992], [354, 109.50000000000028], [355, 109.50000000000028], [356, 109.50000000000028], [357, 110.10000000000029], [358, 110.10000000000029], [359, 110.20000000000066], [360, 10.800000000000665], [361, 10.800000000000665], [362, 10.800000000000665], [363, 10.800000000000665], [364, 110.80000000000067], [365, 110.80000000000067], [366, 111.00000000000065], [367, 111.00000000000065], [368, 111.00000000000065], [369, 111.00000000000065], [370, 11.000000000000654], [371, 10.90000000000029], [372, 10.90000000000029], [373, 10.90000000000029], [374, 110.90000000000029], [375, 110.89999999999993], [376, 110.89999999999993], [377, 110.89999999999993], [378, 110.89999999999993], [379, 110.89999999999993], [380, 10.79999999999957], [381, 10.79999999999957], [382, 10.79999999999957], [383, 10.79999999999957], [384, 110.6999999999992], [385, 110.6999999999992], [386, 110.6999999999992], [387, 111.2999999999992], [388, 111.2999999999992], [389, 111.2999999999992], [390, 11.899999999999196], [391, 11.899999999999196], [392, 11.899999999999196], [393, 11.899999999999196], [394, 111.8999999999992], [395, 111.8999999999992], [396, 112.29999999999956], [397, 112.29999999999956], [398, 112.29999999999956], [399, 112.29999999999956], [400, 12.299999999999557], [401, 12.39999999999992], [402, 12.39999999999992], [403, 12.39999999999992], [404, 112.39999999999992], [405, 112.80000000000028], [406, 112.80000000000028], [407, 112.80000000000028], [408, 112.80000000000028], [409, 112.90000000000246], [410, 12.900000000002464], [411, 12.900000000002464], [412, 12.900000000002464], [413, 12.900000000002464], [414, 112.90000000000246], [415, 112.90000000000246], [416, 112.90000000000246], [417, 113.50000000000246], [418, 113.50000000000246], [419, 113.50000000000246], [420, 14.100000000002453], [421, 14.00000000000027], [422, 14.00000000000027], [423, 14.00000000000027], [424, 114.00000000000027], [425, 114.00000000000027], [426, 114.09999999999991], [427, 114.09999999999991], [428, 114.09999999999991], [429, 114.69999999999992], [430, 14.49999999999919], [431, 14.49999999999919], [432, 14.49999999999919], [433, 14.49999999999919], [434, 114.49999999999919], [435, 114.19999999999992], [436, 114.19999999999992], [437, 114.19999999999992], [438, 114.19999999999992], [439, 114.19999999999992], [440, 14.199999999999918], [441, 14.199999999999918], [442, 14.199999999999918], [443, 14.199999999999918], [444, 114.19999999999992], [445, 114.19999999999992], [446, 114.19999999999992], [447, 114.40000000000026], [448, 114.40000000000026], [449, 114.40000000000026], [450, 15.000000000000284], [451, 14.89999999999992], [452, 14.89999999999992], [453, 15.199999999999918], [454, 115.19999999999992], [455, 115.19999999999992], [456, 115.19999999999992], [457, 115.19999999999992], [458, 115.19999999999992], [459, 115.49999999999955], [460, 15.400000000001], [461, 15.400000000001], [462, 15.400000000001], [463, 15.400000000001], [464, 115.400000000001], [465, 115.6999999999999], [466, 115.6999999999999], [467, 115.6999999999999], [468, 116.000000000001], [469, 116.000000000001], [470, 16.000000000000995], [471, 16.299999999999898], [472, 16.299999999999898], [473, 16.299999999999898], [474, 116.2999999999999], [475, 116.2999999999999], [476, 116.2999999999999], [477, 116.2999999999999], [478, 116.2999999999999], [479, 116.2999999999999], [480, 16.700000000000273], [481, 16.700000000000273], [482, 16.700000000000273], [483, 16.700000000000273], [484, 116.70000000000027], [485, 116.79999999999882], [486, 117.39999999999881], [487, 117.39999999999881], [488, 117.39999999999881], [489, 117.5999999999988], [490, 17.5999999999988], [491, 17.5999999999988], [492, 17.5999999999988], [493, 17.5999999999988], [494, 117.5999999999988], [495, 117.5999999999988], [496, 117.50000000000026], [497, 117.50000000000026], [498, 118.10000000000025], [499, 118.10000000000025], [500, 18.10000000000025], [501, 18.399999999999892], [502, 18.399999999999892], [503, 18.399999999999892], [504, 118.5999999999999], [505, 118.5999999999999], [506, 118.5999999999999], [507, 118.5999999999999], [508, 118.5999999999999], [509, 118.5999999999999], [510, 18.599999999999895], [511, 18.599999999999895], [512, 18.599999999999895], [513, 18.599999999999895], [514, 118.5999999999999], [515, 118.5999999999999], [516, 118.900000000001], [517, 118.900000000001], [518, 118.900000000001], [519, 119.500000000001], [520, 19.500000000000995], [521, 19.500000000000995], [522, 19.59999999999954], [523, 19.59999999999954], [524, 119.59999999999954], [525, 119.59999999999954], [526, 119.6999999999999], [527, 119.6999999999999], [528, 120.2999999999999], [529, 120.2999999999999], [530, 20.40000000000026], [531, 20.699999999999903], [532, 20.699999999999903], [533, 20.699999999999903], [534, 120.6999999999999], [535, 120.6999999999999], [536, 120.6999999999999], [537, 121.09999999999883], [538, 121.09999999999883], [539, 121.09999999999883], [540, 21.699999999998823], [541, 21.699999999998823], [542, 21.699999999998823], [543, 21.999999999999915], [544, 121.99999999999991], [545, 121.99999999999991], [546, 121.99999999999991], [547, 121.99999999999991], [548, 121.99999999999991], [549, 122.20000000000027], [550, 22.200000000000273], [551, 22.09999999999991], [552, 22.09999999999991], [553, 22.09999999999991], [554, 122.09999999999991], [555, 122.59999999999954], [556, 122.59999999999954], [557, 122.59999999999954], [558, 122.69999999999953], [559, 122.69999999999953], [560, 22.60000000000099], [561, 22.60000000000099], [562, 22.60000000000099], [563, 22.60000000000099], [564, 122.60000000000099], [565, 122.60000000000099], [566, 122.60000000000099], [567, 123.20000000000098], [568, 123.20000000000098], [569, 123.20000000000098], [570, 23.800000000000978], [571, 23.800000000000978], [572, 23.899999999999523], [573, 24.199999999999875], [574, 124.19999999999987], [575, 124.19999999999987], [576, 124.19999999999987], [577, 124.19999999999987], [578, 124.19999999999987], [579, 124.7999999999999], [580, 24.799999999999898], [581, 24.799999999999898], [582, 24.799999999999898], [583, 24.799999999999898], [584, 124.7999999999999], [585, 125.3999999999981], [586, 125.3999999999981], [587, 125.3999999999981], [588, 125.79999999999882], [589, 125.79999999999882], [590, 25.799999999998818], [591, 25.799999999998818], [592, 25.799999999998818], [593, 25.799999999998818], [594, 125.79999999999882], [595, 125.79999999999882], [596, 125.79999999999882], [597, 126.30000000000027], [598, 126.30000000000027], [599, 126.30000000000027], [600, 26.90000000000026], [601, 26.90000000000026], [602, 26.799999999999898], [603, 26.799999999999898], [604, 126.7999999999999], [605, 126.7999999999999], [606, 127.09999999999991], [607, 127.09999999999991], [608, 127.09999999999991], [609, 127.69999999999993], [610, 27.70000000000175], [611, 27.70000000000175], [612, 27.89999999999992], [613, 27.89999999999992], [614, 127.89999999999992], [615, 127.89999999999992], [616, 127.89999999999992], [617, 127.89999999999992], [618, 127.89999999999992], [619, 127.89999999999992], [620, 27.89999999999992], [621, 27.89999999999992], [622, 27.89999999999992], [623, 27.89999999999992], [624, 127.89999999999992], [625, 127.89999999999992], [626, 127.89999999999992], [627, 128.29999999999993], [628, 128.29999999999993], [629, 128.29999999999993], [630, 28.89999999999992], [631, 29.000000000000284], [632, 29.000000000000284], [633, 29.299999999999926], [634, 129.29999999999993], [635, 129.29999999999993], [636, 129.29999999999993], [637, 129.29999999999993], [638, 129.29999999999993], [639, 129.59999999999883], [640, 29.59999999999883], [641, 29.59999999999883], [642, 29.59999999999883], [643, 29.59999999999883], [644, 129.59999999999883], [645, 129.89999999999992], [646, 129.89999999999992], [647, 129.89999999999992], [648, 130.20000000000027], [649, 130.20000000000027], [650, 30.200000000000273], [651, 30.499999999999915], [652, 30.499999999999915], [653, 30.499999999999915], [654, 130.49999999999991], [655, 130.49999999999991], [656, 130.49999999999991], [657, 130.49999999999991], [658, 130.49999999999991], [659, 130.49999999999991], [660, 30.799999999999557], [661, 30.700000000001012], [662, 30.700000000001012], [663, 30.700000000001012], [664, 130.700000000001], [665, 130.700000000001], [666, 131.300000000001], [667, 131.300000000001], [668, 131.300000000001], [669, 131.900000000001], [670, 31.900000000001], [671, 31.900000000001], [672, 32.1999999999999], [673, 32.1999999999999], [674, 132.1999999999999], [675, 132.1999999999999], [676, 132.1999999999999], [677, 132.1999999999999], [678, 132.5999999999999], [679, 132.5999999999999], [680, 32.59999999999991], [681, 32.70000000000027], [682, 32.70000000000027], [683, 32.70000000000027], [684, 132.70000000000027], [685, 132.70000000000027], [686, 132.79999999999882], [687, 133.39999999999884], [688, 133.39999999999884], [689, 133.39999999999884], [690, 33.999999999998835], [691, 33.999999999998835], [692, 33.999999999998835], [693, 34.299999999999926], [694, 134.29999999999993], [695, 134.29999999999993], [696, 134.29999999999993], [697, 134.29999999999993], [698, 134.29999999999993], [699, 134.50000000000028], [700, 34.500000000000284], [701, 34.500000000000284], [702, 34.39999999999992], [703, 34.39999999999992], [704, 134.39999999999992], [705, 134.69999999999993], [706, 134.69999999999993], [707, 134.69999999999993], [708, 134.99999999999957], [709, 134.99999999999957], [710, 34.999999999999574], [711, 34.90000000000103], [712, 34.90000000000103], [713, 34.90000000000103], [714, 134.90000000000103], [715, 134.90000000000103], [716, 134.90000000000103], [717, 135.50000000000102], [718, 135.50000000000102], [719, 135.50000000000102], [720, 36.10000000000102], [721, 36.10000000000102], [722, 36.10000000000102], [723, 36.19999999999956], [724, 136.19999999999956], [725, 136.19999999999956], [726, 136.79999999999959], [727, 136.89999999999995], [728, 136.89999999999995], [729, 137.49999999999994], [730, 37.49999999999994], [731, 37.60000000000031], [732, 37.89999999999995], [733, 37.89999999999995], [734, 137.89999999999995], [735, 138.20000000000033], [736, 138.29999999999887], [737, 138.29999999999887], [738, 138.59999999999886], [739, 138.59999999999886], [740, 38.59999999999886], [741, 38.59999999999886], [742, 38.59999999999886], [743, 38.59999999999886], [744, 138.59999999999886], [745, 138.59999999999886], [746, 138.59999999999886], [747, 139.19999999999885], [748, 139.1000000000003], [749, 139.1000000000003], [750, 39.70000000000033], [751, 39.70000000000033], [752, 39.599999999999966], [753, 39.89999999999998], [754, 139.89999999999998], [755, 139.89999999999998], [756, 139.89999999999998], [757, 139.89999999999998], [758, 139.89999999999998], [759, 140.49999999999997], [760, 40.49999999999997], [761, 40.50000000000179], [762, 40.50000000000179], [763, 40.50000000000179], [764, 140.5000000000018], [765, 140.69999999999996], [766, 140.69999999999996], [767, 140.69999999999996], [768, 140.69999999999996], [769, 140.69999999999996], [770, 40.69999999999996], [771, 40.69999999999996], [772, 40.69999999999996], [773, 40.69999999999996], [774, 140.69999999999996], [775, 140.69999999999996], [776, 140.69999999999996], [777, 140.9999999999996], [778, 141.09999999999997], [779, 141.09999999999997], [780, 41.69999999999996], [781, 41.69999999999996], [782, 41.800000000000324], [783, 41.800000000000324], [784, 141.80000000000032], [785, 141.80000000000032], [786, 142.49999999999886], [787, 142.49999999999886], [788, 142.49999999999886], [789, 142.79999999999882], [790, 42.79999999999882], [791, 42.79999999999882], [792, 42.79999999999882], [793, 42.79999999999882], [794, 142.79999999999882], [795, 142.79999999999882], [796, 142.79999999999882], [797, 142.79999999999882], [798, 143.3000000000003], [799, 143.3000000000003], [800, 43.300000000000296], [801, 43.59999999999994], [802, 43.59999999999994], [803, 43.59999999999994], [804, 143.59999999999994], [805, 143.59999999999994], [806, 143.59999999999994], [807, 144.19999999999993], [808, 144.19999999999993], [809, 144.19999999999993], [810, 44.799999999999955], [811, 44.799999999999955], [812, 44.80000000000177], [813, 44.99999999999994], [814, 144.99999999999994], [815, 144.99999999999994], [816, 144.99999999999994], [817, 144.99999999999994], [818, 144.99999999999994], [819, 144.99999999999994], [820, 44.99999999999994], [821, 44.99999999999994], [822, 44.99999999999994], [823, 44.99999999999994], [824, 144.99999999999994], [825, 145.29999999999959], [826, 145.29999999999959], [827, 145.29999999999959], [828, 145.69999999999993], [829, 145.69999999999993], [830, 45.69999999999993], [831, 45.69999999999993], [832, 45.800000000000296], [833, 45.800000000000296], [834, 145.8000000000003], [835, 145.8000000000003], [836, 145.8000000000003], [837, 146.49999999999886], [838, 146.49999999999886], [839, 146.49999999999886], [840, 47.099999999998886], [841, 47.099999999998886], [842, 47.099999999998886], [843, 47.099999999998886], [844, 147.0999999999989], [845, 147.0999999999989], [846, 147.39999999999816], [847, 147.39999999999816], [848, 147.39999999999998], [849, 147.99999999999997], [850, 47.99999999999997], [851, 47.99999999999997], [852, 48.19999999999999], [853, 48.19999999999999], [854, 148.2], [855, 148.2], [856, 148.2], [857, 148.2], [858, 148.2], [859, 148.2], [860, 48.19999999999999], [861, 48.19999999999999], [862, 48.19999999999999], [863, 48.19999999999999], [864, 148.2], [865, 148.2], [866, 148.2], [867, 148.50000000000108], [868, 148.50000000000108], [869, 148.50000000000108], [870, 49.100000000001046], [871, 49.100000000001046], [872, 49.100000000001046], [873, 49.39999999999995], [874, 149.39999999999995], [875, 149.39999999999995], [876, 149.39999999999995], [877, 149.39999999999995], [878, 149.39999999999995], [879, 149.79999999999995], [880, 49.799999999999955], [881, 49.799999999999955], [882, 49.90000000000032], [883, 49.90000000000032], [884, 149.90000000000032], [885, 150.19999999999996], [886, 150.19999999999996], [887, 150.19999999999996], [888, 150.49999999999886], [889, 150.49999999999886], [890, 50.49999999999886], [891, 50.49999999999886], [892, 50.49999999999886], [893, 50.49999999999886], [894, 150.49999999999886], [895, 150.49999999999886], [896, 150.49999999999886], [897, 151.0999999999989], [898, 151.00000000000034], [899, 151.00000000000034], [900, 51.600000000000364], [901, 51.600000000000364], [902, 51.600000000000364], [903, 51.5], [904, 151.5], [905, 151.5], [906, 152.10000000000002], [907, 151.99999999999966], [908, 151.99999999999966], [909, 152.59999999999968], [910, 52.59999999999968], [911, 52.59999999999968], [912, 52.900000000000034], [913, 52.900000000000034], [914, 152.90000000000003], [915, 153.20000000000113], [916, 153.20000000000113], [917, 153.20000000000113], [918, 153.4000000000011], [919, 153.4000000000011], [920, 53.400000000001114], [921, 53.400000000001114], [922, 53.400000000001114], [923, 53.400000000001114], [924, 153.49999999999966], [925, 153.49999999999966], [926, 153.49999999999966], [927, 154.09999999999968], [928, 154.20000000000005], [929, 154.20000000000005], [930, 54.80000000000007], [931, 54.80000000000007], [932, 54.90000000000043], [933, 55.200000000000074], [934, 155.20000000000007], [935, 155.20000000000007], [936, 155.20000000000007], [937, 155.19999999999825], [938, 155.19999999999825], [939, 155.79999999999825], [940, 55.79999999999825], [941, 55.79999999999825], [942, 55.79999999999825], [943, 55.79999999999825], [944, 155.79999999999825], [945, 156.39999999999824], [946, 156.39999999999824], [947, 156.39999999999824], [948, 156.69999999999897], [949, 156.60000000000042], [950, 56.60000000000042], [951, 56.60000000000042], [952, 56.60000000000042], [953, 56.60000000000042], [954, 156.50000000000006], [955, 156.50000000000006], [956, 156.50000000000006], [957, 157.10000000000008], [958, 156.99999999999972], [959, 156.99999999999972], [960, 57.59999999999974], [961, 57.59999999999974], [962, 57.500000000001194], [963, 57.500000000001194], [964, 157.5000000000012], [965, 157.5000000000012], [966, 157.80000000000192], [967, 157.80000000000192], [968, 157.80000000000192], [969, 158.4000000000019], [970, 58.40000000000191], [971, 58.40000000000191], [972, 58.60000000000008], [973, 58.60000000000008], [974, 158.60000000000008], [975, 158.60000000000008], [976, 158.60000000000008], [977, 158.60000000000008], [978, 158.60000000000008], [979, 158.60000000000008], [980, 58.60000000000008], [981, 58.60000000000008], [982, 58.60000000000008], [983, 58.60000000000008], [984, 158.60000000000008], [985, 158.60000000000008], [986, 158.60000000000008], [987, 158.99999999999898], [988, 158.99999999999898], [989, 158.99999999999898], [990, 59.29999999999893], [991, 59.29999999999893], [992, 59.29999999999893], [993, 59.29999999999893], [994, 159.29999999999893], [995, 159.29999999999893], [996, 159.29999999999893], [997, 159.29999999999893], [998, 159.29999999999893], [999, 159.8000000000004], [1000, 59.80000000000041]], &quot;spec&quot;: {&quot;type&quot;: &quot;line&quot;, &quot;x&quot;: &quot;轮次&quot;, &quot;y&quot;: &quot;值&quot;, &quot;xLabel&quot;: &quot;轮次&quot;, &quot;yLabel&quot;: &quot;PNL&quot;, &quot;showLegend&quot;: false, &quot;startAtZero&quot;: true, &quot;colors&quot;: {&quot;值&quot;: &quot;var(--chart-1)&quot;}, &quot;valueFormat&quot;: {&quot;style&quot;: &quot;decimal&quot;, &quot;maximumFractionDigits&quot;: 2}}}&lt;/script&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;h3&gt;成交量分布 · 手数占比&lt;/h3&gt;
+      &lt;div class=&quot;treemap&quot; role=&quot;img&quot; aria-label=&quot;SEMIS_ETF_US: 346 手，占 69.3%；SEMIS_ETF_EU: 100 手，占 20.0%；CHIP_A: 33 手，占 6.6%；CHIP_B: 12 手，占 2.4%；CHIP_C: 8 手，占 1.6%&quot;&gt;&lt;div class=&quot;tile&quot; style=&quot;left:0.000000%;top:0.000000%;width:calc(69.338677% - 2px);height:calc(100.000000% - 2px)&quot; data-tooltip=&quot;SEMIS_ETF_US: 346 手，69.34%&quot;&gt;&lt;span&gt;ETF US · 69.3%&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;tile&quot; style=&quot;left:69.338677%;top:0.000000%;width:calc(30.661323% - 2px);height:calc(65.359477% - 2px)&quot; data-tooltip=&quot;SEMIS_ETF_EU: 100 手，20.04%&quot;&gt;&lt;span&gt;ETF EU · 20.0%&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;tile&quot; style=&quot;left:69.338677%;top:65.359477%;width:calc(19.091012% - 2px);height:calc(34.640523% - 2px)&quot; data-tooltip=&quot;CHIP_A: 33 手，6.61%&quot;&gt;&lt;/div&gt;&lt;div class=&quot;tile&quot; style=&quot;left:88.429690%;top:65.359477%;width:calc(11.570310% - 2px);height:calc(20.784314% - 2px)&quot; data-tooltip=&quot;CHIP_B: 12 手，2.40%&quot;&gt;&lt;/div&gt;&lt;div class=&quot;tile&quot; style=&quot;left:88.429690%;top:86.143791%;width:calc(11.570310% - 2px);height:calc(13.856209% - 2px)&quot; data-tooltip=&quot;CHIP_C: 8 手，1.60%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;volume-list text-small tabular-nums&quot;&gt;&lt;span&gt;ETF US 69.3%&lt;/span&gt;&lt;span&gt;ETF EU 20.0%&lt;/span&gt;&lt;span&gt;CHIP_A 6.6%&lt;/span&gt;&lt;span&gt;CHIP_B 2.4%&lt;/span&gt;&lt;span&gt;CHIP_C 1.6%&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;lower&quot;&gt;
+    &lt;section id=&quot;quant-dd&quot; data-viz-composition&gt;
+      &lt;h3&gt;回撤 · PNL 单位&lt;/h3&gt;&lt;div data-viz-container&gt;&lt;/div&gt;
+      &lt;script type=&quot;application/json&quot; data-viz-chart&gt;{&quot;id&quot;: &quot;drawdown&quot;, &quot;title&quot;: &quot;回撤&quot;, &quot;showHeader&quot;: false, &quot;height&quot;: 185, &quot;columns&quot;: [&quot;轮次&quot;, &quot;值&quot;], &quot;rows&quot;: [[0, 0.0], [1, -1.9999999999999432], [2, -1.9999999999999432], [3, -2.0], [4, 0.0], [5, 0.0], [6, 0.0], [7, 0.0], [8, 0.0], [9, 0.0], [10, -11.999999999999858], [11, -11.999999999999858], [12, -11.999999999999858], [13, -11.999999999999858], [14, 0.0], [15, 0.0], [16, 0.0], [17, 0.0], [18, 0.0], [19, 0.0], [20, -22.000000000000085], [21, -22.000000000000085], [22, -22.000000000000085], [23, -22.000000000000085], [24, 0.0], [25, 0.0], [26, 0.0], [27, 0.0], [28, 0.0], [29, 0.0], [30, -31.40000000000009], [31, -31.40000000000009], [32, -31.399999999999636], [33, -31.399999999999636], [34, 0.0], [35, 0.0], [36, 0.0], [37, 0.0], [38, 0.0], [39, 0.0], [40, -42.00000000000145], [41, -42.00000000000145], [42, -42.00000000000145], [43, -42.00000000000145], [44, 0.0], [45, 0.0], [46, 0.0], [47, 0.0], [48, 0.0], [49, 0.0], [50, -52.00000000000004], [51, -52.00000000000004], [52, -52.00000000000004], [53, -52.00000000000004], [54, 0.0], [55, 0.0], [56, 0.0], [57, 0.0], [58, 0.0], [59, 0.0], [60, -61.30000000000092], [61, -61.30000000000092], [62, -61.30000000000092], [63, -61.30000000000092], [64, 0.0], [65, 0.0], [66, 0.0], [67, 0.0], [68, 0.0], [69, 0.0], [70, -71.99999999999994], [71, -71.99999999999994], [72, -71.99999999999994], [73, -71.99999999999994], [74, 0.0], [75, 0.0], [76, 0.0], [77, 0.0], [78, 0.0], [79, 0.0], [80, -81.99999999999996], [81, -81.99999999999996], [82, -81.99999999999996], [83, -82.00000000000087], [84, 0.0], [85, 0.0], [86, 0.0], [87, 0.0], [88, 0.0], [89, 0.0], [90, -91.30000000000086], [91, -91.30000000000086], [92, -91.30000000000086], [93, -91.30000000000086], [94, 0.0], [95, 0.0], [96, 0.0], [97, 0.0], [98, 0.0], [99, 0.0], [100, -100.0], [101, -100.0], [102, -99.7], [103, -99.59999999999964], [104, 0.0], [105, 0.0], [106, 0.0], [107, 0.0], [108, 0.0], [109, 0.0], [110, -100.0], [111, -100.0], [112, -100.0], [113, -100.0], [114, 0.0], [115, 0.0], [116, 0.0], [117, 0.0], [118, 0.0], [119, -0.1000000000003638], [120, -99.40000000000038], [121, -99.40000000000038], [122, -99.40000000000038], [123, -99.40000000000038], [124, 0.0], [125, 0.0], [126, 0.0], [127, 0.0], [128, -0.09999999999854481], [129, -0.09999999999854481], [130, -100.09999999999854], [131, -100.09999999999854], [132, -100.09999999999854], [133, -100.20000000000073], [134, -0.2000000000007276], [135, 0.0], [136, 0.0], [137, 0.0], [138, 0.0], [139, 0.0], [140, -100.0], [141, -100.0], [142, -100.0], [143, -100.0], [144, 0.0], [145, 0.0], [146, 0.0], [147, 0.0], [148, 0.0], [149, 0.0], [150, -99.29999999999998], [151, -99.29999999999998], [152, -99.29999999999998], [153, -99.10000000000107], [154, 0.0], [155, 0.0], [156, 0.0], [157, 0.0], [158, 0.0], [159, 0.0], [160, -100.0], [161, -100.0], [162, -100.0], [163, -100.0], [164, 0.0], [165, 0.0], [166, 0.0], [167, 0.0], [168, 0.0], [169, 0.0], [170, -100.10000000000218], [171, -100.10000000000218], [172, -100.10000000000218], [173, -100.10000000000218], [174, -0.2000000000007276], [175, -0.2000000000007276], [176, -0.2000000000007276], [177, 0.0], [178, -0.09999999999854481], [179, -0.09999999999854481], [180, -99.39999999999854], [181, -99.39999999999854], [182, -99.39999999999854], [183, -99.50000000000072], [184, 0.0], [185, 0.0], [186, 0.0], [187, 0.0], [188, 0.0], [189, 0.0], [190, -100.0], [191, -100.0], [192, -100.0], [193, -100.0], [194, 0.0], [195, 0.0], [196, 0.0], [197, 0.0], [198, 0.0], [199, 0.0], [200, -99.90000000000146], [201, -99.90000000000146], [202, -99.90000000000146], [203, -99.90000000000146], [204, 0.0], [205, 0.0], [206, 0.0], [207, 0.0], [208, 0.0], [209, 0.0], [210, -99.3], [211, -99.3], [212, -99.3], [213, -99.3], [214, 0.0], [215, 0.0], [216, 0.0], [217, 0.0], [218, 0.0], [219, 0.0], [220, -100.10000000000218], [221, -100.10000000000218], [222, -100.10000000000218], [223, -100.10000000000218], [224, -0.10000000000218279], [225, -0.2000000000007276], [226, -0.2000000000007276], [227, -0.2000000000007276], [228, 0.0], [229, -0.09999999999854481], [230, -100.09999999999854], [231, -99.7999999999989], [232, -99.7999999999989], [233, -100.00000000000145], [234, -1.4495071809506044e-12], [235, -1.4495071809506044e-12], [236, -1.4495071809506044e-12], [237, 0.0], [238, 0.0], [239, 0.0], [240, -99.30000000000001], [241, -99.30000000000001], [242, -99.30000000000001], [243, -99.30000000000001], [244, 0.0], [245, 0.0], [246, 0.0], [247, 0.0], [248, 0.0], [249, 0.0], [250, -99.80000000000109], [251, -99.80000000000109], [252, -99.80000000000109], [253, -99.80000000000109], [254, 0.0], [255, 0.0], [256, 0.0], [257, 0.0], [258, 0.0], [259, 0.0], [260, -100.0], [261, -100.00000000000148], [262, -100.00000000000148], [263, -100.00000000000148], [264, -1.4779288903810084e-12], [265, -1.4779288903810084e-12], [266, -1.4779288903810084e-12], [267, 0.0], [268, 0.0], [269, 0.0], [270, -99.4], [271, -99.4], [272, -99.4], [273, -99.4], [274, 0.0], [275, 0.0], [276, 0.0], [277, 0.0], [278, 0.0], [279, 0.0], [280, -100.0], [281, -100.0], [282, -100.0], [283, -100.0], [284, 0.0], [285, 0.0], [286, 0.0], [287, 0.0], [288, 0.0], [289, 0.0], [290, -100.0], [291, -99.70000000000073], [292, -99.70000000000073], [293, -99.70000000000073], [294, 0.0], [295, 0.0], [296, 0.0], [297, 0.0], [298, 0.0], [299, 0.0], [300, -99.29999999999963], [301, -99.29999999999963], [302, -99.29999999999963], [303, -99.09999999999962], [304, 0.0], [305, 0.0], [306, 0.0], [307, 0.0], [308, 0.0], [309, 0.0], [310, -100.0], [311, -100.0], [312, -100.0], [313, -100.0], [314, 0.0], [315, 0.0], [316, 0.0], [317, 0.0], [318, 0.0], [319, 0.0], [320, -100.10000000000218], [321, -100.10000000000218], [322, -100.10000000000218], [323, -100.10000000000218], [324, -0.10000000000218279], [325, -0.2000000000007276], [326, -0.2000000000007276], [327, 0.0], [328, 0.0], [329, -0.09999999999854481], [330, -99.49999999999855], [331, -99.49999999999855], [332, -99.49999999999855], [333, -99.49999999999855], [334, 0.0], [335, 0.0], [336, 0.0], [337, 0.0], [338, 0.0], [339, 0.0], [340, -100.0], [341, -100.0], [342, -100.0], [343, -100.0], [344, 0.0], [345, 0.0], [346, 0.0], [347, 0.0], [348, 0.0], [349, 0.0], [350, -99.89999999999964], [351, -99.89999999999964], [352, -99.89999999999964], [353, -99.89999999999964], [354, 0.0], [355, 0.0], [356, 0.0], [357, 0.0], [358, 0.0], [359, 0.0], [360, -99.39999999999999], [361, -99.39999999999999], [362, -99.39999999999999], [363, -99.39999999999999], [364, 0.0], [365, 0.0], [366, 0.0], [367, 0.0], [368, 0.0], [369, 0.0], [370, -100.0], [371, -100.10000000000036], [372, -100.10000000000036], [373, -100.10000000000036], [374, -0.1000000000003638], [375, -0.10000000000071907], [376, -0.10000000000071907], [377, -0.10000000000071907], [378, -0.10000000000071907], [379, -0.10000000000071907], [380, -100.20000000000108], [381, -100.20000000000108], [382, -100.20000000000108], [383, -100.20000000000108], [384, -0.30000000000144667], [385, -0.30000000000144667], [386, -0.30000000000144667], [387, 0.0], [388, 0.0], [389, 0.0], [390, -99.4], [391, -99.4], [392, -99.4], [393, -99.4], [394, 0.0], [395, 0.0], [396, 0.0], [397, 0.0], [398, 0.0], [399, 0.0], [400, -100.0], [401, -99.89999999999964], [402, -99.89999999999964], [403, -99.89999999999964], [404, 0.0], [405, 0.0], [406, 0.0], [407, 0.0], [408, 0.0], [409, 0.0], [410, -100.0], [411, -100.0], [412, -100.0], [413, -100.0], [414, 0.0], [415, 0.0], [416, 0.0], [417, 0.0], [418, 0.0], [419, 0.0], [420, -99.4], [421, -99.50000000000219], [422, -99.50000000000219], [423, -99.50000000000219], [424, 0.0], [425, 0.0], [426, 0.0], [427, 0.0], [428, 0.0], [429, 0.0], [430, -100.20000000000073], [431, -100.20000000000073], [432, -100.20000000000073], [433, -100.20000000000073], [434, -0.2000000000007276], [435, -0.5], [436, -0.5], [437, -0.5], [438, -0.5], [439, -0.5], [440, -100.5], [441, -100.5], [442, -100.5], [443, -100.5], [444, -0.5], [445, -0.5], [446, -0.5], [447, -0.2999999999996561], [448, -0.2999999999996561], [449, -0.2999999999996561], [450, -99.69999999999963], [451, -99.8], [452, -99.8], [453, -99.5], [454, 0.0], [455, 0.0], [456, 0.0], [457, 0.0], [458, 0.0], [459, 0.0], [460, -100.09999999999854], [461, -100.09999999999854], [462, -100.09999999999854], [463, -100.09999999999854], [464, -0.09999999999854481], [465, 0.0], [466, 0.0], [467, 0.0], [468, 0.0], [469, 0.0], [470, -100.0], [471, -99.7000000000011], [472, -99.7000000000011], [473, -99.7000000000011], [474, 0.0], [475, 0.0], [476, 0.0], [477, 0.0], [478, 0.0], [479, 0.0], [480, -99.59999999999962], [481, -99.59999999999962], [482, -99.59999999999962], [483, -99.59999999999962], [484, 0.0], [485, 0.0], [486, 0.0], [487, 0.0], [488, 0.0], [489, 0.0], [490, -100.0], [491, -100.0], [492, -100.0], [493, -100.0], [494, 0.0], [495, 0.0], [496, -0.09999999999854481], [497, -0.09999999999854481], [498, 0.0], [499, 0.0], [500, -100.0], [501, -99.70000000000036], [502, -99.70000000000036], [503, -99.70000000000036], [504, 0.0], [505, 0.0], [506, 0.0], [507, 0.0], [508, 0.0], [509, 0.0], [510, -100.0], [511, -100.0], [512, -100.0], [513, -100.0], [514, 0.0], [515, 0.0], [516, 0.0], [517, 0.0], [518, 0.0], [519, 0.0], [520, -100.0], [521, -100.0], [522, -99.90000000000146], [523, -99.90000000000146], [524, 0.0], [525, 0.0], [526, 0.0], [527, 0.0], [528, 0.0], [529, 0.0], [530, -99.89999999999964], [531, -99.6], [532, -99.6], [533, -99.6], [534, 0.0], [535, 0.0], [536, 0.0], [537, 0.0], [538, 0.0], [539, 0.0], [540, -99.4], [541, -99.4], [542, -99.4], [543, -99.09999999999891], [544, 0.0], [545, 0.0], [546, 0.0], [547, 0.0], [548, 0.0], [549, 0.0], [550, -100.0], [551, -100.10000000000036], [552, -100.10000000000036], [553, -100.10000000000036], [554, -0.1000000000003638], [555, 0.0], [556, 0.0], [557, 0.0], [558, 0.0], [559, 0.0], [560, -100.09999999999854], [561, -100.09999999999854], [562, -100.09999999999854], [563, -100.09999999999854], [564, -0.09999999999854481], [565, -0.09999999999854481], [566, -0.09999999999854481], [567, 0.0], [568, 0.0], [569, 0.0], [570, -99.4], [571, -99.4], [572, -99.30000000000146], [573, -99.00000000000111], [574, 0.0], [575, 0.0], [576, 0.0], [577, 0.0], [578, 0.0], [579, 0.0], [580, -100.0], [581, -100.0], [582, -100.0], [583, -100.0], [584, 0.0], [585, 0.0], [586, 0.0], [587, 0.0], [588, 0.0], [589, 0.0], [590, -100.0], [591, -100.0], [592, -100.0], [593, -100.0], [594, 0.0], [595, 0.0], [596, 0.0], [597, 0.0], [598, 0.0], [599, 0.0], [600, -99.4], [601, -99.4], [602, -99.50000000000037], [603, -99.50000000000037], [604, 0.0], [605, 0.0], [606, 0.0], [607, 0.0], [608, 0.0], [609, 0.0], [610, -99.99999999999818], [611, -99.99999999999818], [612, -99.80000000000001], [613, -99.80000000000001], [614, 0.0], [615, 0.0], [616, 0.0], [617, 0.0], [618, 0.0], [619, 0.0], [620, -100.0], [621, -100.0], [622, -100.0], [623, -100.0], [624, 0.0], [625, 0.0], [626, 0.0], [627, 0.0], [628, 0.0], [629, 0.0], [630, -99.4], [631, -99.29999999999964], [632, -99.29999999999964], [633, -99.0], [634, 0.0], [635, 0.0], [636, 0.0], [637, 0.0], [638, 0.0], [639, 0.0], [640, -100.0], [641, -100.0], [642, -100.0], [643, -100.0], [644, 0.0], [645, 0.0], [646, 0.0], [647, 0.0], [648, 0.0], [649, 0.0], [650, -100.0], [651, -99.70000000000036], [652, -99.70000000000036], [653, -99.70000000000036], [654, 0.0], [655, 0.0], [656, 0.0], [657, 0.0], [658, 0.0], [659, 0.0], [660, -99.70000000000036], [661, -99.7999999999989], [662, -99.7999999999989], [663, -99.7999999999989], [664, 0.0], [665, 0.0], [666, 0.0], [667, 0.0], [668, 0.0], [669, 0.0], [670, -100.0], [671, -100.0], [672, -99.7000000000011], [673, -99.7000000000011], [674, 0.0], [675, 0.0], [676, 0.0], [677, 0.0], [678, 0.0], [679, 0.0], [680, -100.0], [681, -99.89999999999964], [682, -99.89999999999964], [683, -99.89999999999964], [684, 0.0], [685, 0.0], [686, 0.0], [687, 0.0], [688, 0.0], [689, 0.0], [690, -99.4], [691, -99.4], [692, -99.4], [693, -99.09999999999891], [694, 0.0], [695, 0.0], [696, 0.0], [697, 0.0], [698, 0.0], [699, 0.0], [700, -100.0], [701, -100.0], [702, -100.10000000000036], [703, -100.10000000000036], [704, -0.1000000000003638], [705, 0.0], [706, 0.0], [707, 0.0], [708, 0.0], [709, 0.0], [710, -100.0], [711, -100.09999999999854], [712, -100.09999999999854], [713, -100.09999999999854], [714, -0.09999999999854481], [715, -0.09999999999854481], [716, -0.09999999999854481], [717, 0.0], [718, 0.0], [719, 0.0], [720, -99.4], [721, -99.4], [722, -99.4], [723, -99.30000000000146], [724, 0.0], [725, 0.0], [726, 0.0], [727, 0.0], [728, 0.0], [729, 0.0], [730, -100.0], [731, -99.89999999999964], [732, -99.6], [733, -99.6], [734, 0.0], [735, 0.0], [736, 0.0], [737, 0.0], [738, 0.0], [739, 0.0], [740, -100.0], [741, -100.0], [742, -100.0], [743, -100.0], [744, 0.0], [745, 0.0], [746, 0.0], [747, 0.0], [748, -0.09999999999854481], [749, -0.09999999999854481], [750, -99.49999999999852], [751, -99.49999999999852], [752, -99.59999999999889], [753, -99.29999999999887], [754, 0.0], [755, 0.0], [756, 0.0], [757, 0.0], [758, 0.0], [759, 0.0], [760, -100.0], [761, -99.99999999999818], [762, -99.99999999999818], [763, -99.99999999999818], [764, 0.0], [765, 0.0], [766, 0.0], [767, 0.0], [768, 0.0], [769, 0.0], [770, -100.0], [771, -100.0], [772, -100.0], [773, -100.0], [774, 0.0], [775, 0.0], [776, 0.0], [777, 0.0], [778, 0.0], [779, 0.0], [780, -99.4], [781, -99.4], [782, -99.29999999999964], [783, -99.29999999999964], [784, 0.0], [785, 0.0], [786, 0.0], [787, 0.0], [788, 0.0], [789, 0.0], [790, -100.0], [791, -100.0], [792, -100.0], [793, -100.0], [794, 0.0], [795, 0.0], [796, 0.0], [797, 0.0], [798, 0.0], [799, 0.0], [800, -100.0], [801, -99.70000000000036], [802, -99.70000000000036], [803, -99.70000000000036], [804, 0.0], [805, 0.0], [806, 0.0], [807, 0.0], [808, 0.0], [809, 0.0], [810, -99.39999999999998], [811, -99.39999999999998], [812, -99.39999999999816], [813, -99.19999999999999], [814, 0.0], [815, 0.0], [816, 0.0], [817, 0.0], [818, 0.0], [819, 0.0], [820, -100.0], [821, -100.0], [822, -100.0], [823, -100.0], [824, 0.0], [825, 0.0], [826, 0.0], [827, 0.0], [828, 0.0], [829, 0.0], [830, -100.0], [831, -100.0], [832, -99.89999999999964], [833, -99.89999999999964], [834, 0.0], [835, 0.0], [836, 0.0], [837, 0.0], [838, 0.0], [839, 0.0], [840, -99.39999999999998], [841, -99.39999999999998], [842, -99.39999999999998], [843, -99.39999999999998], [844, 0.0], [845, 0.0], [846, 0.0], [847, 0.0], [848, 0.0], [849, 0.0], [850, -100.0], [851, -100.0], [852, -99.79999999999998], [853, -99.79999999999998], [854, 0.0], [855, 0.0], [856, 0.0], [857, 0.0], [858, 0.0], [859, 0.0], [860, -100.0], [861, -100.0], [862, -100.0], [863, -100.0], [864, 0.0], [865, 0.0], [866, 0.0], [867, 0.0], [868, 0.0], [869, 0.0], [870, -99.40000000000003], [871, -99.40000000000003], [872, -99.40000000000003], [873, -99.10000000000113], [874, 0.0], [875, 0.0], [876, 0.0], [877, 0.0], [878, 0.0], [879, 0.0], [880, -100.0], [881, -100.0], [882, -99.89999999999964], [883, -99.89999999999964], [884, 0.0], [885, 0.0], [886, 0.0], [887, 0.0], [888, 0.0], [889, 0.0], [890, -100.0], [891, -100.0], [892, -100.0], [893, -100.0], [894, 0.0], [895, 0.0], [896, 0.0], [897, 0.0], [898, -0.09999999999854481], [899, -0.09999999999854481], [900, -99.49999999999852], [901, -99.49999999999852], [902, -99.49999999999852], [903, -99.59999999999889], [904, 0.0], [905, 0.0], [906, 0.0], [907, -0.1000000000003638], [908, -0.1000000000003638], [909, 0.0], [910, -100.0], [911, -100.0], [912, -99.69999999999965], [913, -99.69999999999965], [914, 0.0], [915, 0.0], [916, 0.0], [917, 0.0], [918, 0.0], [919, 0.0], [920, -100.0], [921, -100.0], [922, -100.0], [923, -100.0], [924, 0.0], [925, 0.0], [926, 0.0], [927, 0.0], [928, 0.0], [929, 0.0], [930, -99.39999999999998], [931, -99.39999999999998], [932, -99.29999999999961], [933, -98.99999999999997], [934, 0.0], [935, 0.0], [936, 0.0], [937, -1.8189894035458565e-12], [938, -1.8189894035458565e-12], [939, 0.0], [940, -100.0], [941, -100.0], [942, -100.0], [943, -100.0], [944, 0.0], [945, 0.0], [946, 0.0], [947, 0.0], [948, 0.0], [949, -0.09999999999854481], [950, -100.09999999999854], [951, -100.09999999999854], [952, -100.09999999999854], [953, -100.09999999999854], [954, -0.1999999999989086], [955, -0.1999999999989086], [956, -0.1999999999989086], [957, 0.0], [958, -0.1000000000003638], [959, -0.1000000000003638], [960, -99.50000000000034], [961, -99.50000000000034], [962, -99.59999999999889], [963, -99.59999999999889], [964, 0.0], [965, 0.0], [966, 0.0], [967, 0.0], [968, 0.0], [969, 0.0], [970, -100.0], [971, -100.0], [972, -99.80000000000183], [973, -99.80000000000183], [974, 0.0], [975, 0.0], [976, 0.0], [977, 0.0], [978, 0.0], [979, 0.0], [980, -100.0], [981, -100.0], [982, -100.0], [983, -100.0], [984, 0.0], [985, 0.0], [986, 0.0], [987, 0.0], [988, 0.0], [989, 0.0], [990, -99.70000000000005], [991, -99.70000000000005], [992, -99.70000000000005], [993, -99.70000000000005], [994, 0.0], [995, 0.0], [996, 0.0], [997, 0.0], [998, 0.0], [999, 0.0], [1000, -100.0]], &quot;spec&quot;: {&quot;type&quot;: &quot;line&quot;, &quot;x&quot;: &quot;轮次&quot;, &quot;y&quot;: &quot;值&quot;, &quot;xLabel&quot;: &quot;轮次&quot;, &quot;yLabel&quot;: &quot;PNL&quot;, &quot;showLegend&quot;: false, &quot;startAtZero&quot;: true, &quot;colors&quot;: {&quot;值&quot;: &quot;var(--chart-1)&quot;}, &quot;valueFormat&quot;: {&quot;style&quot;: &quot;decimal&quot;, &quot;maximumFractionDigits&quot;: 2}}}&lt;/script&gt;
+    &lt;/section&gt;
+    &lt;section id=&quot;quant-exposure&quot; data-viz-composition&gt;
+      &lt;h3&gt;持仓名义总敞口&lt;/h3&gt;&lt;div data-viz-container&gt;&lt;/div&gt;
+      &lt;script type=&quot;application/json&quot; data-viz-chart&gt;{&quot;id&quot;: &quot;exposure&quot;, &quot;title&quot;: &quot;持仓名义总敞口&quot;, &quot;showHeader&quot;: false, &quot;height&quot;: 185, &quot;columns&quot;: [&quot;轮次&quot;, &quot;值&quot;], &quot;rows&quot;: [[0, 0], [1, 2150.0], [2, 2150.0], [3, 2152.0], [4, 2142.0], [5, 2142.0], [6, 2142.0], [7, 2144.0], [8, 2144.0], [9, 2144.0], [10, 4308.0], [11, 4308.0], [12, 4308.0], [13, 4308.0], [14, 4288.0], [15, 4288.0], [16, 4288.0], [17, 4288.0], [18, 4288.0], [19, 4284.0], [20, 6456.0], [21, 6456.0], [22, 6456.0], [23, 6456.0], [24, 6420.0], [25, 6420.0], [26, 6420.0], [27, 6420.0], [28, 6414.0], [29, 6414.0], [30, 8592.0], [31, 8592.0], [32, 8584.0], [33, 8584.0], [34, 8544.0], [35, 8544.0], [36, 8544.0], [37, 8544.0], [38, 8544.0], [39, 8544.0], [40, 10730.0], [41, 10730.0], [42, 10730.0], [43, 10730.0], [44, 10690.0], [45, 10690.0], [46, 10690.0], [47, 10690.0], [48, 10690.0], [49, 10700.0], [50, 12900.0], [51, 12900.0], [52, 12900.0], [53, 12912.0], [54, 12852.0], [55, 12852.0], [56, 12852.0], [57, 12852.0], [58, 12863.999999999998], [59, 12863.999999999998], [60, 15077.999999999996], [61, 15077.999999999996], [62, 15077.999999999996], [63, 15077.999999999996], [64, 15007.999999999996], [65, 15007.999999999996], [66, 15007.999999999996], [67, 15007.999999999996], [68, 15007.999999999996], [69, 14994.0], [70, 17216.0], [71, 17216.0], [72, 17216.0], [73, 17216.0], [74, 17120.0], [75, 17120.0], [76, 17120.0], [77, 17120.0], [78, 17104.0], [79, 17104.0], [80, 19332.0], [81, 19332.0], [82, 19332.0], [83, 19314.000000000004], [84, 19224.000000000004], [85, 19224.000000000004], [86, 19224.000000000004], [87, 19224.000000000004], [88, 19224.000000000004], [89, 19224.000000000004], [90, 21460.0], [91, 21460.0], [92, 21460.0], [93, 21460.0], [94, 21380.0], [95, 21380.0], [96, 21380.0], [97, 21380.0], [98, 21380.0], [99, 21400.0], [100, 21500.0], [101, 21500.0], [102, 21607.0], [103, 21627.1], [104, 21527.1], [105, 21527.1], [106, 21527.1], [107, 21527.1], [108, 21547.199999999997], [109, 21547.199999999997], [110, 21647.199999999997], [111, 21647.199999999997], [112, 21647.199999999997], [113, 21647.199999999997], [114, 21547.199999999997], [115, 21547.199999999997], [116, 21547.199999999997], [117, 21547.199999999997], [118, 21547.199999999997], [119, 21527.1], [120, 21627.1], [121, 21627.1], [122, 21627.1], [123, 21627.1], [124, 21507.0], [125, 21507.0], [126, 21514.0], [127, 21514.0], [128, 21493.9], [129, 21493.9], [130, 21593.9], [131, 21593.9], [132, 21593.9], [133, 21573.800000000003], [134, 21473.800000000003], [135, 21580.600000000006], [136, 21580.600000000006], [137, 21580.600000000006], [138, 21580.600000000006], [139, 21580.600000000006], [140, 21680.600000000006], [141, 21680.600000000006], [142, 21680.600000000006], [143, 21680.600000000006], [144, 21580.600000000006], [145, 21600.800000000003], [146, 21600.800000000003], [147, 21600.800000000003], [148, 21600.800000000003], [149, 21621.0], [150, 21721.0], [151, 21721.0], [152, 21721.0], [153, 21741.199999999997], [154, 21641.199999999997], [155, 21641.199999999997], [156, 21538.1], [157, 21538.1], [158, 21558.199999999997], [159, 21558.199999999997], [160, 21658.199999999997], [161, 21658.199999999997], [162, 21658.199999999997], [163, 21658.199999999997], [164, 21558.199999999997], [165, 21545.199999999997], [166, 21545.199999999997], [167, 21545.199999999997], [168, 21545.199999999997], [169, 21545.199999999997], [170, 21625.1], [171, 21625.1], [172, 21625.1], [173, 21625.1], [174, 21505.0], [175, 21505.0], [176, 21505.0], [177, 21505.0], [178, 21484.9], [179, 21484.9], [180, 21584.9], [181, 21584.9], [182, 21584.9], [183, 21564.800000000003], [184, 21464.800000000003], [185, 21464.800000000003], [186, 21471.800000000003], [187, 21471.800000000003], [188, 21471.800000000003], [189, 21471.800000000003], [190, 21571.800000000003], [191, 21571.800000000003], [192, 21571.800000000003], [193, 21571.800000000003], [194, 21471.800000000003], [195, 21488.9], [196, 21488.9], [197, 21488.9], [198, 21488.9], [199, 21488.9], [200, 21609.0], [201, 21609.0], [202, 21609.0], [203, 21609.0], [204, 21529.1], [205, 21529.1], [206, 21529.1], [207, 21529.1], [208, 21549.199999999997], [209, 21549.199999999997], [210, 21649.199999999997], [211, 21649.199999999997], [212, 21649.199999999997], [213, 21649.199999999997], [214, 21549.199999999997], [215, 21549.199999999997], [216, 21556.199999999997], [217, 21556.199999999997], [218, 21556.199999999997], [219, 21556.199999999997], [220, 21636.1], [221, 21636.1], [222, 21636.1], [223, 21636.1], [224, 21536.1], [225, 21516.0], [226, 21516.0], [227, 21516.0], [228, 21516.0], [229, 21495.9], [230, 21595.9], [231, 21702.800000000003], [232, 21702.800000000003], [233, 21682.600000000002], [234, 21582.600000000002], [235, 21582.600000000002], [236, 21582.600000000002], [237, 21582.600000000002], [238, 21582.600000000002], [239, 21582.600000000002], [240, 21682.600000000002], [241, 21682.600000000002], [242, 21682.600000000002], [243, 21682.600000000002], [244, 21582.600000000002], [245, 21602.800000000003], [246, 21602.800000000003], [247, 21602.800000000003], [248, 21602.800000000003], [249, 21602.800000000003], [250, 21723.0], [251, 21723.0], [252, 21723.0], [253, 21723.0], [254, 21643.199999999997], [255, 21643.199999999997], [256, 21643.199999999997], [257, 21643.199999999997], [258, 21643.199999999997], [259, 21663.399999999998], [260, 21763.399999999998], [261, 21539.999999999996], [262, 21539.999999999996], [263, 21539.999999999996], [264, 21439.999999999996], [265, 21439.999999999996], [266, 21439.999999999996], [267, 21439.999999999996], [268, 21439.999999999996], [269, 21439.999999999996], [270, 21520.0], [271, 21520.0], [272, 21520.0], [273, 21520.0], [274, 21420.0], [275, 21400.0], [276, 21400.0], [277, 21400.0], [278, 21400.0], [279, 21380.0], [280, 21480.0], [281, 21480.0], [282, 21480.0], [283, 21480.0], [284, 21360.000000000004], [285, 21360.000000000004], [286, 21360.000000000004], [287, 21360.000000000004], [288, 21360.000000000004], [289, 21360.000000000004], [290, 21460.000000000004], [291, 21566.800000000003], [292, 21566.800000000003], [293, 21566.800000000003], [294, 21466.800000000003], [295, 21486.9], [296, 21486.9], [297, 21486.9], [298, 21486.9], [299, 21486.9], [300, 21607.0], [301, 21607.0], [302, 21607.0], [303, 21614.0], [304, 21534.1], [305, 21534.1], [306, 21534.1], [307, 21534.1], [308, 21534.1], [309, 21554.199999999997], [310, 21654.199999999997], [311, 21654.199999999997], [312, 21654.199999999997], [313, 21654.199999999997], [314, 21554.199999999997], [315, 21554.199999999997], [316, 21554.199999999997], [317, 21554.199999999997], [318, 21554.199999999997], [319, 21554.199999999997], [320, 21634.1], [321, 21634.1], [322, 21634.1], [323, 21634.1], [324, 21534.1], [325, 21514.0], [326, 21514.0], [327, 21514.0], [328, 21514.0], [329, 21493.9], [330, 21593.9], [331, 21593.9], [332, 21593.9], [333, 21593.9], [334, 21473.800000000003], [335, 21473.800000000003], [336, 21580.600000000006], [337, 21580.600000000006], [338, 21580.600000000006], [339, 21580.600000000006], [340, 21680.600000000006], [341, 21680.600000000006], [342, 21680.600000000006], [343, 21680.600000000006], [344, 21580.600000000006], [345, 21477.800000000003], [346, 21497.9], [347, 21497.9], [348, 21497.9], [349, 21497.9], [350, 21618.0], [351, 21618.0], [352, 21618.0], [353, 21618.0], [354, 21538.1], [355, 21538.1], [356, 21538.1], [357, 21538.1], [358, 21538.1], [359, 21558.199999999997], [360, 21658.199999999997], [361, 21658.199999999997], [362, 21658.199999999997], [363, 21658.199999999997], [364, 21558.199999999997], [365, 21558.199999999997], [366, 21545.199999999997], [367, 21545.199999999997], [368, 21545.199999999997], [369, 21545.199999999997], [370, 21645.199999999997], [371, 21625.1], [372, 21625.1], [373, 21625.1], [374, 21525.1], [375, 21512.0], [376, 21512.0], [377, 21512.0], [378, 21512.0], [379, 21512.0], [380, 21591.9], [381, 21591.9], [382, 21591.9], [383, 21591.9], [384, 21471.800000000003], [385, 21471.800000000003], [386, 21471.800000000003], [387, 21471.800000000003], [388, 21471.800000000003], [389, 21471.800000000003], [390, 21571.800000000003], [391, 21571.800000000003], [392, 21571.800000000003], [393, 21571.800000000003], [394, 21471.800000000003], [395, 21471.800000000003], [396, 21488.9], [397, 21488.9], [398, 21488.9], [399, 21488.9], [400, 21588.9], [401, 21609.0], [402, 21609.0], [403, 21609.0], [404, 21509.0], [405, 21536.1], [406, 21536.1], [407, 21536.1], [408, 21536.1], [409, 21556.199999999997], [410, 21656.199999999997], [411, 21656.199999999997], [412, 21656.199999999997], [413, 21656.199999999997], [414, 21556.199999999997], [415, 21556.199999999997], [416, 21556.199999999997], [417, 21556.199999999997], [418, 21556.199999999997], [419, 21556.199999999997], [420, 21656.199999999997], [421, 21636.1], [422, 21636.1], [423, 21636.1], [424, 21536.1], [425, 21536.1], [426, 21623.0], [427, 21623.0], [428, 21623.0], [429, 21623.0], [430, 21702.8], [431, 21702.8], [432, 21702.8], [433, 21702.8], [434, 21602.8], [435, 21360.000000000004], [436, 21360.000000000004], [437, 21360.000000000004], [438, 21360.000000000004], [439, 21360.000000000004], [440, 21460.000000000004], [441, 21460.000000000004], [442, 21460.000000000004], [443, 21460.000000000004], [444, 21360.000000000004], [445, 21360.000000000004], [446, 21380.0], [447, 21273.1], [448, 21273.1], [449, 21273.1], [450, 21373.1], [451, 21393.0], [452, 21393.0], [453, 21500.0], [454, 21400.0], [455, 21420.0], [456, 21420.0], [457, 21420.0], [458, 21420.0], [459, 21312.9], [460, 21432.799999999996], [461, 21432.799999999996], [462, 21432.799999999996], [463, 21432.799999999996], [464, 21332.799999999996], [465, 21439.999999999996], [466, 21439.999999999996], [467, 21439.999999999996], [468, 21332.799999999996], [469, 21332.799999999996], [470, 21432.799999999996], [471, 21520.0], [472, 21520.0], [473, 21520.0], [474, 21420.0], [475, 21420.0], [476, 21400.0], [477, 21400.0], [478, 21400.0], [479, 21400.0], [480, 21373.1], [481, 21373.1], [482, 21373.1], [483, 21373.1], [484, 21273.1], [485, 21253.200000000004], [486, 21253.200000000004], [487, 21253.200000000004], [488, 21253.200000000004], [489, 21246.200000000004], [490, 21346.200000000004], [491, 21346.200000000004], [492, 21346.200000000004], [493, 21346.200000000004], [494, 21246.200000000004], [495, 21246.200000000004], [496, 21266.1], [497, 21266.1], [498, 21266.1], [499, 21266.1], [500, 21366.1], [501, 21493.0], [502, 21493.0], [503, 21493.0], [504, 21400.0], [505, 21420.0], [506, 21420.0], [507, 21420.0], [508, 21420.0], [509, 21420.0], [510, 21539.999999999996], [511, 21539.999999999996], [512, 21539.999999999996], [513, 21539.999999999996], [514, 21439.999999999996], [515, 21439.999999999996], [516, 21332.799999999996], [517, 21332.799999999996], [518, 21332.799999999996], [519, 21332.799999999996], [520, 21432.799999999996], [521, 21432.799999999996], [522, 21412.9], [523, 21412.9], [524, 21312.9], [525, 21312.9], [526, 21293.0], [527, 21293.0], [528, 21293.0], [529, 21293.0], [530, 21373.1], [531, 21480.0], [532, 21480.0], [533, 21480.0], [534, 21380.0], [535, 21360.000000000004], [536, 21360.000000000004], [537, 21253.200000000004], [538, 21253.200000000004], [539, 21253.200000000004], [540, 21353.200000000004], [541, 21353.200000000004], [542, 21353.200000000004], [543, 21460.000000000004], [544, 21360.000000000004], [545, 21360.000000000004], [546, 21360.000000000004], [547, 21380.0], [548, 21380.0], [549, 21273.1], [550, 21373.1], [551, 21393.0], [552, 21393.0], [553, 21393.0], [554, 21293.0], [555, 21312.9], [556, 21312.9], [557, 21312.9], [558, 21305.9], [559, 21305.9], [560, 21425.799999999996], [561, 21425.799999999996], [562, 21425.799999999996], [563, 21425.799999999996], [564, 21325.799999999996], [565, 21325.799999999996], [566, 21325.799999999996], [567, 21325.799999999996], [568, 21325.799999999996], [569, 21325.799999999996], [570, 21425.799999999996], [571, 21425.799999999996], [572, 21405.9], [573, 21513.0], [574, 21413.0], [575, 21413.0], [576, 21413.0], [577, 21393.0], [578, 21393.0], [579, 21393.0], [580, 21493.0], [581, 21473.0], [582, 21473.0], [583, 21473.0], [584, 21373.0], [585, 21353.0], [586, 21353.0], [587, 21353.0], [588, 21246.200000000004], [589, 21246.200000000004], [590, 21346.200000000004], [591, 21346.200000000004], [592, 21346.200000000004], [593, 21346.200000000004], [594, 21246.200000000004], [595, 21246.200000000004], [596, 21246.200000000004], [597, 21266.1], [598, 21266.1], [599, 21266.1], [600, 21366.1], [601, 21366.1], [602, 21386.0], [603, 21386.0], [604, 21286.0], [605, 21286.0], [606, 21413.0], [607, 21413.0], [608, 21413.0], [609, 21413.0], [610, 21533.0], [611, 21533.0], [612, 21539.999999999996], [613, 21539.999999999996], [614, 21439.999999999996], [615, 21439.999999999996], [616, 21439.999999999996], [617, 21439.999999999996], [618, 21439.999999999996], [619, 21439.999999999996], [620, 21539.999999999996], [621, 21539.999999999996], [622, 21520.0], [623, 21520.0], [624, 21420.0], [625, 21420.0], [626, 21420.0], [627, 21293.0], [628, 21293.0], [629, 21293.0], [630, 21393.0], [631, 21373.1], [632, 21373.1], [633, 21480.0], [634, 21380.0], [635, 21380.0], [636, 21360.000000000004], [637, 21360.000000000004], [638, 21360.000000000004], [639, 21253.200000000004], [640, 21353.200000000004], [641, 21353.200000000004], [642, 21353.200000000004], [643, 21353.200000000004], [644, 21253.200000000004], [645, 21360.000000000004], [646, 21360.000000000004], [647, 21380.0], [648, 21273.1], [649, 21273.1], [650, 21373.1], [651, 21480.0], [652, 21500.0], [653, 21500.0], [654, 21400.0], [655, 21400.0], [656, 21420.0], [657, 21420.0], [658, 21420.0], [659, 21420.0], [660, 21412.9], [661, 21432.799999999996], [662, 21432.799999999996], [663, 21432.799999999996], [664, 21332.799999999996], [665, 21332.799999999996], [666, 21332.799999999996], [667, 21332.799999999996], [668, 21332.799999999996], [669, 21332.799999999996], [670, 21432.799999999996], [671, 21432.799999999996], [672, 21520.0], [673, 21520.0], [674, 21420.0], [675, 21420.0], [676, 21420.0], [677, 21400.0], [678, 21293.0], [679, 21293.0], [680, 21393.0], [681, 21373.1], [682, 21373.1], [683, 21373.1], [684, 21273.1], [685, 21273.1], [686, 21253.200000000004], [687, 21253.200000000004], [688, 21253.200000000004], [689, 21253.200000000004], [690, 21353.200000000004], [691, 21353.200000000004], [692, 21353.200000000004], [693, 21460.000000000004], [694, 21360.000000000004], [695, 21360.000000000004], [696, 21360.000000000004], [697, 21380.0], [698, 21380.0], [699, 21273.1], [700, 21373.1], [701, 21373.1], [702, 21393.0], [703, 21393.0], [704, 21293.0], [705, 21400.0], [706, 21420.0], [707, 21420.0], [708, 21312.9], [709, 21312.9], [710, 21412.9], [711, 21432.799999999996], [712, 21432.799999999996], [713, 21432.799999999996], [714, 21332.799999999996], [715, 21332.799999999996], [716, 21332.799999999996], [717, 21332.799999999996], [718, 21332.799999999996], [719, 21332.799999999996], [720, 21432.799999999996], [721, 21432.799999999996], [722, 21432.799999999996], [723, 21412.9], [724, 21312.9], [725, 21312.9], [726, 21312.9], [727, 21293.0], [728, 21293.0], [729, 21293.0], [730, 21393.0], [731, 21373.1], [732, 21480.0], [733, 21480.0], [734, 21380.0], [735, 21273.1], [736, 21253.200000000004], [737, 21253.200000000004], [738, 21246.200000000004], [739, 21246.200000000004], [740, 21346.200000000004], [741, 21346.200000000004], [742, 21346.200000000004], [743, 21346.200000000004], [744, 21246.200000000004], [745, 21246.200000000004], [746, 21246.200000000004], [747, 21246.200000000004], [748, 21266.1], [749, 21266.1], [750, 21366.1], [751, 21366.1], [752, 21386.0], [753, 21493.0], [754, 21393.0], [755, 21393.0], [756, 21393.0], [757, 21413.0], [758, 21413.0], [759, 21413.0], [760, 21513.0], [761, 21533.0], [762, 21533.0], [763, 21533.0], [764, 21433.0], [765, 21439.999999999996], [766, 21439.999999999996], [767, 21439.999999999996], [768, 21439.999999999996], [769, 21439.999999999996], [770, 21539.999999999996], [771, 21539.999999999996], [772, 21539.999999999996], [773, 21520.0], [774, 21420.0], [775, 21420.0], [776, 21420.0], [777, 21312.9], [778, 21293.0], [779, 21293.0], [780, 21393.0], [781, 21393.0], [782, 21373.1], [783, 21373.1], [784, 21273.1], [785, 21273.1], [786, 21253.200000000004], [787, 21253.200000000004], [788, 21253.200000000004], [789, 21246.200000000004], [790, 21346.200000000004], [791, 21346.200000000004], [792, 21346.200000000004], [793, 21346.200000000004], [794, 21246.200000000004], [795, 21246.200000000004], [796, 21246.200000000004], [797, 21246.200000000004], [798, 21266.1], [799, 21266.1], [800, 21366.1], [801, 21473.0], [802, 21473.0], [803, 21493.0], [804, 21393.0], [805, 21393.0], [806, 21393.0], [807, 21413.0], [808, 21413.0], [809, 21413.0], [810, 21513.0], [811, 21513.0], [812, 21533.0], [813, 21539.999999999996], [814, 21439.999999999996], [815, 21439.999999999996], [816, 21439.999999999996], [817, 21439.999999999996], [818, 21439.999999999996], [819, 21439.999999999996], [820, 21539.999999999996], [821, 21539.999999999996], [822, 21539.999999999996], [823, 21520.0], [824, 21420.0], [825, 21312.9], [826, 21312.9], [827, 21312.9], [828, 21286.0], [829, 21286.0], [830, 21386.0], [831, 21386.0], [832, 21366.1], [833, 21366.1], [834, 21266.1], [835, 21266.1], [836, 21266.1], [837, 21246.200000000004], [838, 21246.200000000004], [839, 21246.200000000004], [840, 21346.200000000004], [841, 21346.200000000004], [842, 21346.200000000004], [843, 21346.200000000004], [844, 21246.200000000004], [845, 21246.200000000004], [846, 21353.0], [847, 21353.0], [848, 21373.0], [849, 21373.0], [850, 21473.0], [851, 21473.0], [852, 21480.0], [853, 21500.0], [854, 21400.0], [855, 21400.0], [856, 21400.0], [857, 21420.0], [858, 21420.0], [859, 21420.0], [860, 21520.0], [861, 21520.0], [862, 21539.999999999996], [863, 21539.999999999996], [864, 21439.999999999996], [865, 21439.999999999996], [866, 21439.999999999996], [867, 21332.799999999996], [868, 21332.799999999996], [869, 21332.799999999996], [870, 21432.799999999996], [871, 21432.799999999996], [872, 21432.799999999996], [873, 21520.0], [874, 21420.0], [875, 21420.0], [876, 21420.0], [877, 21420.0], [878, 21400.0], [879, 21293.0], [880, 21393.0], [881, 21393.0], [882, 21373.1], [883, 21373.1], [884, 21273.1], [885, 21380.0], [886, 21380.0], [887, 21360.000000000004], [888, 21253.200000000004], [889, 21253.200000000004], [890, 21353.200000000004], [891, 21353.200000000004], [892, 21353.200000000004], [893, 21353.200000000004], [894, 21253.200000000004], [895, 21253.200000000004], [896, 21253.200000000004], [897, 21253.200000000004], [898, 21273.1], [899, 21273.1], [900, 21373.1], [901, 21373.1], [902, 21373.1], [903, 21393.0], [904, 21293.0], [905, 21293.0], [906, 21293.0], [907, 21312.9], [908, 21312.9], [909, 21312.9], [910, 21412.9], [911, 21412.9], [912, 21539.999999999996], [913, 21539.999999999996], [914, 21439.999999999996], [915, 21332.799999999996], [916, 21332.799999999996], [917, 21332.799999999996], [918, 21325.799999999996], [919, 21325.799999999996], [920, 21425.799999999996], [921, 21425.799999999996], [922, 21425.799999999996], [923, 21425.799999999996], [924, 21305.9], [925, 21305.9], [926, 21305.9], [927, 21305.9], [928, 21286.0], [929, 21286.0], [930, 21386.0], [931, 21386.0], [932, 21366.1], [933, 21473.0], [934, 21373.0], [935, 21373.0], [936, 21373.0], [937, 21353.0], [938, 21353.0], [939, 21353.0], [940, 21453.0], [941, 21453.0], [942, 21453.0], [943, 21453.0], [944, 21353.0], [945, 21353.0], [946, 21353.0], [947, 21353.0], [948, 21246.200000000004], [949, 21266.1], [950, 21366.1], [951, 21366.1], [952, 21366.1], [953, 21366.1], [954, 21286.0], [955, 21286.0], [956, 21286.0], [957, 21286.0], [958, 21305.9], [959, 21305.9], [960, 21405.9], [961, 21405.9], [962, 21425.799999999996], [963, 21425.799999999996], [964, 21325.799999999996], [965, 21325.799999999996], [966, 21433.0], [967, 21433.0], [968, 21433.0], [969, 21433.0], [970, 21533.0], [971, 21533.0], [972, 21539.999999999996], [973, 21539.999999999996], [974, 21420.0], [975, 21420.0], [976, 21420.0], [977, 21420.0], [978, 21420.0], [979, 21400.0], [980, 21500.0], [981, 21500.0], [982, 21500.0], [983, 21480.0], [984, 21380.0], [985, 21380.0], [986, 21380.0], [987, 21253.200000000004], [988, 21253.200000000004], [989, 21253.200000000004], [990, 21346.200000000004], [991, 21346.200000000004], [992, 21346.200000000004], [993, 21346.200000000004], [994, 21246.200000000004], [995, 21246.200000000004], [996, 21246.200000000004], [997, 21246.200000000004], [998, 21246.200000000004], [999, 21266.1], [1000, 21366.1]], &quot;spec&quot;: {&quot;type&quot;: &quot;line&quot;, &quot;x&quot;: &quot;轮次&quot;, &quot;y&quot;: &quot;值&quot;, &quot;xLabel&quot;: &quot;轮次&quot;, &quot;yLabel&quot;: &quot;价格×股数&quot;, &quot;showLegend&quot;: false, &quot;startAtZero&quot;: true, &quot;colors&quot;: {&quot;值&quot;: &quot;var(--chart-1)&quot;}, &quot;valueFormat&quot;: {&quot;style&quot;: &quot;decimal&quot;, &quot;maximumFractionDigits&quot;: 2}}}&lt;/script&gt;
+    &lt;/section&gt;
+    &lt;section id=&quot;quant-capacity&quot; data-viz-composition&gt;
+      &lt;h3&gt;最高单产品持仓占用&lt;/h3&gt;&lt;div data-viz-container&gt;&lt;/div&gt;
+      &lt;script type=&quot;application/json&quot; data-viz-chart&gt;{&quot;id&quot;: &quot;capacity&quot;, &quot;title&quot;: &quot;最高单产品持仓占用&quot;, &quot;showHeader&quot;: false, &quot;height&quot;: 185, &quot;columns&quot;: [&quot;轮次&quot;, &quot;值&quot;], &quot;rows&quot;: [[0, 0], [1, 0.1], [2, 0.1], [3, 0.1], [4, 0.1], [5, 0.1], [6, 0.1], [7, 0.1], [8, 0.1], [9, 0.1], [10, 0.2], [11, 0.2], [12, 0.2], [13, 0.2], [14, 0.2], [15, 0.2], [16, 0.2], [17, 0.2], [18, 0.2], [19, 0.2], [20, 0.3], [21, 0.3], [22, 0.3], [23, 0.3], [24, 0.3], [25, 0.3], [26, 0.3], [27, 0.3], [28, 0.3], [29, 0.3], [30, 0.4], [31, 0.4], [32, 0.4], [33, 0.4], [34, 0.4], [35, 0.4], [36, 0.4], [37, 0.4], [38, 0.4], [39, 0.4], [40, 0.5], [41, 0.5], [42, 0.5], [43, 0.5], [44, 0.5], [45, 0.5], [46, 0.5], [47, 0.5], [48, 0.5], [49, 0.5], [50, 0.6], [51, 0.6], [52, 0.6], [53, 0.6], [54, 0.6], [55, 0.6], [56, 0.6], [57, 0.6], [58, 0.6], [59, 0.6], [60, 0.7], [61, 0.7], [62, 0.7], [63, 0.7], [64, 0.7], [65, 0.7], [66, 0.7], [67, 0.7], [68, 0.7], [69, 0.7], [70, 0.8], [71, 0.8], [72, 0.8], [73, 0.8], [74, 0.8], [75, 0.8], [76, 0.8], [77, 0.8], [78, 0.8], [79, 0.8], [80, 0.9], [81, 0.9], [82, 0.9], [83, 0.9], [84, 0.9], [85, 0.9], [86, 0.9], [87, 0.9], [88, 0.9], [89, 0.9], [90, 1.0], [91, 1.0], [92, 1.0], [93, 1.0], [94, 1.0], [95, 1.0], [96, 1.0], [97, 1.0], [98, 1.0], [99, 1.0], [100, 1.0], [101, 1.0], [102, 1.0], [103, 1.0], [104, 1.0], [105, 1.0], [106, 1.0], [107, 1.0], [108, 1.0], [109, 1.0], [110, 1.0], [111, 1.0], [112, 1.0], [113, 1.0], [114, 1.0], [115, 1.0], [116, 1.0], [117, 1.0], [118, 1.0], [119, 1.0], [120, 1.0], [121, 1.0], [122, 1.0], [123, 1.0], [124, 1.0], [125, 1.0], [126, 1.0], [127, 1.0], [128, 1.0], [129, 1.0], [130, 1.0], [131, 1.0], [132, 1.0], [133, 1.0], [134, 1.0], [135, 1.0], [136, 1.0], [137, 1.0], [138, 1.0], [139, 1.0], [140, 1.0], [141, 1.0], [142, 1.0], [143, 1.0], [144, 1.0], [145, 1.0], [146, 1.0], [147, 1.0], [148, 1.0], [149, 1.0], [150, 1.0], [151, 1.0], [152, 1.0], [153, 1.0], [154, 1.0], [155, 1.0], [156, 1.0], [157, 1.0], [158, 1.0], [159, 1.0], [160, 1.0], [161, 1.0], [162, 1.0], [163, 1.0], [164, 1.0], [165, 1.0], [166, 1.0], [167, 1.0], [168, 1.0], [169, 1.0], [170, 1.0], [171, 1.0], [172, 1.0], [173, 1.0], [174, 1.0], [175, 1.0], [176, 1.0], [177, 1.0], [178, 1.0], [179, 1.0], [180, 1.0], [181, 1.0], [182, 1.0], [183, 1.0], [184, 1.0], [185, 1.0], [186, 1.0], [187, 1.0], [188, 1.0], [189, 1.0], [190, 1.0], [191, 1.0], [192, 1.0], [193, 1.0], [194, 1.0], [195, 1.0], [196, 1.0], [197, 1.0], [198, 1.0], [199, 1.0], [200, 1.0], [201, 1.0], [202, 1.0], [203, 1.0], [204, 1.0], [205, 1.0], [206, 1.0], [207, 1.0], [208, 1.0], [209, 1.0], [210, 1.0], [211, 1.0], [212, 1.0], [213, 1.0], [214, 1.0], [215, 1.0], [216, 1.0], [217, 1.0], [218, 1.0], [219, 1.0], [220, 1.0], [221, 1.0], [222, 1.0], [223, 1.0], [224, 1.0], [225, 1.0], [226, 1.0], [227, 1.0], [228, 1.0], [229, 1.0], [230, 1.0], [231, 1.0], [232, 1.0], [233, 1.0], [234, 1.0], [235, 1.0], [236, 1.0], [237, 1.0], [238, 1.0], [239, 1.0], [240, 1.0], [241, 1.0], [242, 1.0], [243, 1.0], [244, 1.0], [245, 1.0], [246, 1.0], [247, 1.0], [248, 1.0], [249, 1.0], [250, 1.0], [251, 1.0], [252, 1.0], [253, 1.0], [254, 1.0], [255, 1.0], [256, 1.0], [257, 1.0], [258, 1.0], [259, 1.0], [260, 1.0], [261, 1.0], [262, 1.0], [263, 1.0], [264, 1.0], [265, 1.0], [266, 1.0], [267, 1.0], [268, 1.0], [269, 1.0], [270, 1.0], [271, 1.0], [272, 1.0], [273, 1.0], [274, 1.0], [275, 1.0], [276, 1.0], [277, 1.0], [278, 1.0], [279, 1.0], [280, 1.0], [281, 1.0], [282, 1.0], [283, 1.0], [284, 1.0], [285, 1.0], [286, 1.0], [287, 1.0], [288, 1.0], [289, 1.0], [290, 1.0], [291, 1.0], [292, 1.0], [293, 1.0], [294, 1.0], [295, 1.0], [296, 1.0], [297, 1.0], [298, 1.0], [299, 1.0], [300, 1.0], [301, 1.0], [302, 1.0], [303, 1.0], [304, 1.0], [305, 1.0], [306, 1.0], [307, 1.0], [308, 1.0], [309, 1.0], [310, 1.0], [311, 1.0], [312, 1.0], [313, 1.0], [314, 1.0], [315, 1.0], [316, 1.0], [317, 1.0], [318, 1.0], [319, 1.0], [320, 1.0], [321, 1.0], [322, 1.0], [323, 1.0], [324, 1.0], [325, 1.0], [326, 1.0], [327, 1.0], [328, 1.0], [329, 1.0], [330, 1.0], [331, 1.0], [332, 1.0], [333, 1.0], [334, 1.0], [335, 1.0], [336, 1.0], [337, 1.0], [338, 1.0], [339, 1.0], [340, 1.0], [341, 1.0], [342, 1.0], [343, 1.0], [344, 1.0], [345, 1.0], [346, 1.0], [347, 1.0], [348, 1.0], [349, 1.0], [350, 1.0], [351, 1.0], [352, 1.0], [353, 1.0], [354, 1.0], [355, 1.0], [356, 1.0], [357, 1.0], [358, 1.0], [359, 1.0], [360, 1.0], [361, 1.0], [362, 1.0], [363, 1.0], [364, 1.0], [365, 1.0], [366, 1.0], [367, 1.0], [368, 1.0], [369, 1.0], [370, 1.0], [371, 1.0], [372, 1.0], [373, 1.0], [374, 1.0], [375, 1.0], [376, 1.0], [377, 1.0], [378, 1.0], [379, 1.0], [380, 1.0], [381, 1.0], [382, 1.0], [383, 1.0], [384, 1.0], [385, 1.0], [386, 1.0], [387, 1.0], [388, 1.0], [389, 1.0], [390, 1.0], [391, 1.0], [392, 1.0], [393, 1.0], [394, 1.0], [395, 1.0], [396, 1.0], [397, 1.0], [398, 1.0], [399, 1.0], [400, 1.0], [401, 1.0], [402, 1.0], [403, 1.0], [404, 1.0], [405, 1.0], [406, 1.0], [407, 1.0], [408, 1.0], [409, 1.0], [410, 1.0], [411, 1.0], [412, 1.0], [413, 1.0], [414, 1.0], [415, 1.0], [416, 1.0], [417, 1.0], [418, 1.0], [419, 1.0], [420, 1.0], [421, 1.0], [422, 1.0], [423, 1.0], [424, 1.0], [425, 1.0], [426, 1.0], [427, 1.0], [428, 1.0], [429, 1.0], [430, 1.0], [431, 1.0], [432, 1.0], [433, 1.0], [434, 1.0], [435, 1.0], [436, 1.0], [437, 1.0], [438, 1.0], [439, 1.0], [440, 1.0], [441, 1.0], [442, 1.0], [443, 1.0], [444, 1.0], [445, 1.0], [446, 1.0], [447, 1.0], [448, 1.0], [449, 1.0], [450, 1.0], [451, 1.0], [452, 1.0], [453, 1.0], [454, 1.0], [455, 1.0], [456, 1.0], [457, 1.0], [458, 1.0], [459, 1.0], [460, 1.0], [461, 1.0], [462, 1.0], [463, 1.0], [464, 1.0], [465, 1.0], [466, 1.0], [467, 1.0], [468, 1.0], [469, 1.0], [470, 1.0], [471, 1.0], [472, 1.0], [473, 1.0], [474, 1.0], [475, 1.0], [476, 1.0], [477, 1.0], [478, 1.0], [479, 1.0], [480, 1.0], [481, 1.0], [482, 1.0], [483, 1.0], [484, 1.0], [485, 1.0], [486, 1.0], [487, 1.0], [488, 1.0], [489, 1.0], [490, 1.0], [491, 1.0], [492, 1.0], [493, 1.0], [494, 1.0], [495, 1.0], [496, 1.0], [497, 1.0], [498, 1.0], [499, 1.0], [500, 1.0], [501, 1.0], [502, 1.0], [503, 1.0], [504, 1.0], [505, 1.0], [506, 1.0], [507, 1.0], [508, 1.0], [509, 1.0], [510, 1.0], [511, 1.0], [512, 1.0], [513, 1.0], [514, 1.0], [515, 1.0], [516, 1.0], [517, 1.0], [518, 1.0], [519, 1.0], [520, 1.0], [521, 1.0], [522, 1.0], [523, 1.0], [524, 1.0], [525, 1.0], [526, 1.0], [527, 1.0], [528, 1.0], [529, 1.0], [530, 1.0], [531, 1.0], [532, 1.0], [533, 1.0], [534, 1.0], [535, 1.0], [536, 1.0], [537, 1.0], [538, 1.0], [539, 1.0], [540, 1.0], [541, 1.0], [542, 1.0], [543, 1.0], [544, 1.0], [545, 1.0], [546, 1.0], [547, 1.0], [548, 1.0], [549, 1.0], [550, 1.0], [551, 1.0], [552, 1.0], [553, 1.0], [554, 1.0], [555, 1.0], [556, 1.0], [557, 1.0], [558, 1.0], [559, 1.0], [560, 1.0], [561, 1.0], [562, 1.0], [563, 1.0], [564, 1.0], [565, 1.0], [566, 1.0], [567, 1.0], [568, 1.0], [569, 1.0], [570, 1.0], [571, 1.0], [572, 1.0], [573, 1.0], [574, 1.0], [575, 1.0], [576, 1.0], [577, 1.0], [578, 1.0], [579, 1.0], [580, 1.0], [581, 1.0], [582, 1.0], [583, 1.0], [584, 1.0], [585, 1.0], [586, 1.0], [587, 1.0], [588, 1.0], [589, 1.0], [590, 1.0], [591, 1.0], [592, 1.0], [593, 1.0], [594, 1.0], [595, 1.0], [596, 1.0], [597, 1.0], [598, 1.0], [599, 1.0], [600, 1.0], [601, 1.0], [602, 1.0], [603, 1.0], [604, 1.0], [605, 1.0], [606, 1.0], [607, 1.0], [608, 1.0], [609, 1.0], [610, 1.0], [611, 1.0], [612, 1.0], [613, 1.0], [614, 1.0], [615, 1.0], [616, 1.0], [617, 1.0], [618, 1.0], [619, 1.0], [620, 1.0], [621, 1.0], [622, 1.0], [623, 1.0], [624, 1.0], [625, 1.0], [626, 1.0], [627, 1.0], [628, 1.0], [629, 1.0], [630, 1.0], [631, 1.0], [632, 1.0], [633, 1.0], [634, 1.0], [635, 1.0], [636, 1.0], [637, 1.0], [638, 1.0], [639, 1.0], [640, 1.0], [641, 1.0], [642, 1.0], [643, 1.0], [644, 1.0], [645, 1.0], [646, 1.0], [647, 1.0], [648, 1.0], [649, 1.0], [650, 1.0], [651, 1.0], [652, 1.0], [653, 1.0], [654, 1.0], [655, 1.0], [656, 1.0], [657, 1.0], [658, 1.0], [659, 1.0], [660, 1.0], [661, 1.0], [662, 1.0], [663, 1.0], [664, 1.0], [665, 1.0], [666, 1.0], [667, 1.0], [668, 1.0], [669, 1.0], [670, 1.0], [671, 1.0], [672, 1.0], [673, 1.0], [674, 1.0], [675, 1.0], [676, 1.0], [677, 1.0], [678, 1.0], [679, 1.0], [680, 1.0], [681, 1.0], [682, 1.0], [683, 1.0], [684, 1.0], [685, 1.0], [686, 1.0], [687, 1.0], [688, 1.0], [689, 1.0], [690, 1.0], [691, 1.0], [692, 1.0], [693, 1.0], [694, 1.0], [695, 1.0], [696, 1.0], [697, 1.0], [698, 1.0], [699, 1.0], [700, 1.0], [701, 1.0], [702, 1.0], [703, 1.0], [704, 1.0], [705, 1.0], [706, 1.0], [707, 1.0], [708, 1.0], [709, 1.0], [710, 1.0], [711, 1.0], [712, 1.0], [713, 1.0], [714, 1.0], [715, 1.0], [716, 1.0], [717, 1.0], [718, 1.0], [719, 1.0], [720, 1.0], [721, 1.0], [722, 1.0], [723, 1.0], [724, 1.0], [725, 1.0], [726, 1.0], [727, 1.0], [728, 1.0], [729, 1.0], [730, 1.0], [731, 1.0], [732, 1.0], [733, 1.0], [734, 1.0], [735, 1.0], [736, 1.0], [737, 1.0], [738, 1.0], [739, 1.0], [740, 1.0], [741, 1.0], [742, 1.0], [743, 1.0], [744, 1.0], [745, 1.0], [746, 1.0], [747, 1.0], [748, 1.0], [749, 1.0], [750, 1.0], [751, 1.0], [752, 1.0], [753, 1.0], [754, 1.0], [755, 1.0], [756, 1.0], [757, 1.0], [758, 1.0], [759, 1.0], [760, 1.0], [761, 1.0], [762, 1.0], [763, 1.0], [764, 1.0], [765, 1.0], [766, 1.0], [767, 1.0], [768, 1.0], [769, 1.0], [770, 1.0], [771, 1.0], [772, 1.0], [773, 1.0], [774, 1.0], [775, 1.0], [776, 1.0], [777, 1.0], [778, 1.0], [779, 1.0], [780, 1.0], [781, 1.0], [782, 1.0], [783, 1.0], [784, 1.0], [785, 1.0], [786, 1.0], [787, 1.0], [788, 1.0], [789, 1.0], [790, 1.0], [791, 1.0], [792, 1.0], [793, 1.0], [794, 1.0], [795, 1.0], [796, 1.0], [797, 1.0], [798, 1.0], [799, 1.0], [800, 1.0], [801, 1.0], [802, 1.0], [803, 1.0], [804, 1.0], [805, 1.0], [806, 1.0], [807, 1.0], [808, 1.0], [809, 1.0], [810, 1.0], [811, 1.0], [812, 1.0], [813, 1.0], [814, 1.0], [815, 1.0], [816, 1.0], [817, 1.0], [818, 1.0], [819, 1.0], [820, 1.0], [821, 1.0], [822, 1.0], [823, 1.0], [824, 1.0], [825, 1.0], [826, 1.0], [827, 1.0], [828, 1.0], [829, 1.0], [830, 1.0], [831, 1.0], [832, 1.0], [833, 1.0], [834, 1.0], [835, 1.0], [836, 1.0], [837, 1.0], [838, 1.0], [839, 1.0], [840, 1.0], [841, 1.0], [842, 1.0], [843, 1.0], [844, 1.0], [845, 1.0], [846, 1.0], [847, 1.0], [848, 1.0], [849, 1.0], [850, 1.0], [851, 1.0], [852, 1.0], [853, 1.0], [854, 1.0], [855, 1.0], [856, 1.0], [857, 1.0], [858, 1.0], [859, 1.0], [860, 1.0], [861, 1.0], [862, 1.0], [863, 1.0], [864, 1.0], [865, 1.0], [866, 1.0], [867, 1.0], [868, 1.0], [869, 1.0], [870, 1.0], [871, 1.0], [872, 1.0], [873, 1.0], [874, 1.0], [875, 1.0], [876, 1.0], [877, 1.0], [878, 1.0], [879, 1.0], [880, 1.0], [881, 1.0], [882, 1.0], [883, 1.0], [884, 1.0], [885, 1.0], [886, 1.0], [887, 1.0], [888, 1.0], [889, 1.0], [890, 1.0], [891, 1.0], [892, 1.0], [893, 1.0], [894, 1.0], [895, 1.0], [896, 1.0], [897, 1.0], [898, 1.0], [899, 1.0], [900, 1.0], [901, 1.0], [902, 1.0], [903, 1.0], [904, 1.0], [905, 1.0], [906, 1.0], [907, 1.0], [908, 1.0], [909, 1.0], [910, 1.0], [911, 1.0], [912, 1.0], [913, 1.0], [914, 1.0], [915, 1.0], [916, 1.0], [917, 1.0], [918, 1.0], [919, 1.0], [920, 1.0], [921, 1.0], [922, 1.0], [923, 1.0], [924, 1.0], [925, 1.0], [926, 1.0], [927, 1.0], [928, 1.0], [929, 1.0], [930, 1.0], [931, 1.0], [932, 1.0], [933, 1.0], [934, 1.0], [935, 1.0], [936, 1.0], [937, 1.0], [938, 1.0], [939, 1.0], [940, 1.0], [941, 1.0], [942, 1.0], [943, 1.0], [944, 1.0], [945, 1.0], [946, 1.0], [947, 1.0], [948, 1.0], [949, 1.0], [950, 1.0], [951, 1.0], [952, 1.0], [953, 1.0], [954, 1.0], [955, 1.0], [956, 1.0], [957, 1.0], [958, 1.0], [959, 1.0], [960, 1.0], [961, 1.0], [962, 1.0], [963, 1.0], [964, 1.0], [965, 1.0], [966, 1.0], [967, 1.0], [968, 1.0], [969, 1.0], [970, 1.0], [971, 1.0], [972, 1.0], [973, 1.0], [974, 1.0], [975, 1.0], [976, 1.0], [977, 1.0], [978, 1.0], [979, 1.0], [980, 1.0], [981, 1.0], [982, 1.0], [983, 1.0], [984, 1.0], [985, 1.0], [986, 1.0], [987, 1.0], [988, 1.0], [989, 1.0], [990, 1.0], [991, 1.0], [992, 1.0], [993, 1.0], [994, 1.0], [995, 1.0], [996, 1.0], [997, 1.0], [998, 1.0], [999, 1.0], [1000, 1.0]], &quot;spec&quot;: {&quot;type&quot;: &quot;line&quot;, &quot;x&quot;: &quot;轮次&quot;, &quot;y&quot;: &quot;值&quot;, &quot;xLabel&quot;: &quot;轮次&quot;, &quot;yLabel&quot;: &quot;占限额比例&quot;, &quot;showLegend&quot;: false, &quot;startAtZero&quot;: true, &quot;colors&quot;: {&quot;值&quot;: &quot;var(--chart-1)&quot;}, &quot;valueFormat&quot;: {&quot;style&quot;: &quot;percent&quot;, &quot;maximumFractionDigits&quot;: 2}}}&lt;/script&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;section&gt;
+    &lt;h3&gt;最终持仓&lt;/h3&gt;
+    &lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm tabular-nums&quot;&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;产品&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;成交均价¹&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;持仓&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;期末中间价&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;持仓市值&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;SEMIS_ETF_US&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;107.0107&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+98&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;106.9000&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+10,476.20&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;SEMIS_ETF_EU&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;107.9000&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;-100&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;107.9000&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;-10,790.00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CHIP_A&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;100.0091&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+1&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;99.9000&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+99.90&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CHIP_B&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;109.9750&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+0&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;109.9000&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+0.00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CHIP_C&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;120.0500&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+0&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;119.9000&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;+0.00&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+    &lt;/table&gt;&lt;/div&gt;
+    &lt;p class=&quot;text-small text-muted&quot;&gt;¹ 全样本买卖成交量加权均价，并非剩余持仓成本。名义金额采用模拟价格单位。&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;details&gt;
+    &lt;summary&gt;傅里叶预测与剩余对冲敞口&lt;/summary&gt;
+    &lt;section&gt;
+      &lt;div class=&quot;table-responsive&quot;&gt;&lt;table class=&quot;table table-sm tabular-nums&quot;&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th&gt;产品&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;买方主动成交预测价&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;卖方主动成交预测价&lt;/th&gt;&lt;th class=&quot;text-end&quot;&gt;最大 MAE&lt;/th&gt;&lt;th&gt;误差阈值判定²&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+        &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;SEMIS_ETF_US&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;107.1552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;106.9552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;0.1077&lt;/td&gt;&lt;td&gt;可用&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;SEMIS_ETF_EU&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;107.3578&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;107.1578&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;0.3964&lt;/td&gt;&lt;td&gt;忽略&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CHIP_A&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;100.1552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;99.9552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;0.1077&lt;/td&gt;&lt;td&gt;可用&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CHIP_B&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;110.1552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;109.9552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;0.1077&lt;/td&gt;&lt;td&gt;可用&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CHIP_C&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;120.1552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;119.9552&lt;/td&gt;&lt;td class=&quot;text-end&quot;&gt;0.1077&lt;/td&gt;&lt;td&gt;可用&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+      &lt;/table&gt;&lt;/div&gt;
+      &lt;p class=&quot;text-small text-muted&quot;&gt;² 期末快照，MAE 阈值 0.15；策略实际使用还受行情新鲜度限制。&lt;/p&gt;
+      &lt;p class=&quot;text-small&quot;&gt;剩余成分股对冲敞口（股）：CHIP_A +0.00 · CHIP_B -0.60 · CHIP_C -0.40&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/details&gt;
+  &lt;p class=&quot;text-small text-muted&quot;&gt;未提供起始本金，不计算收益率、权益总额或 PSR。模拟结果不代表实盘表现；退出保留持仓。&lt;/p&gt;
+  &lt;script type=&quot;module&quot;&gt;
+    import { mountChart } from &quot;https://persistent.oaistatic.com/plugins/visualize/charts/1.2.3/element.js&quot;;
+    const root = document.getElementById(&quot;quant-results&quot;);
+    root.querySelectorAll(&quot;[data-viz-composition]&quot;).forEach(section =&gt; {
+      const config = JSON.parse(section.querySelector(&quot;[data-viz-chart]&quot;).textContent);
+      mountChart(section.querySelector(&quot;[data-viz-container]&quot;), config);
+    });
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (event) =&gt; {
+    for (const target of event.composedPath()) {
+      if (target?.nodeType === Node.ELEMENT_NODE) {
+        const trigger = target.closest(&quot;[data-tooltip]&quot;);
+        if (trigger) return trigger;
+      }
+    }
+    return null;
+  };
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handlers = {
+    pointerover: handlePointerOpen,
+    pointerdown: handlePointer,
+    pointercancel: handlePointer,
+    click: handleTouchClick,
+    pointerout: handleLeave,
+    focusin: handleFocusIn,
+    focusout: handleLeave,
+    keydown: handleKeyDown,
+    contextmenu: handleContextMenu,
+  };
+  const roots = new Map();
+  const handledEvents = new WeakSet();
+  const handleEvent = (event) =&gt; {
+    if (handledEvents.has(event)) return;
+    handledEvents.add(event);
+    handlers[event.type](event);
+  };
+  const discoverRoots = (node) =&gt; {
+    if (node.shadowRoot) listen(node.shadowRoot);
+    for (const element of node.querySelectorAll(&quot;*&quot;)) {
+      if (element.shadowRoot) listen(element.shadowRoot);
+    }
+  };
+  const listen = (root) =&gt; {
+    if (roots.has(root)) return;
+    for (const type of Object.keys(handlers)) root.addEventListener(type, handleEvent);
+    const observer = new window.MutationObserver((records) =&gt; {
+      for (const { addedNodes } of records) {
+        for (const node of addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) discoverRoots(node);
+        }
+      }
+      for (const [root, cleanup] of roots) {
+        if (root.host &amp;&amp; !root.host.isConnected) {
+          cleanup();
+          roots.delete(root);
+        }
+      }
+      if (activeTrigger &amp;&amp; !activeTrigger.isConnected) closeTooltip(false);
+    });
+    observer.observe(root, { childList: true, subtree: true });
+    roots.set(root, () =&gt; {
+      observer.disconnect();
+      for (const type of Object.keys(handlers)) root.removeEventListener(type, handleEvent);
+    });
+    discoverRoots(root);
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    for (const cleanup of roots.values()) cleanup();
+    roots.clear();
+    tooltip = null;
+  };
+
+  // Events between children of one shadow root never reach the document.
+  listen(document);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-tabs&quot;&gt;
+(() =&gt; {
+  const selector = &#x27;.nav[role=&quot;tablist&quot;] [role=&quot;tab&quot;]&#x27;;
+  const disabled = &#x27;:disabled,[aria-disabled=&quot;true&quot;]&#x27;;
+  const selectTab = (selected) =&gt; {
+    const panelId = selected.getAttribute(&quot;aria-controls&quot;);
+    for (const tab of selected.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;)) {
+      const active = tab === selected;
+      tab.classList.toggle(&quot;active&quot;, active);
+      tab.setAttribute(&quot;aria-selected&quot;, String(active));
+      const id = tab.getAttribute(&quot;aria-controls&quot;);
+      const panel = id &amp;&amp; document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden &amp;&amp; selected.id) {
+          panel.setAttribute(&quot;aria-labelledby&quot;, selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) =&gt; {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === &quot;click&quot;) {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;),
+    ).filter((candidate) =&gt; !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowDown&quot;) {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowUp&quot;) {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === &quot;Home&quot;) {
+      next = 0;
+    } else if (event.key === &quot;End&quot;) {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll(&#x27;.nav[role=&quot;tablist&quot;]&#x27;)) {
+    const selected =
+      list.querySelector(&#x27;[role=&quot;tab&quot;][aria-selected=&quot;true&quot;]&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;].active&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;]&#x27;);
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener(&quot;click&quot;, interact);
+  document.addEventListener(&quot;keydown&quot;, interact);
+  window.addEventListener(&quot;pagehide&quot;, () =&gt; {
+    document.removeEventListener(&quot;click&quot;, interact);
+    document.removeEventListener(&quot;keydown&quot;, interact);
+  }, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-carousel&quot;&gt;
+  (() =&gt; {
+    for (const root of document.querySelectorAll(&quot;.viz-carousel&quot;)) {
+      const panels = Array.from(
+        root.querySelectorAll(&quot;:scope &gt; [data-variant]&quot;),
+      );
+      if (panels.length === 0) {
+        continue;
+      }
+      root.setAttribute(&quot;role&quot;, &quot;group&quot;);
+      panels.forEach((panel, index) =&gt; {
+        panel.hidden = index !== 0;
+        panel.setAttribute(&quot;role&quot;, &quot;group&quot;);
+        if (!panel.hasAttribute(&quot;aria-label&quot;)) {
+          panel.setAttribute(&quot;aria-label&quot;, panel.dataset.variant);
+        }
+      });
+      root.dataset.activeVariant = panels[0].dataset.variant;
+      if (panels.length === 1) {
+        continue;
+      }
+
+      const controls = document.createElement(&quot;div&quot;);
+      controls.className = &quot;viz-carousel-controls&quot;;
+      // Portable copy of the settings dropdown&#x27;s legacy glyph; no 14px icon-package preset matches it.
+      // https://github.com/openai/openai/blob/master/codex/codex-apps/webview/src/icons/chevron.svg
+      controls.innerHTML = `
+      &lt;button type=&quot;button&quot; class=&quot;viz-carousel-previous cursor-interaction&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;details class=&quot;viz-carousel-picker&quot;&gt;
+        &lt;summary class=&quot;cursor-interaction&quot;&gt;
+          &lt;span class=&quot;viz-carousel-count tabular-nums&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;viz-carousel-name&quot;&gt;&lt;/span&gt;
+          &lt;svg class=&quot;viz-carousel-caret&quot; width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 20 21&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
+            &lt;path d=&quot;M15.2793 7.71101C15.539 7.45131 15.961 7.45131 16.2207 7.71101C16.4804 7.97071 16.4804 8.39272 16.2207 8.65242L10.4707 14.4024C10.211 14.6621 9.78902 14.6621 9.52932 14.4024L3.77932 8.65242L3.69436 8.54792C3.52385 8.28979 3.55205 7.93828 3.77932 7.71101C4.00659 7.48374 4.3581 7.45554 4.61623 7.62605L4.72073 7.71101L10 12.9903L15.2793 7.71101Z&quot; fill=&quot;currentColor&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;0.6&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/summary&gt;
+        &lt;div class=&quot;viz-carousel-options&quot;&gt;&lt;/div&gt;
+      &lt;/details&gt;
+      &lt;button type=&quot;button&quot; class=&quot;viz-carousel-next cursor-interaction&quot;&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;`;
+      const previous = controls.querySelector(&quot;.viz-carousel-previous&quot;);
+      const next = controls.querySelector(&quot;.viz-carousel-next&quot;);
+      const picker = controls.querySelector(&quot;.viz-carousel-picker&quot;);
+      const summary = picker.querySelector(&quot;summary&quot;);
+      const count = controls.querySelector(&quot;.viz-carousel-count&quot;);
+      const name = controls.querySelector(&quot;.viz-carousel-name&quot;);
+      const options = controls.querySelector(&quot;.viz-carousel-options&quot;);
+      const status = document.createElement(&quot;span&quot;);
+      status.className = &quot;sr-only&quot;;
+      status.setAttribute(&quot;role&quot;, &quot;status&quot;);
+      status.setAttribute(&quot;aria-live&quot;, &quot;polite&quot;);
+      status.setAttribute(&quot;aria-atomic&quot;, &quot;true&quot;);
+      previous.setAttribute(
+        &quot;aria-label&quot;,
+        root.dataset.previousLabel ?? &quot;Previous variant&quot;,
+      );
+      next.setAttribute(&quot;aria-label&quot;, root.dataset.nextLabel ?? &quot;Next variant&quot;);
+
+      let active = 0;
+      let mousePointerId = null;
+      let summaryPointerHandled = false;
+      summary.addEventListener(&quot;pointerdown&quot;, (event) =&gt; {
+        summaryPointerHandled =
+          event.pointerType === &quot;mouse&quot; &amp;&amp; event.button === 0 &amp;&amp; !event.ctrlKey;
+        if (!summaryPointerHandled) {
+          return;
+        }
+        event.preventDefault();
+        summary.focus({ preventScroll: true });
+        picker.open = !picker.open;
+        mousePointerId = picker.open ? event.pointerId : null;
+      });
+      summary.addEventListener(&quot;click&quot;, (event) =&gt; {
+        if (summaryPointerHandled &amp;&amp; event.detail &gt; 0) {
+          event.preventDefault();
+        }
+      });
+      const choices = panels.map((panel, index) =&gt; {
+        const choice = document.createElement(&quot;button&quot;);
+        choice.type = &quot;button&quot;;
+        choice.className = &quot;cursor-interaction&quot;;
+        choice.textContent = panel.dataset.variant;
+        choice.addEventListener(&quot;click&quot;, () =&gt; {
+          select(index);
+          summary.focus();
+        });
+        choice.addEventListener(&quot;pointerup&quot;, (event) =&gt; {
+          if (
+            picker.open &amp;&amp;
+            event.pointerType === &quot;mouse&quot; &amp;&amp;
+            event.button === 0 &amp;&amp;
+            event.pointerId === mousePointerId
+          ) {
+            choice.click();
+          }
+        });
+        options.appendChild(choice);
+        return choice;
+      });
+      const select = (index) =&gt; {
+        const changed = active !== index;
+        active = index;
+        panels.forEach((panel, position) =&gt; {
+          panel.hidden = position !== active;
+          choices[position].setAttribute(
+            &quot;aria-current&quot;,
+            String(position === active),
+          );
+        });
+        root.dataset.activeVariant = panels[active].dataset.variant;
+        count.textContent = `${active + 1} / ${panels.length}`;
+        name.textContent = panels[active].dataset.variant;
+        picker.open = false;
+        mousePointerId = null;
+        if (changed) {
+          status.textContent = `${count.textContent}: ${name.textContent}`;
+        }
+      };
+      previous.addEventListener(&quot;click&quot;, () =&gt;
+        select((active + panels.length - 1) % panels.length),
+      );
+      next.addEventListener(&quot;click&quot;, () =&gt;
+        select((active + 1) % panels.length),
+      );
+      picker.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+        if (event.key === &quot;Escape&quot; &amp;&amp; picker.open) {
+          event.preventDefault();
+          picker.open = false;
+          mousePointerId = null;
+          summary.focus();
+          return;
+        }
+        if (event.altKey || event.ctrlKey || event.metaKey) {
+          return;
+        }
+        const index = choices.indexOf(document.activeElement);
+        let nextIndex;
+        if (event.key === &quot;ArrowDown&quot;) {
+          nextIndex = index &lt; 0 ? active : (index + 1) % choices.length;
+        } else if (event.key === &quot;ArrowUp&quot;) {
+          nextIndex = index &lt; 0 ? active : (index + choices.length - 1) % choices.length;
+        } else if (picker.open &amp;&amp; event.key === &quot;Home&quot;) {
+          nextIndex = 0;
+        } else if (picker.open &amp;&amp; event.key === &quot;End&quot;) {
+          nextIndex = choices.length - 1;
+        } else {
+          return;
+        }
+        event.preventDefault();
+        picker.open = true;
+        choices[nextIndex].focus();
+      });
+      picker.addEventListener(&quot;focusout&quot;, (event) =&gt; {
+        if (!picker.contains(event.relatedTarget)) {
+          picker.open = false;
+          mousePointerId = null;
+        }
+      });
+      const dismiss = (event) =&gt; {
+        if (!summary.contains(event.target)) {
+          mousePointerId = null;
+        }
+        if (!picker.contains(event.target)) {
+          picker.open = false;
+        }
+      };
+      const endPointerSelection = () =&gt; {
+        mousePointerId = null;
+      };
+      const sizePicker = () =&gt; {
+        root.style.setProperty(
+          &quot;--viz-carousel-picker-height&quot;,
+          `${picker.open ? options.offsetHeight : 0}px`,
+        );
+      };
+      picker.addEventListener(&quot;toggle&quot;, sizePicker);
+      window.addEventListener(&quot;resize&quot;, sizePicker);
+      document.addEventListener(&quot;pointerdown&quot;, dismiss);
+      document.addEventListener(&quot;pointerup&quot;, endPointerSelection);
+      document.addEventListener(&quot;pointercancel&quot;, endPointerSelection);
+      window.addEventListener(&quot;blur&quot;, endPointerSelection);
+      window.addEventListener(
+        &quot;pagehide&quot;,
+        () =&gt; {
+          document.removeEventListener(&quot;pointerdown&quot;, dismiss);
+          document.removeEventListener(&quot;pointerup&quot;, endPointerSelection);
+          document.removeEventListener(&quot;pointercancel&quot;, endPointerSelection);
+          window.removeEventListener(&quot;blur&quot;, endPointerSelection);
+          window.removeEventListener(&quot;resize&quot;, sizePicker);
+        },
+        { once: true },
+      );
+      root.append(controls, status);
+      select(0);
+    }
+  })();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+
+<script>(() => {
+  const frame = document.getElementById("codex-visualization");
+  if (!(frame instanceof HTMLIFrameElement)) {
+    return;
+  }
+  const isShare = document.documentElement.classList.contains(
+    "visualization-share-root",
+  );
+  let viewportHeight = globalThis.innerHeight;
+  let sizeFingerprint = null;
+  let sizeWriteTimeout;
+  let lastSize = null;
+  let pendingSize = null;
+  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([
+    globalThis.location.pathname,
+    globalThis.location.search,
+  ])}`;
+  const sizeStorageKey = `${storageKey}:share-size-v1`;
+  const parseState = (serializedState) => {
+    if (
+      typeof serializedState !== "string" ||
+      new TextEncoder().encode(serializedState).length > 16 * 1024
+    ) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    /** @type {unknown} */
+    const state = JSON.parse(serializedState);
+    if (
+      state == null ||
+      typeof state !== "object" ||
+      Array.isArray(state) ||
+      ("imageIds" in state &&
+        (!Array.isArray(state.imageIds) || state.imageIds.length > 0))
+    ) {
+      throw new TypeError("Widget state must be a JSON object");
+    }
+    const storedState = { modelContent: null, privateContent: null, ...state };
+    const canonicalState = JSON.stringify(
+      storedState,
+      (_key, /** @type {unknown} */ value) => {
+        if (typeof value === "number" && !Number.isFinite(value)) {
+          throw new TypeError("Widget state must contain finite numbers");
+        }
+        return value;
+      },
+    );
+    if (new TextEncoder().encode(canonicalState).length > 16 * 1024) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    return storedState;
+  };
+  let storage = null;
+  let state = null;
+  try {
+    const localStorage = globalThis.localStorage;
+    const probeKey = `${storageKey}:probe`;
+    localStorage.setItem(probeKey, "1");
+    localStorage.removeItem(probeKey);
+    storage = localStorage;
+    const savedState = storage.getItem(storageKey);
+    if (savedState != null) {
+      try {
+        state = parseState(savedState);
+      } catch {
+        // Invalid saved state does not disable future writes.
+      }
+    }
+  } catch {
+    storage = null;
+  }
+  const persistSize = () => {
+    globalThis.clearTimeout(sizeWriteTimeout);
+    if (pendingSize == null) {
+      return;
+    }
+    try {
+      storage?.setItem(sizeStorageKey, pendingSize);
+    } catch {
+      // A denied or full cache must not affect the visualization.
+    }
+    pendingSize = null;
+  };
+  if (isShare) {
+    globalThis.addEventListener("pagehide", persistSize);
+  }
+  const initialGlobals = {
+    widgetState: state,
+    statePersistence: storage == null ? "none" : "local",
+  };
+
+  const channel = new MessageChannel();
+  channel.port1.addEventListener("message", (event) => {
+    const data = event.data;
+    if (typeof data !== "object" || data == null) {
+      return;
+    }
+    if (data.type === "widget-state-write") {
+      if (!Number.isSafeInteger(data.id) || data.id <= 0) {
+        return;
+      }
+      let ok = false;
+      try {
+        if (storage != null) {
+          const state = parseState(data.state);
+          storage.setItem(storageKey, JSON.stringify(state));
+          ok = true;
+        }
+      } catch {
+        // Storage denial, quota limits, and invalid state return a failed receipt.
+      }
+      channel.port1.postMessage({
+        type: "widget-state-result",
+        id: data.id,
+        ok,
+      });
+      return;
+    }
+    if (data.type === "height") {
+      const height = data.height;
+      if (
+        typeof height !== "number" ||
+        !Number.isFinite(height) ||
+        height < 0
+      ) {
+        return;
+      }
+      if (height <= 10_000) {
+        const width = isShare && storage != null ? frame.clientWidth : null;
+        frame.style.height = Math.ceil(height) + "px";
+        if (isShare && storage != null) {
+          const size = JSON.stringify({
+            fingerprint: sizeFingerprint,
+            width,
+            viewportHeight: globalThis.innerHeight,
+            dark: globalThis.matchMedia("(prefers-color-scheme: dark)").matches,
+            scale: globalThis.devicePixelRatio,
+            height: Math.ceil(height),
+          });
+          if (size !== lastSize) {
+            lastSize = size;
+            pendingSize = size;
+            globalThis.clearTimeout(sizeWriteTimeout);
+            sizeWriteTimeout = globalThis.setTimeout(persistSize, 100);
+          }
+        }
+      }
+      if (isShare) {
+        // Keep unusually tall content accessible without accepting an unbounded height.
+        if (height > 10_000 && Number.parseFloat(frame.style.height) === 0) {
+          frame.style.removeProperty("height");
+        }
+        frame.scrolling = height > 10_000 ? "auto" : "no";
+        document.documentElement.classList.add("visualization-share-ready");
+      }
+      return;
+    }
+    if (data.type === "scroll-to") {
+      const top = data.top;
+      if (
+        typeof top === "number" &&
+        Number.isFinite(top) &&
+        top >= 0 &&
+        globalThis.navigator.userActivation?.isActive === true
+      ) {
+        globalThis.scrollTo({
+          top: Math.ceil(
+            globalThis.scrollY + frame.getBoundingClientRect().top + top,
+          ),
+        });
+      }
+      return;
+    }
+    if (data.type === "open-external") {
+      const rawHref = data.href;
+      if (typeof rawHref !== "string") {
+        return;
+      }
+      let href;
+      try {
+        const url = new URL(rawHref, document.baseURI);
+        if (url.protocol !== "https:") {
+          return;
+        }
+        href = url.href;
+      } catch {
+        return;
+      }
+      if (globalThis.navigator.userActivation?.isActive === true) {
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.rel = "noopener noreferrer";
+        anchor.target = "_blank";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+      return;
+    }
+    if (data.type === "follow-up") {
+      const prompt = data.prompt;
+      if (
+        typeof prompt !== "string" ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      const title = data.title;
+      globalThis.prompt(typeof title === "string" ? title : prompt, prompt);
+    }
+  });
+  channel.port1.start();
+  const srcdoc = frame.dataset.srcdoc;
+  if (srcdoc == null) {
+    return;
+  }
+  globalThis.addEventListener("resize", () => {
+    const height = Number.parseFloat(frame.style.height);
+    if (!isShare && (!Number.isFinite(height) || height <= viewportHeight)) {
+      frame.style.removeProperty("height");
+    }
+    viewportHeight = globalThis.innerHeight;
+    channel.port1.postMessage({ type: "measure" });
+  });
+  frame.addEventListener(
+    "load",
+    () => {
+      frame.contentWindow?.postMessage(
+        { type: "codex-visualization-initialize" },
+        "*",
+        [channel.port2],
+      );
+    },
+    { once: true },
+  );
+  // Match the trusted bootstrap element, not the same text in an authored title.
+  const frameHtml = srcdoc.replace(
+    '<script type="application/json" id="codex-visualization-widget-state">__CODEX_VISUALIZATION_WIDGET_STATE__<\/script>',
+    () =>
+      '<script type="application/json" id="codex-visualization-widget-state">' +
+      JSON.stringify(initialGlobals).replaceAll("<", "\\u003c") +
+      "<\/script>",
+  );
+  if (isShare && storage != null) {
+    // Fingerprint the rendered document, including restored widget state, without
+    // storing its content. This is a layout cache, not a security identity.
+    let hash = 5381;
+    for (let index = 0; index < frameHtml.length; index += 1) {
+      hash = (hash * 33 + frameHtml.charCodeAt(index)) % 4_294_967_296;
+    }
+    sizeFingerprint = hash.toString(36);
+    try {
+      const size = JSON.parse(storage.getItem(sizeStorageKey) ?? "null");
+      if (
+        size?.fingerprint === sizeFingerprint &&
+        size.width === frame.clientWidth &&
+        size.viewportHeight === globalThis.innerHeight &&
+        size.dark ===
+          globalThis.matchMedia("(prefers-color-scheme: dark)").matches &&
+        size.scale === globalThis.devicePixelRatio &&
+        typeof size.height === "number" &&
+        Number.isFinite(size.height) &&
+        size.height >= 0 &&
+        size.height <= 10_000
+      ) {
+        frame.style.height = size.height + "px";
+      }
+    } catch {
+      // Ignore missing or invalid cache entries and measure the live frame.
+    }
+  }
+  frame.srcdoc = frameHtml;
+  delete frame.dataset.srcdoc;
+})();
+</script>
+</body>
+</html>

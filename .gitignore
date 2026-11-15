@@ -1,0 +1,25 @@
+# Local credentials and competition connection settings
+.optibook
+.optibook.*
+.env
+.env.*
+!.env.example
+config.json
+config.local.json
+*.pem
+*.key
+
+# Python and operating-system files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+.pytest_cache/
+
+# Generated run data can include account positions and execution history
+*_output.txt
+*_result.json
+*.log
+live-report.json
+reports/
