@@ -1,42 +1,52 @@
-# Transistor Trading 策略实现
+# Transistor Trading
 
-本项目按 `message.txt` 的课题实现了可运行的 Optibook 策略和离线撮合验证。Python 3.9+；离线模式仅使用标准库，实盘模式需要比赛虚拟机自带的 `optibook` SDK 和账号配置。
+An Optibook strategy project with ETF arbitrage, bounded Fourier forecasts, inventory-aware quoting, an offline simulator, and a results dashboard. It also integrates the freely downloadable historical **Optiver Ready Trader Go** template for local ETF/future replay.
 
-已包含可直接在浏览器打开的 `trading-dashboard.html` 示例面板，数据来自合成行情模拟。源码、测试、配置模板及面板可独立放入比赛虚拟机运行；无需安装离线模式的第三方 Python 依赖。
+Python 3.9 or later is required. The offline simulator and headless Ready Trader Go integration use only the Python standard library. Connecting to Optibook requires the competition-provided SDK, credentials, and verified product specifications.
 
-连接凭据保存在比赛环境的 `~/.optibook`，真实策略参数使用本地 `config.json`。这些文件和运行日志不提交到 Git；本仓库不包含比赛账户或连接密码。官方 SDK 应使用比赛主办方提供的安装环境。
+## Run the free Ready Trader Go template
 
-## 免费模板：Ready Trader Go
-
-现在还支持直接下载并运行 Optiver **Ready Trader Go** 的公开历史模板，无需 Optibook 账号，也无需安装 PySide6。模板来自 HackMelbourne 教学项目发布的原始压缩包；下载时校验固定 SHA-256，来源和许可见 [THIRD_PARTY.md](THIRD_PARTY.md)。此模式使用模板原有的撮合引擎、费用规则和行情文件。
+The runner downloads the original template archive published by the HackMelbourne teaching project and verifies its pinned SHA-256 checksum. It uses the template's matching engine, fee rules, and sample market data without modifying their source. See [THIRD_PARTY.md](THIRD_PARTY.md) for provenance and licensing.
 
 ```bash
-# 第一次需要网络；只下载和检查运行环境
+# Download and verify the runtime; internet access is required on first use.
 python3 run_ready_trader_go.py --setup
 
-# 快速验证：仅回放原行情前 60 秒，10 倍速
+# Smoke test: replay the first 60 seconds of sample data at 10x speed.
 python3 run_ready_trader_go.py --duration 60 --speed 10
 
-# 完整一小时样例行情，50 倍速（耗时取决于机器）
+# Replay the complete one-hour sample at 50x speed.
 python3 run_ready_trader_go.py --speed 50
 ```
 
-每场同时运行 `FourierTrader` 和原模板 `TemplateBaseline`。新增策略在 ETF 双边报价，以期货价格和库存估值，使用后台傅里叶预测小幅调整报价；成交后按实际确认数量对冲，部分成交继续补对冲，撤单确认前保留订单数量。未对冲风险、拒单和持仓余量会限制新增报价。单产品持仓上限及 tick 从模板配置读取。
+Each match runs two participants:
 
-这是 ETF/期货的两产品环境；原五产品双上市/篮子策略仍在 `trading.py`，没有在两产品环境中运行。下载的引擎和样例机器人保持原样，运行器仅调整本地配置。不应把它描述为已连接正式 Optibook。
+- **FourierTrader:** quotes the ETF using the future, inventory adjustments, and bounded background Fourier forecasts. It hedges confirmed fills, retries partial hedges, and retains order reservations until cancellation is acknowledged. Pending exposure, rejected orders, and position limits restrict new quotes.
+- **TemplateBaseline:** the original, unmodified example autotrader from the downloaded archive.
 
-每场输出保存在 `rtg_runs/<时间>/`，`rtg_runs/latest.txt` 指向最近成功场次：
+This environment trades **one ETF and its future**. The five-product, dual-listed ETF/basket strategy remains in `trading.py`; it is not run in the two-product environment. A Ready Trader Go replay does not establish a connection to official Optibook.
 
-- `score_board.csv`：引擎记录的 PNL、费用和持仓；导出汇总时将分单位除以 100。
-- `match_events.csv`：真实回放成交、对冲和订单事件。
-- `summary.json`：两个策略的最终 PNL、采样最大持仓、回撤、成交手数及违规次数。
-- `exchange.log`、`fourier_trader.log` 和 `baseline.log`：运行日志。
+### Recorded replay result
 
-运行器检查两个参与者是否跑到样本结束，并把违规视作失败。基线表现只是在同场样例数据上的对照，不能证明统计优势；更换行情或加速倍率都可能改变结果。原有单元测试不依赖模板；下载后会额外运行 RTG 协议测试。
+One complete replay of `market_data.csv`, covering 3,600 simulation seconds at 50x speed, produced:
 
-已完成一次 `market_data.csv` 全部 3,600 秒、50 倍速的回放：适配策略最终 PNL **-145.63**，原模板 **-17,246.79**，两者无交易规则违规。适配策略仍然亏损。完整运行的摘要保存在 [rtg_match_summary.json](rtg_match_summary.json)；原始计分板和成交事件位于该摘要记录的本地运行目录。现有 `trading-dashboard.html` 展示的是此前五产品合成模拟，与这次 RTG 回放是不同的数据源。
+| Participant | Final PNL | Maximum drawdown | Rule breaches |
+| --- | ---: | ---: | ---: |
+| FourierTrader | -145.63 | -464.00 | 0 |
+| TemplateBaseline | -17,246.79 | -17,404.57 | 0 |
 
-## 先运行
+Both strategies lost money. This single sample comparison does not establish statistical superiority or live profitability. Different data, machine timing, and replay speeds can change the result. The engine's monetary outputs are divided by 100 when exported from cents.
+
+The committed [replay summary](rtg_match_summary.json) records the source, checksum, settings, results, and local run directory. Each match writes files under `rtg_runs/<timestamp>/`; `rtg_runs/latest.txt` points to the most recent successful match:
+
+- `score_board.csv`: engine-recorded PNL, fees, positions, and status.
+- `match_events.csv`: replay orders, fills, and hedge events.
+- `summary.json`: final PNL, sampled maximum positions, drawdown, traded lots, and breaches.
+- `exchange.log`, `fourier_trader.log`, and `baseline.log`: runtime diagnostics.
+
+The runner checks that both participants reached the end of the selected data and treats a rule breach as failure. Downloaded source, sample data, and raw run files remain outside version control.
+
+## Run the five-product offline simulator
 
 ```bash
 python3 trading.py --demo --cycles 100
@@ -44,67 +54,80 @@ python3 trading.py --demo --cycles 1000 --report demo_result.json
 python3 -m unittest discover -s tests -v
 ```
 
-`--demo` 使用合成的五个产品、价格波动和吃单者，真正执行本策略的订单逻辑；控制台输出订单、预期价差和最终 PNL。`--report` 导出最终持仓、成分股敞口和预测误差等 JSON 指标。模拟刻意包含价差机会，用于检查执行和风控；其收益不能作为实盘回测结果。它没有模拟网络延迟、真实排队优先级、交易所完整撮合规则或其他队伍行为。
+The synthetic simulator exercises the strategy's actual order logic against five sample products, changing prices, and simulated takers. It deliberately includes pricing discrepancies to test execution and risk handling. It does not model real network latency, queue priority, complete exchange rules, or competing teams, and its results are not a live-market backtest.
 
-## 结果可视化
+`--report` records the initial state and each completed cycle's PNL, positions, marks, and constituent exposures. Synthetic runs also record actual simulator fills. Recording adds API reads and is enabled only when a report is requested; non-demo reports require a finite `--cycles` value.
+
+## View the dashboard
+
+Open the included `trading-dashboard.html` in a browser. It contains synthetic five-product results, **not the Ready Trader Go replay results**. Charts require internet access to load their pinned rendering runtime.
+
+To regenerate the chart fragment from a new recorded synthetic run:
 
 ```bash
 python3 trading.py --demo --cycles 1000 --report visualization_result.json
 python3 visualize_results.py visualization_result.json
 ```
 
-`--report` 现在记录初始状态和每轮结束的真实 PNL、持仓与中间价，离线模拟同时记录实际成交事件。`trading-results.html` 是会话内可视化片段：参考交易面板截图的布局，展示累计 PNL、按实际成交手数计算的产品矩形树图、回撤、持仓名义敞口、持仓限额占用以及最终持仓表。曲线按轮次排列；回撤是 PNL 相对此前峰值的绝对差；所有名义金额均使用模拟价格单位。不虚构起始本金、收益率或 PSR。
+The generator writes `trading-results.html`, an embeddable visualization fragment. The standalone `trading-dashboard.html` is an included browser preview; regenerating the fragment does not automatically replace that preview.
 
-记录模式会增加每轮读取次数，只在指定 `--report` 时启用；实盘导出须同时指定有限的 `--cycles`。模拟采用时间驱动的后台预测和订单预留，到期时刻会受本机执行速度影响，因此独立重跑的最终数值可能略有不同。旧 `demo_result.json` 未包含逐轮记录，不能据此还原完整曲线。
+The dashboard shows cumulative PNL, traded-volume shares, drawdown, gross position notional, position-limit utilization, final positions, and forecast diagnostics. Drawdown is the absolute difference from the preceding PNL peak. Notional amounts use simulator price units. Without starting capital, the dashboard does not invent account equity, percentage returns, or a probabilistic Sharpe ratio.
 
-## 策略行为
+The synthetic simulator uses wall-clock reservations and background forecasting, so independent runs can differ slightly. Older `demo_result.json` files without per-cycle samples cannot reconstruct a full curve.
 
-1. **双上市 ETF 价差**：比较一个 ETF 的可买入卖价和另一个 ETF 的可卖出买价，扣除双边费用后，价差超过 `min_edge` 才执行 IOC。
-2. **篮子相对价值**：按 `ETF = cash_component + Σ(weight × stock_price)` 计算篮子。买 ETF / 卖股票使用股票买价；反方向使用股票卖价。用权重分母的最小公倍数确定整数交易份额。例如示意权重 `0.5, 0.3, 0.2` 对应 `10 ETF : 5, 3, 2 股票`。若整组数量超过单笔限制，放弃该篮子机会。
-3. **傅里叶预测**：启动时读取一次 `get_trade_tick_history()`，随后增量读取 `poll_new_trade_ticks()`，按 `aggressor_side` 分开处理成交价和成交量。后台线程对固定 128 个样本作等时间重采样、去趋势、有限频率 DFT 和下一采样点外推，并用末尾 8 个点作逐点样本外 MAE 验证。误差大或行情陈旧则不使用；有效预测用于小幅调整公允价和限制报价量。买方主动成交对应 ask 成交价/量，卖方主动成交对应 bid 成交价/量。这些是成交预测，不能当作完整盘口深度预测。
-4. **双边报价**：选择价差更宽的 ETF，以篮子/另一上市地价格为参考，结合预测与库存偏移报价；报价不主动穿越盘口，并约束其相对当前对冲价格的收益空间。股票用于对冲。报价有刷新间隔，退出时撤单。
-5. **部分成交对冲**：首腿执行后只按观察到的实际成交持仓变化发送后续腿。下一轮以 `股票持仓 + ETF总持仓 × weight` 检查剩余敞口，补做对冲；有至少一股的未对冲敞口时先撤报价，暂停新风险。小于一股的残差保留，避免不必要的反复交易。
-6. **休市**：同时检查 `paused`、可配置 UTC 时段和盘口时间戳。禁止使用休市股票的盘口执行套利。另一只 ETF 开市时仍可做双上市价差。可选开启 `allow_closed_quoting`，用另一上市 ETF 为主要报价锚并加宽价差；部分股票关闭且已有成分股库存时，暂停此类新增报价，等待可以对冲。缓存 NAV 有有效期，不将休市股票价格视作实时真值。
+## Five-product strategy
 
-交易线程独占同步 Exchange 客户端，后台仅做计算；窗口和频率数量均有上限，计算量不会随运行时长持续增长。这里实现的是上述思路的独立版本，没有声称复刻原队伍的私有代码，也不保证达到其预测误差或盈利。
+1. **Dual-listed ETF arbitrage:** compare the executable ask on one listing with the executable bid on the other. Send IOC orders only when the expected edge exceeds `min_edge` after fees.
+2. **Basket relative value:** use `ETF = cash_component + sum(weight * stock_price)`. Buy-ETF/sell-basket plans use constituent bids; the reverse uses constituent asks. Rational weights determine exact integer hedge lots: weights `0.5, 0.3, 0.2` imply `10 ETF : 5, 3, 2 shares`. Skip plans whose required lots exceed order limits.
+3. **Fourier forecasts:** seed from `get_trade_tick_history()` once, then ingest `poll_new_trade_ticks()` incrementally. Separate prices and volumes by aggressor side, resample onto an equal-time grid, detrend, retain bounded DFT frequencies, and extrapolate one sample. A fixed 128-sample window bounds computation. Validate the final eight points using predictions fitted only to preceding observations. Ignore stale or inaccurate forecasts; eligible forecasts make small price adjustments and cap quoted volume. Buyer-initiated trades consume the ask, while seller-initiated trades consume the bid. These forecasts concern executed trades, not full order-book depth.
+4. **Two-sided quoting:** quote the wider-spread ETF using the basket or other listing, prediction adjustments, and inventory skew. Keep quotes passive and constrain their edge and size using the same hedge route used after execution. Refresh quotes on a configured interval and cancel them on exit.
+5. **Partial-fill reconciliation:** send subsequent legs according to observed first-leg fills. Reconcile `stock_position + total_etf_position * weight` on later cycles. Cancel passive quotes and prioritize hedging when at least one share remains unhedged. Retain fractional-share residuals rather than repeatedly trading around them.
+6. **Closed markets:** check `paused`, configurable UTC sessions, and book timestamps. Never execute constituent arbitrage against a closed stock's stale book. Dual-listing opportunities remain available when both ETFs trade. Optional `allow_closed_quoting` uses the other open ETF as the anchor with wider quotes. Existing constituent inventory restricts this mode. Cached NAV has an expiry and does not represent a live valuation of closed stocks.
 
-## 接入比赛环境
+Only the trading thread calls the synchronous Exchange client. The background thread handles calculations; both the data window and frequency count are bounded. This project independently implements the described ideas and does not reproduce another team's private code or guarantee its reported accuracy.
 
-先在比赛虚拟机上执行只读检查：
+## Connect to Optibook
+
+Use the official SDK installation supplied with the competition VM. Keep credentials in the competition environment's `~/.optibook` and real strategy parameters in local `config.json`; these files and run logs are ignored by Git.
+
+Start with read-only discovery on the VM:
 
 ```bash
 python3 trading.py --inspect
 cp config.example.json config.json
 ```
 
-`--inspect` 列出真实 instrument ID、tick size、paused 状态，并检查所需方法是否存在。然后修改 `config.json`：
+`--inspect` lists instrument IDs, tick sizes, paused states, and missing SDK methods. Before enabling orders, configure:
 
-- 填入两只真实 ETF 和三只真实股票 ID。模板中的 `C2_SOLAR_CO/C2_WIND_LTD` 与半导体课题不一致，不能据此确定产品；示例配置有意使用占位符。
-- `weights` 必须是**每一份 ETF 对应的股票股数**。若题目给百分比、除数、乘数、汇率或现金偏置，先转换为实际公式。权重不强制相加为 1。
-- 本版本要求两只 ETF 采用相同币种、同一篮子、相同每份合约数量，才能一比一对冲。若两个上市地需要汇率或份额换算，应先扩展定价和对冲公式，不能直接套用。
-- 根据比赛规则填写 tick、每产品持仓限制、单笔数量、手续费、请求频率和亏损停止值。示例数值仅用于演示。
-- `sessions_utc` 形如 `[["08:00", "16:30"], ["18:00", "20:00"]]`，支持跨午夜。空数组表示依赖交易所 `paused`。这是每日 UTC 时段；若比赛使用加速时钟或特殊日期日历，需改用比赛时钟/状态。
-- 当前实现把所有接口调用都纳入 `requests_per_second` 的匀速预算，采用保守节流。实际一轮会多次读取五个产品、持仓和挂单，`cycle_seconds` 只是轮间暂停，不能视作真实循环延迟。根据官方 SDK 的本地缓存机制和限频规则，再优化读取预算。
-- 确认以上参数后才设 `verified` 为 `true`。这只是防止误用示例配置的本地开关。
+- The actual two ETF and three constituent IDs. The challenge's example IDs are not sufficient to establish the real semiconductor universe; placeholders remain intentional.
+- `weights` as **shares per ETF unit**, converting percentage weights, divisors, multipliers, or currency effects into the actual contract formula. Weights need not sum to one.
+- Equivalent ETF contracts in the same currency with the same basket and units. Other conversion ratios require extending pricing and hedge calculations before trading.
+- Competition-specific ticks, position limits, order sizes, fees, request limits, and session-loss limits. Example values are illustrative.
+- Daily `sessions_utc`, such as `[["08:00", "16:30"], ["18:00", "20:00"]]`. Overnight sessions are supported; an empty array relies on `paused`. Accelerated exchange clocks and special calendars require an appropriate clock/status adapter.
+- An API budget appropriate to the official SDK. The current implementation conservatively paces all calls through `requests_per_second`; `cycle_seconds` is an inter-cycle pause, not total cycle latency.
 
-先连接并观察信号（不提交、不撤销任何订单）：
+Set `verified` to `true` only after checking these parameters. It is a local guard against accidentally using the example configuration.
+
+Observe signals without submitting or cancelling orders:
 
 ```bash
 python3 trading.py --config config.json --cycles 20
 ```
 
-明确使用比赛账户下单：
+Explicitly enable competition-account orders:
 
 ```bash
 python3 trading.py --config config.json --live
 ```
 
-运行账户应由该策略独占。实盘启动和退出会撤掉配置产品的全部挂单，其他手工订单也会受到影响。`Ctrl+C`、亏损停止或异常会尝试撤掉所有配置产品挂单；退出不会自动平仓。断线时撤单可能失败，需要检查交易所端状态。
+The live account should be dedicated to this strategy. Startup and shutdown cancel all outstanding orders in configured products, including manual orders. Interrupts, a loss stop, and exceptions attempt cancellation across those products; they do not flatten positions. Check exchange-side state after connection failures.
 
-## 执行边界与验证
+## Execution limits and validation
 
-持仓检查包含已观察持仓、同侧未成交挂单、尚未出现在信息通道的已接受限价订单，以及短时间内 IOC 的保守数量预留。取消订单后确认挂单列表为空才允许替换；每次发送前重新读交易状态和盘口。IOC 预留由 `ioc_reservation_seconds` 控制，首次查询成交前等待 `settlement_seconds`。实盘前必须确认 SDK 信息延迟低于这些时间；若延迟更长，晚到成交仍可能导致错误补单或风险估计偏差。网络中的异步消息和多腿成交没有原子性，持仓限制检查不能消除这些竞态。
+Risk checks include observed positions, same-side outstanding orders, accepted limits not yet visible on the information channel, and conservative short-lived IOC reservations. Cancellation must be acknowledged before replacements are inserted. Status and books are refreshed before execution.
 
-多腿价格在执行期间可能变化，后腿也可能部分成交或无法成交。当前版本暂停新风险并重试对冲，不保证按信号中的价差实现利润；没有 ETF 申赎机制时，篮子偏离也依赖后续收敛。不要把日志的 `expected edge` 当作已实现 PNL。PNL 停止使用本次启动时的 PNL 作为基准。
+`settlement_seconds` controls the first fill-observation delay; `ioc_reservation_seconds` controls IOC reservation expiry. Information-channel lag must be assessed in the real environment. Late fills can still affect hedge decisions and risk estimates. Multi-leg execution is not atomic: prices can change, hedge legs can fail or partially fill, and the logged expected edge is not realized profit. Basket relative-value trades may depend on later convergence when no creation/redemption facility exists. The loss stop measures PNL against the value at this process's startup.
 
-测试覆盖 tick 取整、跨午夜时段、持仓/挂单/IOC 预留、信息通道暂不可见限价单、双边报价及撤单、双上市部分成交、整数篮子腿、休市对冲、失败对冲时停止新风险、过期盘口、只读模式、拒单、亏损停止、预测窗口和端到端撮合。尚未在真实 Optibook SDK 或比赛账户上执行；比赛站点文档在当前环境无法访问，接口兼容性需在比赛虚拟机通过 `--inspect` 和只读模式核对。
+Tests cover price ticks, overnight sessions, reservations, quoting and cancellations, partial fills, exact basket lots, market closures, stale books, dry runs, order rejection, loss stops, forecast bounds, metrics recording, and end-to-end simulation. Downloading the RTG runtime additionally enables protocol tests and a headless engine smoke test in CI.
+
+The original five-product adapter has not been validated against an actual Optibook account. Confirm SDK compatibility and product specifications using discovery and dry-run mode in the competition environment.

@@ -33,24 +33,24 @@ def build(report_path, output):
 
     def config(iid, title, rows, unit, height=185, percent=False):
         return json.dumps({"id": iid, "title": title, "showHeader": False,
-                           "height": height, "columns": ["轮次", "值"], "rows": rows,
-                           "spec": {"type": "line", "x": "轮次", "y": "值",
-                                    "xLabel": "轮次", "yLabel": unit, "showLegend": False,
-                                    "startAtZero": True, "colors": {"值": "var(--chart-1)"},
+                           "height": height, "columns": ["Cycle", "Value"], "rows": rows,
+                           "spec": {"type": "line", "x": "Cycle", "y": "Value",
+                                    "xLabel": "Cycle", "yLabel": unit, "showLegend": False,
+                                    "startAtZero": True, "colors": {"Value": "var(--chart-1)"},
                                     "valueFormat": {"style": "percent" if percent else "decimal",
                                                     "maximumFractionDigits": 2}}}, ensure_ascii=False).replace("<", "\\u003c")
 
     replacements = {
-        "PNL": config("pnl", "策略累计 PNL", pnl_rows, "PNL", 280),
-        "DD": config("drawdown", "回撤", dd_rows, "PNL"),
-        "EXPOSURE": config("exposure", "持仓名义总敞口", exposure_rows, "价格×股数"),
-        "CAPACITY": config("capacity", "最高单产品持仓占用", capacity_rows, "占限额比例", percent=True),
-        "SUBTITLE": f'{samples[-1]["cycle"]:,} 轮 · {len(samples):,} 个逐轮采样点 · {len(fills):,} 笔实际模拟成交 · 与原运行独立重跑',
+        "PNL": config("pnl", "Cumulative strategy PNL", pnl_rows, "PNL", 280),
+        "DD": config("drawdown", "Drawdown", dd_rows, "PNL"),
+        "EXPOSURE": config("exposure", "Gross position notional", exposure_rows, "Price × shares"),
+        "CAPACITY": config("capacity", "Maximum position-limit utilization", capacity_rows, "Share of limit", percent=True),
+        "SUBTITLE": f'{samples[-1]["cycle"]:,} cycles · {len(samples):,} recorded samples · {len(fills):,} simulator fills · Independent recorded rerun',
     }
-    stats = [("累计 PNL", f'{report["pnl"]:+,.2f}', "模拟价格单位"),
-             ("最大回撤", f'{min(v for _, v in dd_rows):,.2f}', "相对此前 PNL 峰值"),
-             ("累计成交量", f'{total:,}', "手 · 双边均计入"),
-             ("累计成交名义额", f'{sum(notional.values()):,.2f}', "价格 × 成交量")]
+    stats = [("Cumulative PNL", f'{report["pnl"]:+,.2f}', "Simulator price units"),
+             ("Maximum drawdown", f'{min(v for _, v in dd_rows):,.2f}', "Below the preceding PNL peak"),
+             ("Total traded volume", f'{total:,}', "Lots · Both sides counted"),
+             ("Total traded notional", f'{sum(notional.values()):,.2f}', "Price × filled quantity")]
     replacements["STATS"] = "".join(f'<div class="stat"><span class="text-small text-muted">{a}</span><strong>{b}</strong><span class="text-small text-muted">{c}</span></div>' for a, b, c in stats)
     aliases = {"SEMIS_ETF_US": "ETF US", "SEMIS_ETF_EU": "ETF EU"}
     short = lambda i: html.escape(aliases.get(i, i))
@@ -63,7 +63,7 @@ def build(report_path, output):
             iid, v = items[0]
             label = f'{short(iid)} · {v / total:.1%}'
             visible = f'<span>{label}</span>' if width > 25 and height > 18 else ''
-            tiles.append(f'<div class="tile" style="left:{x:.6f}%;top:{y:.6f}%;width:calc({width:.6f}% - 2px);height:calc({height:.6f}% - 2px)" data-tooltip="{html.escape(iid)}: {v:,} 手，{v / total:.2%}">{visible}</div>')
+            tiles.append(f'<div class="tile" style="left:{x:.6f}%;top:{y:.6f}%;width:calc({width:.6f}% - 2px);height:calc({height:.6f}% - 2px)" data-tooltip="{html.escape(iid)}: {v:,} lots, {v / total:.2%}">{visible}</div>')
             return
         total_value = sum(v for _, v in items)
         split = min(range(1, len(items)), key=lambda j: abs(sum(v for _, v in items[:j]) - total_value / 2))
@@ -80,7 +80,7 @@ def build(report_path, output):
     treemap(ordered)
     replacements["TREEMAP"] = "".join(tiles)
     replacements["VOLUME_LIST"] = "".join(f'<span>{short(i)} {v / total:.1%}</span>' for i, v in ordered)
-    replacements["VOLUME_ALT"] = html.escape("；".join(f'{i}: {v} 手，占 {v / total:.1%}' for i, v in ordered))
+    replacements["VOLUME_ALT"] = html.escape("; ".join(f'{i}: {v} lots, {v / total:.1%}' for i, v in ordered))
     rows = []
     last = samples[-1]
     for iid in limits:
@@ -97,11 +97,11 @@ def build(report_path, output):
         bid_text = f'{bid["price"]:.4f}' if bid else "—"
         ask_text = f'{ask["price"]:.4f}' if ask else "—"
         error_text = f'{error:.4f}' if error is not None else "—"
-        verdict = "可用" if error is not None and error <= threshold else "忽略" if error is not None else "无样本"
+        verdict = "Eligible" if error is not None and error <= threshold else "Ignored" if error is not None else "No samples"
         forecasts.append(f'<tr><td>{html.escape(iid)}</td><td class="text-end">{bid_text}</td><td class="text-end">{ask_text}</td><td class="text-end">{error_text}</td><td>{verdict}</td></tr>')
     replacements["FORECASTS"] = "".join(forecasts)
-    replacements["FORECAST_NOTE"] = f'期末快照，MAE 阈值 {threshold:g}；策略实际使用还受行情新鲜度限制。'
-    replacements["RESIDUAL"] = '剩余成分股对冲敞口（股）：' + ' · '.join(f'{html.escape(i)} {v:+.2f}' for i, v in report["constituent_exposures"].items())
+    replacements["FORECAST_NOTE"] = f'Final snapshot; MAE threshold {threshold:g}. Actual strategy eligibility also requires fresh market data.'
+    replacements["RESIDUAL"] = 'Residual constituent hedge exposure (shares): ' + ' · '.join(f'{html.escape(i)} {v:+.2f}' for i, v in report["constituent_exposures"].items())
     source = Path(__file__).with_name("visualization_template.html").read_text()
     for key, value in replacements.items():
         source = source.replace("__" + key + "__", value)

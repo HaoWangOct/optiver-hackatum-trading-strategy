@@ -18,57 +18,57 @@
     @media(max-width:700px) { #quant-results .hero,#quant-results .lower { grid-template-columns: 1fr; } #quant-results .stats { grid-template-columns: repeat(2,minmax(0,1fr)); } }
   </style>
   <div>
-    <div class="heading"><h2>Transistor Trading · 运行结果</h2><span class="viz-badge">合成行情模拟</span></div>
+    <div class="heading"><h2>Transistor Trading · Results</h2><span class="viz-badge">Synthetic simulation</span></div>
     <p class="text-small text-muted subtitle">__SUBTITLE__</p>
   </div>
   <div class="stats tabular-nums">__STATS__</div>
   <hr>
   <div class="hero">
     <section id="quant-pnl" data-viz-composition>
-      <h3>策略累计 PNL</h3>
+      <h3>Cumulative strategy PNL</h3>
       <div data-viz-container></div>
       <script type="application/json" data-viz-chart>__PNL__</script>
     </section>
     <section>
-      <h3>成交量分布 · 手数占比</h3>
+      <h3>Traded volume · Share of lots</h3>
       <div class="treemap" role="img" aria-label="__VOLUME_ALT__">__TREEMAP__</div>
       <div class="volume-list text-small tabular-nums">__VOLUME_LIST__</div>
     </section>
   </div>
   <div class="lower">
     <section id="quant-dd" data-viz-composition>
-      <h3>回撤 · PNL 单位</h3><div data-viz-container></div>
+      <h3>Drawdown · PNL units</h3><div data-viz-container></div>
       <script type="application/json" data-viz-chart>__DD__</script>
     </section>
     <section id="quant-exposure" data-viz-composition>
-      <h3>持仓名义总敞口</h3><div data-viz-container></div>
+      <h3>Gross position notional</h3><div data-viz-container></div>
       <script type="application/json" data-viz-chart>__EXPOSURE__</script>
     </section>
     <section id="quant-capacity" data-viz-composition>
-      <h3>最高单产品持仓占用</h3><div data-viz-container></div>
+      <h3>Maximum position-limit utilization</h3><div data-viz-container></div>
       <script type="application/json" data-viz-chart>__CAPACITY__</script>
     </section>
   </div>
   <section>
-    <h3>最终持仓</h3>
+    <h3>Final positions</h3>
     <div class="table-responsive"><table class="table table-sm tabular-nums">
-      <thead><tr><th>产品</th><th class="text-end">成交均价¹</th><th class="text-end">持仓</th><th class="text-end">期末中间价</th><th class="text-end">持仓市值</th></tr></thead>
+      <thead><tr><th>Instrument</th><th class="text-end">Average fill price¹</th><th class="text-end">Position</th><th class="text-end">Final midpoint</th><th class="text-end">Position value</th></tr></thead>
       <tbody>__POSITIONS__</tbody>
     </table></div>
-    <p class="text-small text-muted">¹ 全样本买卖成交量加权均价，并非剩余持仓成本。名义金额采用模拟价格单位。</p>
+    <p class="text-small text-muted">¹ Volume-weighted price of all buys and sells, not the cost basis of remaining inventory. Notional amounts use simulator price units.</p>
   </section>
   <details>
-    <summary>傅里叶预测与剩余对冲敞口</summary>
+    <summary>Fourier forecasts and residual hedge exposure</summary>
     <section>
       <div class="table-responsive"><table class="table table-sm tabular-nums">
-        <thead><tr><th>产品</th><th class="text-end">买方主动成交预测价</th><th class="text-end">卖方主动成交预测价</th><th class="text-end">最大 MAE</th><th>误差阈值判定²</th></tr></thead>
+        <thead><tr><th>Instrument</th><th class="text-end">Buyer-initiated forecast</th><th class="text-end">Seller-initiated forecast</th><th class="text-end">Maximum MAE</th><th>Error threshold²</th></tr></thead>
         <tbody>__FORECASTS__</tbody>
       </table></div>
       <p class="text-small text-muted">² __FORECAST_NOTE__</p>
       <p class="text-small">__RESIDUAL__</p>
     </section>
   </details>
-  <p class="text-small text-muted">未提供起始本金，不计算收益率、权益总额或 PSR。模拟结果不代表实盘表现；退出保留持仓。</p>
+  <p class="text-small text-muted">No starting capital is supplied, so returns, total equity, and PSR are not calculated. Simulation results do not establish live performance; positions remain open on exit.</p>
   <script type="module">
     import { mountChart } from "https://persistent.oaistatic.com/plugins/visualize/charts/1.2.3/element.js";
     const root = document.getElementById("quant-results");
