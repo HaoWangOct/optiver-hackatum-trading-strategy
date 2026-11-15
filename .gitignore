@@ -27,3 +27,6 @@ reports/
 # Downloaded third-party simulation runtime and its generated match files
 external/
 rtg_runs/
+
+# Notebook editor state
+.ipynb_checkpoints/

@@ -42,7 +42,7 @@ python3 bot.py --engine rtg --speed 50
 python3 -m unittest discover -s tests -v
 ```
 
-The latest full rerun is recorded in [run_summary.json](run_summary.json): the 1,000-cycle synthetic strategy finished at PNL **+60.10**, while the complete RTG replay finished at **-374.09** for `FourierTrader` and **-17,479.54** for `TemplateBaseline`, with no RTG rule breaches. Both notebooks executed without errors. These are separate simulated environments; neither result establishes live profitability.
+The latest full rerun is recorded in [run_summary.json](run_summary.json): the 1,000-cycle synthetic strategy finished at PNL **+60.10**, while the complete RTG replay finished at **-374.09** for `FourierTrader` and **-17,479.54** for `TemplateBaseline`, with no RTG rule breaches. All **39 tests** pass and all **nine notebook code cells** executed without errors. The preserved `demo.py` also runs successfully. These are separate simulated environments; neither result establishes live profitability.
 
 `bot.py` defaults to the free local RTG replay. Engine-specific options are forwarded to the existing implementations. `--engine optibook` defaults to a dry run; submitting official-account orders still requires `--live` and verified configuration. The read-only example and both notebooks default to synthetic data.
 

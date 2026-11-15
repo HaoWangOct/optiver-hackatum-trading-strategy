@@ -72,5 +72,17 @@
       "errors": 0
     }
   },
-  "note": "The synthetic run, the RTG sample replay, and the destination repository toy demo are distinct environments."
+  "note": "The synthetic run, the RTG sample replay, and the destination repository toy demo are distinct environments.",
+  "validation": {
+    "unit_tests_passed": 39,
+    "notebook_code_cells_executed": 9,
+    "notebook_errors": 0,
+    "legacy_demo": {
+      "command": "python3 demo.py",
+      "mid_marked_equity": -0.24,
+      "liquidation_equity": -0.44
+    },
+    "compatibility_note": "Deferred annotations keep the preserved research modules importable on Python 3.9.",
+    "test_correction": "A sub-tick inventory shift may leave an outward-rounded ask unchanged; a full-tick shift must move both quotes lower."
+  }
 }

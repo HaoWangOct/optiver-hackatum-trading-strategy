@@ -29,3 +29,4 @@ jobs:
           python example1.py
           python example2.py --cycles 10
           python bot.py --engine demo --cycles 10
+          python demo.py

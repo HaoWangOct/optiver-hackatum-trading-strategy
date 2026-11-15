@@ -4,6 +4,7 @@
 - [x] Retain the five-product synthetic engine and Optibook adapter.
 - [x] Run the unmodified public Ready Trader Go engine with the adapted trader and original baseline.
 - [x] Keep project documentation and user-facing content in English.
+- [x] Preserve the destination repository's research modules and merge its existing history.
 - [ ] Validate the five-product contract specifications and SDK against an actual competition account.
 - [ ] Evaluate multiple historical RTG samples at conservative replay speeds with held-out data.
 - [ ] Measure the contribution of Fourier forecasts using an otherwise identical no-forecast baseline.
