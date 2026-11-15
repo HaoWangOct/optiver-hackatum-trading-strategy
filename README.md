@@ -6,6 +6,36 @@
 
 连接凭据保存在比赛环境的 `~/.optibook`，真实策略参数使用本地 `config.json`。这些文件和运行日志不提交到 Git；本仓库不包含比赛账户或连接密码。官方 SDK 应使用比赛主办方提供的安装环境。
 
+## 免费模板：Ready Trader Go
+
+现在还支持直接下载并运行 Optiver **Ready Trader Go** 的公开历史模板，无需 Optibook 账号，也无需安装 PySide6。模板来自 HackMelbourne 教学项目发布的原始压缩包；下载时校验固定 SHA-256，来源和许可见 [THIRD_PARTY.md](THIRD_PARTY.md)。此模式使用模板原有的撮合引擎、费用规则和行情文件。
+
+```bash
+# 第一次需要网络；只下载和检查运行环境
+python3 run_ready_trader_go.py --setup
+
+# 快速验证：仅回放原行情前 60 秒，10 倍速
+python3 run_ready_trader_go.py --duration 60 --speed 10
+
+# 完整一小时样例行情，50 倍速（耗时取决于机器）
+python3 run_ready_trader_go.py --speed 50
+```
+
+每场同时运行 `FourierTrader` 和原模板 `TemplateBaseline`。新增策略在 ETF 双边报价，以期货价格和库存估值，使用后台傅里叶预测小幅调整报价；成交后按实际确认数量对冲，部分成交继续补对冲，撤单确认前保留订单数量。未对冲风险、拒单和持仓余量会限制新增报价。单产品持仓上限及 tick 从模板配置读取。
+
+这是 ETF/期货的两产品环境；原五产品双上市/篮子策略仍在 `trading.py`，没有在两产品环境中运行。下载的引擎和样例机器人保持原样，运行器仅调整本地配置。不应把它描述为已连接正式 Optibook。
+
+每场输出保存在 `rtg_runs/<时间>/`，`rtg_runs/latest.txt` 指向最近成功场次：
+
+- `score_board.csv`：引擎记录的 PNL、费用和持仓；导出汇总时将分单位除以 100。
+- `match_events.csv`：真实回放成交、对冲和订单事件。
+- `summary.json`：两个策略的最终 PNL、采样最大持仓、回撤、成交手数及违规次数。
+- `exchange.log`、`fourier_trader.log` 和 `baseline.log`：运行日志。
+
+运行器检查两个参与者是否跑到样本结束，并把违规视作失败。基线表现只是在同场样例数据上的对照，不能证明统计优势；更换行情或加速倍率都可能改变结果。原有单元测试不依赖模板；下载后会额外运行 RTG 协议测试。
+
+已完成一次 `market_data.csv` 全部 3,600 秒、50 倍速的回放：适配策略最终 PNL **-145.63**，原模板 **-17,246.79**，两者无交易规则违规。适配策略仍然亏损。完整运行的摘要保存在 [rtg_match_summary.json](rtg_match_summary.json)；原始计分板和成交事件位于该摘要记录的本地运行目录。现有 `trading-dashboard.html` 展示的是此前五产品合成模拟，与这次 RTG 回放是不同的数据源。
+
 ## 先运行
 
 ```bash

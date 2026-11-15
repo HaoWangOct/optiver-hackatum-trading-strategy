@@ -1,0 +1,41 @@
+{
+  "engine": "Optiver Ready Trader Go (downloaded public 2021 template)",
+  "template_url": "https://github.com/HackMelbourne/Optiver_RTG_Workshop/releases/download/1.0/pyready_trader_go_pyside6_au_fixed.zip",
+  "template_sha256": "0e06e853eb2d64f47fe66a2b5d5e2c36e3c75106c7fd9e8fc088894dd4c4bd78",
+  "market_data": "market_data.csv",
+  "speed": 50.0,
+  "wall_seconds": 75.499616875,
+  "teams": {
+    "TemplateBaseline": {
+      "max_abs_etf": 69,
+      "max_abs_future": 69,
+      "breaches": 0,
+      "final_pnl": -17246.79,
+      "final_etf_position": -39,
+      "final_future_position": 39,
+      "total_fees": 2760.79,
+      "final_time": 3600.001623,
+      "max_drawdown": -17404.57,
+      "fills": 10126,
+      "traded_lots": 93614,
+      "scoreboard_samples": 14396
+    },
+    "FourierTrader": {
+      "max_abs_etf": 71,
+      "max_abs_future": 71,
+      "breaches": 0,
+      "final_pnl": -145.63,
+      "final_etf_position": -1,
+      "final_future_position": 1,
+      "total_fees": -98.37,
+      "final_time": 3600.001623,
+      "max_drawdown": -464.0,
+      "fills": 952,
+      "traded_lots": 4538,
+      "scoreboard_samples": 14396
+    }
+  },
+  "note": "Local ETF/future replay; not a connection to official Optibook.",
+  "run_directory": "rtg_runs/20261115-182633-328460",
+  "evaluation": "One sample replay at 50x speed; both strategies lost money. No out-of-sample profitability claim."
+}

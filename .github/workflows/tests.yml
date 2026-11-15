@@ -16,5 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Download pinned public Ready Trader Go template
+        if: matrix.python-version == '3.9'
+        run: python run_ready_trader_go.py --setup
       - name: Run offline strategy tests
         run: python -m unittest discover -s tests -v
+      - name: Smoke-test original RTG engine and adapted trader
+        if: matrix.python-version == '3.9'
+        run: python run_ready_trader_go.py --duration 10 --speed 5

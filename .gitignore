@@ -23,3 +23,7 @@ venv/
 *.log
 live-report.json
 reports/
+
+# Downloaded third-party simulation runtime and its generated match files
+external/
+rtg_runs/
