@@ -179,17 +179,21 @@ def run(speed=20.0, dataset="market_data.csv", duration=None):
             handle.close()
 
 
-if __name__ == "__main__":
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--setup", action="store_true")
     parser.add_argument("--speed", type=float, default=20.0)
     parser.add_argument("--dataset", default="market_data.csv")
     parser.add_argument("--duration", type=float, help="Smoke-test prefix length in simulation seconds")
     parser.add_argument("--worker", choices=["exchange", "fourier_trader", "baseline"], help=argparse.SUPPRESS)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.worker:
         worker(args.worker)
     elif args.setup:
         print(setup_runtime())
     else:
         print("Run directory:", run(args.speed, args.dataset, args.duration))
+
+
+if __name__ == "__main__":
+    main()

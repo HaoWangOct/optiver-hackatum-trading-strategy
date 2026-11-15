@@ -1,0 +1,76 @@
+{
+  "layout_reference": "https://github.com/MiniHacks/dubious_bot",
+  "destination": "https://github.com/HaoWangOct/optiver-hackatum-trading-strategy",
+  "synthetic_demo": {
+    "command": "python3 bot.py --engine demo --cycles 1000 --report reports/restructured_demo.json",
+    "cycles": 1000,
+    "samples": 1001,
+    "fills": 324,
+    "pnl": 60.10000000000022,
+    "positions": {
+      "SEMIS_ETF_EU": -100,
+      "CHIP_A": 1,
+      "CHIP_B": 0,
+      "CHIP_C": 0,
+      "SEMIS_ETF_US": 99
+    },
+    "constituent_exposures": {
+      "CHIP_A": 0.5,
+      "CHIP_B": -0.3,
+      "CHIP_C": -0.2
+    },
+    "note": "Synthetic five-product data; not actual Optibook market results."
+  },
+  "ready_trader_go": {
+    "engine": "Optiver Ready Trader Go (downloaded public 2021 template)",
+    "template_url": "https://github.com/HackMelbourne/Optiver_RTG_Workshop/releases/download/1.0/pyready_trader_go_pyside6_au_fixed.zip",
+    "template_sha256": "0e06e853eb2d64f47fe66a2b5d5e2c36e3c75106c7fd9e8fc088894dd4c4bd78",
+    "market_data": "market_data.csv",
+    "speed": 50.0,
+    "wall_seconds": 75.568339708,
+    "teams": {
+      "TemplateBaseline": {
+        "max_abs_etf": 69,
+        "max_abs_future": 69,
+        "breaches": 0,
+        "final_pnl": -17479.54,
+        "final_etf_position": -38,
+        "final_future_position": 38,
+        "total_fees": 2733.54,
+        "final_time": 3600.006502,
+        "max_drawdown": -17609.3,
+        "fills": 10072,
+        "traded_lots": 92988,
+        "scoreboard_samples": 14397
+      },
+      "FourierTrader": {
+        "max_abs_etf": 73,
+        "max_abs_future": 73,
+        "breaches": 0,
+        "final_pnl": -374.09,
+        "final_etf_position": 10,
+        "final_future_position": -10,
+        "total_fees": -85.91,
+        "final_time": 3600.006502,
+        "max_drawdown": -517.91,
+        "fills": 994,
+        "traded_lots": 4800,
+        "scoreboard_samples": 14397
+      }
+    },
+    "note": "Local ETF/future replay; not a connection to official Optibook.",
+    "run_directory": "rtg_runs/20261115-185422-666283",
+    "evaluation": "A full replay through bot.py at 50x speed. Both RTG participants lost money; no live-performance claim."
+  },
+  "notebooks": {
+    "Manual.ipynb": {
+      "executed_code_cells": 4,
+      "errors": 0
+    },
+    "Example - Extracting Information.ipynb": {
+      "executed_code_cells": 5,
+      "errors": 0
+    }
+  },
+  "note": "The synthetic run, the RTG sample replay, and the destination repository toy demo are distinct environments."
+}

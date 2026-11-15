@@ -23,4 +23,9 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Smoke-test original RTG engine and adapted trader
         if: matrix.python-version == '3.9'
-        run: python run_ready_trader_go.py --duration 10 --speed 5
+        run: python bot.py --engine rtg --duration 10 --speed 5
+      - name: Run discovery and synthetic examples
+        run: |
+          python example1.py
+          python example2.py --cycles 10
+          python bot.py --engine demo --cycles 10

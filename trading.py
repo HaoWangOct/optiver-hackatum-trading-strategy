@@ -505,7 +505,7 @@ class Trader:
                              "marks": marks, "exposures": self.exposures(positions)})
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="config.example.json")
     parser.add_argument("--demo", action="store_true")
@@ -513,7 +513,7 @@ def main():
     parser.add_argument("--inspect", action="store_true", help="Print instrument metadata only")
     parser.add_argument("--cycles", type=int)
     parser.add_argument("--report", help="Write final metrics as JSON after a finite run")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.report and args.cycles is None and not args.demo:
         parser.error("--report requires a finite --cycles value")
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(message)s")

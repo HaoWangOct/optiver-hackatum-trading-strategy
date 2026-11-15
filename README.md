@@ -1,8 +1,52 @@
-# Transistor Trading
+# Optiver hackaTUM Trading Strategy
 
 An Optibook strategy project with ETF arbitrage, bounded Fourier forecasts, inventory-aware quoting, an offline simulator, and a results dashboard. It also integrates the freely downloadable historical **Optiver Ready Trader Go** template for local ETF/future replay.
 
 Python 3.9 or later is required. The offline simulator and headless Ready Trader Go integration use only the Python standard library. Connecting to Optibook requires the competition-provided SDK, credentials, and verified product specifications.
+
+## Project structure
+
+The flat entry-point, helper, example, and notebook layout is inspired by [MiniHacks/dubious_bot](https://github.com/MiniHacks/dubious_bot). The strategy implementation is our own; the reference's strategy and bundled SDK were not copied.
+
+```text
+bot.py                                Main entry point: RTG, demo, or Optibook
+helper.py                             Read-only discovery and report helpers
+colors.py                             Optional terminal number formatting
+example1.py                           Read-only market and account discovery
+example2.py                           Short synthetic trading example
+Manual.ipynb                          Guided setup and optional replay
+Example - Extracting Information.ipynb Read-only book and basket exploration
+optibook/README.md                    Official SDK setup notes
+requirements.txt                      Standard-library runtime requirements
+todo.md                               Development roadmap
+trading.py                            Five-product strategy and execution controls
+forecast.py                           Bounded background Fourier forecasts
+simulator.py                          Synthetic five-product exchange
+rtg_autotrader.py                     ETF/future RTG protocol adapter
+run_ready_trader_go.py                 Verified template download and match runner
+tests/                                Strategy, protocol, and safety tests
+```
+
+The `optibook/` directory is documentation only. Unlike the reference repository, this project obtains the official client from the competition environment instead of bundling SDK source. The downloaded RTG runtime remains under ignored `external/`.
+
+The destination repository's existing `src/` research modules, `demo.py`, and tests are preserved as a separate deterministic educational baseline. Its previous README is archived in [docs/previous-repository-readme.md](docs/previous-repository-readme.md). The repository history is merged rather than overwritten.
+
+## Quick start
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 example1.py
+python3 example2.py
+python3 bot.py --engine demo --cycles 100
+python3 bot.py --engine rtg --speed 50
+python3 -m unittest discover -s tests -v
+```
+
+The latest full rerun is recorded in [run_summary.json](run_summary.json): the 1,000-cycle synthetic strategy finished at PNL **+60.10**, while the complete RTG replay finished at **-374.09** for `FourierTrader` and **-17,479.54** for `TemplateBaseline`, with no RTG rule breaches. Both notebooks executed without errors. These are separate simulated environments; neither result establishes live profitability.
+
+`bot.py` defaults to the free local RTG replay. Engine-specific options are forwarded to the existing implementations. `--engine optibook` defaults to a dry run; submitting official-account orders still requires `--live` and verified configuration. The read-only example and both notebooks default to synthetic data.
+
+Open [Manual.ipynb](Manual.ipynb) for a walkthrough and [Example - Extracting Information.ipynb](<Example - Extracting Information.ipynb>) for market-data exploration. The notebooks can be inspected on GitHub or opened in an optional Jupyter environment.
 
 ## Run the free Ready Trader Go template
 
@@ -32,8 +76,8 @@ One complete replay of `market_data.csv`, covering 3,600 simulation seconds at 5
 
 | Participant | Final PNL | Maximum drawdown | Rule breaches |
 | --- | ---: | ---: | ---: |
-| FourierTrader | -145.63 | -464.00 | 0 |
-| TemplateBaseline | -17,246.79 | -17,404.57 | 0 |
+| FourierTrader | -374.09 | -517.91 | 0 |
+| TemplateBaseline | -17,479.54 | -17,609.30 | 0 |
 
 Both strategies lost money. This single sample comparison does not establish statistical superiority or live profitability. Different data, machine timing, and replay speeds can change the result. The engine's monetary outputs are divided by 100 when exported from cents.
 

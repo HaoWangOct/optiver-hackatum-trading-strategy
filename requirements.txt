@@ -1,0 +1,5 @@
+# The headless RTG runner and synthetic strategy use the Python standard library.
+# Python 3.9+ is required; there are no pip dependencies for these modes.
+# RTG source/data are downloaded by: python3 bot.py --engine rtg --setup
+# Obtain the Optibook SDK and its dependencies from the competition provider.
+# Jupyter is optional if you want an interactive interface for the .ipynb files.

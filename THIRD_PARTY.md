@@ -11,3 +11,7 @@ The downloadable runtime and its historical sample datasets are stored under ign
 `rtg_autotrader.py` is a new integration under AGPL-3.0-or-later that subclasses the template protocol. It trades one ETF and hedges with its future, using actual execution acknowledgements. It reuses this project's bounded Fourier forecasting module; it is not a submission copied from a competing team. `run_ready_trader_go.py` downloads, verifies and launches the runtime without importing its optional Qt GUI.
 
 This integration is a local historical replay. It neither supplies nor bypasses access credentials for official Optibook. Its ETF/future universe differs from the five-product Transistor Trading challenge.
+
+## Repository layout reference
+
+The flat layout with `bot.py`, `helper.py`, `colors.py`, examples, and two notebooks is inspired by https://github.com/MiniHacks/dubious_bot. These entry points and notebooks were written for this project. No strategy source or bundled Optibook SDK was copied from that repository. The documentation-only `optibook/` directory explains how to obtain the official competition SDK separately.
